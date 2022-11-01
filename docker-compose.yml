@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: /backend/.
+      dockerfile: Dockerfile
+      args:
+        - Test:true
+    environment:
+      - PYTHONPATH=.
+    entrypoint: ['python', 'server.py']
+    ports:
+      - '8080:8080'
