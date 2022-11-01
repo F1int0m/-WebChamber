@@ -1,5 +1,7 @@
 import asyncio
 from functools import partial
+
+from aioresponses import aioresponses
 from server import init_app
 from typing import Awaitable, Callable, Dict
 
@@ -9,6 +11,12 @@ import pytest
 @pytest.fixture(scope='session', autouse=True)
 def event_loop():
     yield asyncio.get_event_loop()
+
+
+@pytest.fixture
+async def mock_response():
+    with aioresponses(passthrough=['http://127.0.0.1']) as mock:
+        yield mock
 
 
 @pytest.fixture
