@@ -1,6 +1,7 @@
+# flake8: noqa
 import ast
-import os as os_package
 import logging
+import os as os_package
 import sys
 
 from .base import *

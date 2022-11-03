@@ -1,9 +1,9 @@
 import asyncio
 from functools import partial
-from server import init_app
 from typing import Awaitable, Callable, Dict
 
 import pytest
+from server import init_app
 
 
 @pytest.fixture(scope='session', autouse=True)

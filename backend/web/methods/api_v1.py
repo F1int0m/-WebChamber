@@ -1,11 +1,9 @@
 from functools import partial
 
 from aiohttp import web
-
-from web.handlers.jsonrpc_handler import route
 from common.models.response_models import PingResponse
-
 from openrpc import RPCServer
+from web.handlers.jsonrpc_handler import route
 
 openrpc = RPCServer(title='WebChamber api')
 

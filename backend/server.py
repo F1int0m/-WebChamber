@@ -1,10 +1,7 @@
-from aiohttp import web
-from openrpc import RPCServer
-
-import config
 from logging import getLogger
 
-from web.handlers import jsonrpc_handler
+import config
+from aiohttp import web
 from web.methods import api_v1
 
 log = getLogger(__name__)
@@ -25,8 +22,6 @@ def init_app():
 
 
 def init():
-    # loop = asyncio.get_event_loop()
-
     app = init_app()
 
     web.run_app(app=app, host=config.HOST, port=config.PORT, shutdown_timeout=60, print=log.info)
