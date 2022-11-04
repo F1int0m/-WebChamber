@@ -16,7 +16,7 @@ async def test_start_login__ok(test_app):
 
 async def test_finish_login__ok(test_app):
     token = 'test_token'
-    response = test_app.get(
+    await test_app.get(
         ('/auth/vk/login-start#'
          f'access_token={token}&'
          'expires_in=86400&'

@@ -1,11 +1,9 @@
 import asyncio
 from functools import partial
-
-from aioresponses import aioresponses
-from server import init_app
 from typing import Awaitable, Callable, Dict
 
 import pytest
+from aioresponses import aioresponses
 from server import init_app
 
 

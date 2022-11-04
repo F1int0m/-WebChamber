@@ -1,7 +1,7 @@
-from aiohttp import web, ClientSession
 from urllib.parse import urlencode
 
 import config
+from aiohttp import web
 
 
 async def start_login(request: web.Request):
