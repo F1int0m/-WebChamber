@@ -25,3 +25,7 @@ class User(BaseModel):
         unique=True,
         help_text='Токен, с которым пользователь может ходить к нам. Считаем вечным'
     )
+
+    @staticmethod
+    async def get_by_token(internal_access_token: str):
+        return await User.get(internal_token=internal_access_token)

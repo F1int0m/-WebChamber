@@ -15,5 +15,5 @@ async def get_openrpc_doc(_: web.Request):
 
 
 @openrpc.method()
-def ping() -> PingResponse:
+async def ping() -> PingResponse:
     return PingResponse()

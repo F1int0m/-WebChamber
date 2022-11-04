@@ -1,8 +1,10 @@
 import logging
 import uuid
 
+import config
 from aiohttp import web, web_response
 from common import context, errors
+from common.db.models import User
 from pydantic import BaseModel
 
 log = logging.getLogger(__name__)
@@ -47,3 +49,17 @@ async def json_response(request: web.Request, handler):
         http_status = exc.http_status
 
     return web.json_response(data=result, status=http_status)
+
+
+@web.middleware
+async def check_auth(request: web.Request, handler):
+    if user_token := request.cookies.get(config.TOKEN_COOKIE_NAME):
+        try:
+            user = await User.get_by_token(internal_access_token=user_token)
+        except errors.DoesNotExists:
+            return web.HTTPForbidden()
+
+        context.user.set(user)
+        return await handler(request)
+
+    return web.HTTPForbidden()
