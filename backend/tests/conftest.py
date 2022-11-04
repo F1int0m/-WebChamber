@@ -4,6 +4,8 @@ from typing import Awaitable, Callable, Dict
 
 import pytest
 from aioresponses import aioresponses
+from common import db
+from common.db.models import CSRFToken
 from server import init_app
 
 
@@ -22,6 +24,17 @@ async def mock_response():
 async def test_app(aiohttp_client):
     app = init_app()
     yield await aiohttp_client(app)
+
+
+@pytest.fixture(scope='session', autouse=True)
+async def init_db():
+    await db.start()
+    db.create_tables()
+
+    yield
+
+    for table in db.tables:
+        table.truncate_table()
 
 
 @pytest.fixture
@@ -48,3 +61,9 @@ def jsonrpc_client(test_app):
 @pytest.fixture
 def public_api_v1(jsonrpc_client) -> Callable[..., Awaitable[Dict]]:
     return partial(jsonrpc_client, url='/api/v1/public/jsonrpc')
+
+
+@pytest.fixture
+async def csrf_token() -> CSRFToken:
+    token = await CSRFToken.create()
+    return token
