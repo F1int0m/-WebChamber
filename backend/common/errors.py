@@ -6,6 +6,7 @@ from jsonrpcobjects.errors import ErrorObjectData, JSONRPCError
 class BaseRPCError(JSONRPCError):
     code: int = None
     message: str = None
+    http_status: int = 200
 
     def __init__(self, message: str = None, code: int = None, data: Any = None):
         code = code or self.code
@@ -32,3 +33,4 @@ class AccessDenied(BaseRPCError):
 class VKOauthError(BaseRPCError):
     code = 5001
     message = 'VK oauth integration error'
+    http_status = 400

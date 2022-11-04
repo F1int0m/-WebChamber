@@ -6,7 +6,7 @@ from common import db
 from common.clients.vk_client import VKClient
 from web.handlers import vk_auth_handler
 from web.methods import api_v1
-from web.middlewares import set_context
+from web.middlewares import json_response, set_context
 
 log = getLogger(__name__)
 
@@ -27,7 +27,7 @@ def init_app():
     application = web.Application(middlewares=[set_context])
 
     jsonrpc_api_v1 = web.Application()
-    oauth_app = web.Application()
+    oauth_app = web.Application(middlewares=[json_response])
 
     oauth_app.router.add_route('GET', '/vk/login-start', vk_auth_handler.start_login)
     oauth_app.router.add_route('GET', '/vk/code_response', vk_auth_handler.code_response_handler)

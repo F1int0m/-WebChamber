@@ -67,5 +67,8 @@ async def code_response_handler(request: web.Request):
     response.set_cookie(
         name=config.TOKEN_COOKIE_NAME,
         value=str(user.internal_token),
+        expires=60 * 60 * 24,
+        domain=config.SELF_DOMAIN,
     )
+
     return response

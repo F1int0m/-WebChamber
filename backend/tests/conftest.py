@@ -31,6 +31,9 @@ async def init_db():
     await db.start()
     db.create_tables()
 
+
+@pytest.fixture(scope='function', autouse=True)
+async def clean_db(init_db):
     yield
 
     for table in db.tables:

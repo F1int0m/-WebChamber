@@ -4,6 +4,7 @@ PROJECT_DIR = os_package.path.dirname(os_package.path.dirname(os_package.path.ab
 
 HOST = '0.0.0.0'
 PORT = '8080'
+SELF_DOMAIN = 'https://212.220.113.111'
 
 DB_NAME = 'webchamber'
 DB_USER = 'webchamber'
