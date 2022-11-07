@@ -16,7 +16,7 @@ DB_MAX_CONNECTIONS = 20
 
 # Уровень логирования
 # Один из DEBUG, INFO, WARNING, ERROR, CRITICAL
-LOG_LEVEL = 'DEBUG'
+LOG_LEVEL = 'INFO'
 
 VK_OAUTH_URL = 'https://oauth.vk.com'
 VK_AUTHORIZE_URL = 'https://oauth.vk.com/authorize'
