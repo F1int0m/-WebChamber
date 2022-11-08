@@ -1,3 +1,4 @@
 local.py
 .idea
 .env
+/postgres-data/
