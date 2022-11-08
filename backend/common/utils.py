@@ -10,3 +10,7 @@ def uuid_str():
 
 def now_utc():
     return datetime.datetime.now(pytz.UTC)
+
+
+def create_default_nickname():
+    return f'WebChamber_user_{uuid_str()}'

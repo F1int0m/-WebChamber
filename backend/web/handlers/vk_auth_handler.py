@@ -3,10 +3,10 @@ from urllib.parse import urlencode
 
 import config
 from aiohttp import web
-from common import context, errors
+from common import context, errors, utils
 from common.db.basic import manager
 from common.db.models import CSRFToken, User
-from common.models.request_models import VKOauthResponse
+from common.models.internal_models import VKOauthResponse
 from common.security import create_access_token
 
 log = getLogger(__name__)
@@ -49,7 +49,8 @@ async def code_response_handler(request: web.Request):
 
     user_data = {
         **data.dict(exclude={'user_id'}),
-        'internal_token': create_access_token()
+        'internal_token': create_access_token(),
+        'nickname': utils.create_default_nickname()
     }
     user, is_created = await manager.get_or_create(User, user_id=data.user_id, defaults=user_data)
     if not is_created:

@@ -1,3 +1,5 @@
+import asyncio
+import sys
 from logging import getLogger
 
 import config
@@ -46,6 +48,9 @@ def init_app():
 
 
 def init():
+    if sys.platform.lower().startswith('win'):
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     app = init_app()
 
     web.run_app(app=app, host=config.HOST, port=config.PORT, shutdown_timeout=60, print=log.info)

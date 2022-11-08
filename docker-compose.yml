@@ -9,7 +9,7 @@ services:
         - Test:true
     environment:
       - PYTHONPATH=.
-    entrypoint: ['python', 'server.py']
+    entrypoint: [ 'python', 'server.py' ]
     ports:
       - '80:8080'
     depends_on:
@@ -24,4 +24,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
+
+volumes:
+  pg-data:

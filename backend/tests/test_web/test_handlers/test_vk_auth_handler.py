@@ -47,8 +47,17 @@ async def test_code_response_handler__ok_good_response(test_app, mock_response, 
     token = response.cookies.get('webchamber_token').value
 
     user = await User.get(internal_token=token)
-    assert user
-
+    assert user.to_dict() == {
+        'access_token': 'test_token',
+        'avatar_link': None,
+        'description': None,
+        'expires_at': ANY,
+        'internal_token': token,
+        'mood_text': None,
+        'nickname': ANY,
+        'role': 'ACTIVE',
+        'user_id': '1234567'
+    }
     assert await manager.count(CSRFToken.select()) == 0
 
 
