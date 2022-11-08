@@ -46,3 +46,10 @@ async def user_set_role(user_id: str, user_role: enums.UserRole) -> bool:
         return True
 
     raise errors.AccessDenied
+
+
+@openrpc.method()
+async def user_edit(nickname: str = None, mood_text: str = None, description: str = None) -> bool:
+    user = context.user.get()
+
+    return await user.update_instance(nickname=nickname, mood_text=mood_text, description=description)

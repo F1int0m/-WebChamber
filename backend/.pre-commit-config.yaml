@@ -12,7 +12,7 @@ repos:
       - id: double-quote-string-fixer
       - id: requirements-txt-fixer
       - id: no-commit-to-branch
-        args: [ '--branch', 'master' ]
+        args: [ '--branch', 'main' ]
       - id: trailing-whitespace
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.9.2
