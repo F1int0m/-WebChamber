@@ -3,6 +3,7 @@ import sys
 from functools import partial
 from typing import Awaitable, Callable, Dict
 
+import aiohttp
 import config
 import pytest
 from aioresponses import aioresponses
@@ -31,6 +32,24 @@ async def mock_response():
 async def test_app(aiohttp_client):
     app = init_app()
     yield await aiohttp_client(app)
+
+
+@pytest.fixture
+def authorized_api_client(test_app, user: User) -> Callable:
+    async def _request(
+            url: str,
+            method: str = 'POST',
+            cookies: dict = None,
+            **kwargs
+    ) -> aiohttp.ClientResponse:
+        cookies = cookies or {config.TOKEN_COOKIE_NAME: user.internal_token}
+
+        response: aiohttp.ClientResponse = await test_app.request(
+            method=method, path=url, cookies=cookies, **kwargs
+        )
+        return response
+
+    return _request
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -79,7 +98,10 @@ def user_factory():
             access_token=None,
             expires_at=None,
             nickname=None,
-            role=None
+            role=None,
+            avatar_name=None,
+            description=None,
+            mood_text=None,
     ) -> User:
         params = {
             'user_id': user_id or 'test_id',
@@ -88,7 +110,12 @@ def user_factory():
             'expires_at': expires_at or '2030-12-30',
             'nickname': nickname or 'test_user_nickname',
             'role': role or UserRole.platform_owner,
+            'description': description or 'description of user',
+            'mood_text': mood_text or 'mood text of user',
         }
+
+        if avatar_name:
+            params.update({'avatar_name': avatar_name})
         user = await User.create(**params)
         return user
 
@@ -108,4 +135,4 @@ async def csrf_token() -> CSRFToken:
 
 @pytest.fixture
 async def user(user_factory):
-    return await user_factory()
+    return await user_factory(mood_text='mood')

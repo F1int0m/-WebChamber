@@ -14,6 +14,12 @@ DB_PORT = 5432
 DB_CONNECTION_TIMEOUT = 10
 DB_MAX_CONNECTIONS = 20
 
+MINIO_ENDPOINT = 'localhost:9000'
+MINIO_ROOT_USER = 'webchamber'
+MINIO_ROOT_PASSWORD = 'changeme123'
+
+MINIO_BUCKET = 'webchamberbucket'
+
 # Уровень логирования
 # Один из DEBUG, INFO, WARNING, ERROR, CRITICAL
 LOG_LEVEL = 'INFO'
@@ -24,7 +30,7 @@ VK_AUTHORIZE_URL = 'https://oauth.vk.com/authorize'
 VK_CLIENT_ID = '123'
 VK_CLIENT_SECRET = '123'
 
-VK_REDIRECT_URI = 'http://212.220.113.111/auth/vk/code_response'
+VK_REDIRECT_URI = 'http://212.220.113.111/auth/vk/code-response'
 VK_SCOPE = 'email'
 
 FRONTEND_FINISH_AUTH_URL = 'http://212.220.113.111/'

@@ -24,13 +24,21 @@ async def ping() -> PingResponse:
 @openrpc.method()
 async def user_get_self() -> UserResponse:
     user = context.user.get()
-    return UserResponse(**user.to_dict())
+
+    minio_client = context.minio_client.get()
+    avatar_link = minio_client.get_user_avatar(user=user)
+
+    return UserResponse(**user.to_dict(), avatar_link=avatar_link)
 
 
 @openrpc.method()
 async def user_get(user_id: str) -> UserResponse:
     user = await User.get(user_id=user_id)
-    return UserResponse(**user.to_dict())
+
+    minio_client = context.minio_client.get()
+    avatar_link = minio_client.get_user_avatar(user=user)
+
+    return UserResponse(**user.to_dict(), avatar_link=avatar_link)
 
 
 @openrpc.method()

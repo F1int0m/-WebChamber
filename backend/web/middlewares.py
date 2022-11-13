@@ -21,6 +21,7 @@ async def set_context(request: web.Request, handler):
     )
     context.request.set(request)
     context.vk_client.set(request.app['vk_client'])
+    context.minio_client.set(request.app['minio_client'])
     context.app.set(request.app)
 
     return await handler(request)
