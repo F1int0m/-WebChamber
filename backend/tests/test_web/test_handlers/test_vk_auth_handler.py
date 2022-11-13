@@ -69,7 +69,8 @@ async def test_code_response_handler__error_vk_error_response(test_app, mock_res
              f'client_secret={config.VK_CLIENT_SECRET}&'
              f'code={test_code}&'
              f'redirect_uri={config.VK_REDIRECT_URI}'),
-        payload=mocks.mock_vk_code_response_error()
+        payload=mocks.mock_vk_code_response_error(),
+        status=401,
     )
 
     assert await manager.count(CSRFToken.select()) == 1

@@ -6,6 +6,7 @@ from common.clients.base_client import BaseClient
 
 class VKClient(BaseClient):
     base_url = config.VK_OAUTH_URL
+    raise_for_status = False
 
     async def change_code_to_token_response(self, code) -> dict:
         params = {
