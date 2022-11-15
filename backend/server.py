@@ -46,7 +46,7 @@ def init_app():
     application.add_subapp('/auth', oauth_app)
     application.add_subapp('/file', file_app)
 
-    application.router.add_route('GET', '/doc/openrpc.json', api_v1.get_openrpc_doc)
+    application.router.add_route('GET', '/docs/openrpc.json', api_v1.get_openrpc_doc)
     oas.setup(application, url_prefix='/docs/openapi')
 
     application.on_startup.append(prepare_app_to_start)
