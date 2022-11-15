@@ -51,13 +51,7 @@ services:
       /usr/bin/mc policy set public myminio/${MINIO_DEFAULT_BUCKET};
       exit 0;
       "
-#    entrypoint: >
-#          /bin/sh -c "
-#          until (/usr/bin/mc config host add myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD}) do echo '...waiting...' && sleep 1; done;
-#          /usr/bin/mc mb myminio/test;
-#          /usr/bin/mc policy set download myminio/test;
-#          exit 0;
-#          "
+
 
 volumes:
   pg-data:
