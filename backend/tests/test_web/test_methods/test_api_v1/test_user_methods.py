@@ -60,21 +60,21 @@ async def test_user_get__error_unknown_user(public_api_v1):
 
 @pytest.mark.parametrize('main_role,new_roles', [
     (
-        UserRole.platform_owner,
-        [
-            UserRole.restricted,
-            UserRole.active,
-            UserRole.admin,
             UserRole.platform_owner,
-        ],
+            [
+                UserRole.restricted,
+                UserRole.active,
+                UserRole.admin,
+                UserRole.platform_owner,
+            ],
     ),
     (
-        UserRole.admin,
-        [
-            UserRole.restricted,
-            UserRole.active,
             UserRole.admin,
-        ],
+            [
+                UserRole.restricted,
+                UserRole.active,
+                UserRole.admin,
+            ],
     )
 ])
 async def test_user_set_role__ok(public_api_v1, user: User, user_factory, main_role, new_roles):
@@ -92,28 +92,28 @@ async def test_user_set_role__ok(public_api_v1, user: User, user_factory, main_r
 
 @pytest.mark.parametrize('main_role,new_roles', [
     (
-        UserRole.active,
-        [
-            UserRole.restricted,
             UserRole.active,
-            UserRole.admin,
-            UserRole.platform_owner,
-        ],
+            [
+                UserRole.restricted,
+                UserRole.active,
+                UserRole.admin,
+                UserRole.platform_owner,
+            ],
     ),
     (
-        UserRole.restricted,
-        [
             UserRole.restricted,
-            UserRole.active,
-            UserRole.admin,
-            UserRole.platform_owner
-        ],
+            [
+                UserRole.restricted,
+                UserRole.active,
+                UserRole.admin,
+                UserRole.platform_owner
+            ],
     ),
     (
-        UserRole.admin,
-        [
-            UserRole.platform_owner
-        ],
+            UserRole.admin,
+            [
+                UserRole.platform_owner
+            ],
     ),
 ])
 async def test_user_set_role__error_wrong_main_role(public_api_v1, user: User, user_factory, main_role, new_roles):
@@ -156,4 +156,66 @@ async def test_user_edit__ok(public_api_v1, user: User):
         'nickname': 'new_nickname',
         'role': 'PLATFORM_OWNER',
         'user_id': 'test_id'
+    }
+
+
+async def test_user_subscribe__ok(public_api_v1, user: User, user_factory):
+    user_second = await user_factory(user_id='second', nickname='123')
+    response = await public_api_v1(
+        method='user_subscribe',
+        user_id=user_second.user_id
+    )
+    assert response == {
+        'id': 2,
+        'jsonrpc': '2.0',
+        'result': {
+            'subscribers': ['second']
+        }
+    }
+
+
+async def test_user_subscribe__error_subscribe_yourself(public_api_v1, user: User):
+    response = await public_api_v1(
+        method='user_subscribe',
+        user_id=user.user_id
+    )
+    assert response == {
+        'id': 2,
+        'jsonrpc': '2.0',
+        'error': {
+            'code': 4005,
+            'data': None,
+            'message': "Can't subscribe yourself"
+        },
+    }
+
+
+async def test_user_unsubscribe__ok(public_api_v1, user: User, user_factory, subscribes_factory):
+    user_second = await user_factory(user_id='second', nickname='123')
+    await subscribes_factory(user=user, subscribers=[user_second])
+
+    response = await public_api_v1(
+        method='user_unsubscribe',
+        user_id=user_second.user_id
+    )
+    assert response == {
+        'id': 2,
+        'jsonrpc': '2.0',
+        'result': {
+            'subscribers': []
+        }
+    }
+
+
+async def test_user_unsubscribe__ok_unsubscribe_yourself(public_api_v1, user: User):
+    response = await public_api_v1(
+        method='user_unsubscribe',
+        user_id=user.user_id
+    )
+    assert response == {
+        'id': 2,
+        'jsonrpc': '2.0',
+        'result': {
+            'subscribers': []
+        }
     }

@@ -1,9 +1,11 @@
 import logging
 from typing import List
 
+from peewee import CompositeKey
+
 from common import enums, utils
 from common.db.basic import BaseModel, EnumField, manager
-from playhouse.postgres_ext import CharField, DateTimeTZField, ForeignKeyField
+from playhouse.postgres_ext import CharField, DateTimeTZField, ForeignKeyField, CompositeKey
 
 log = logging.getLogger('db_logger')
 
@@ -52,9 +54,15 @@ class Subscription(BaseModel):
     main_user = ForeignKeyField(User, help_text='Основной юзер')
     subscriber_user = ForeignKeyField(User, help_text='Подписчик')
 
+    class Meta:
+        primary_key = CompositeKey('main_user', 'subscriber_user')
+
     @classmethod
     async def get_subscribers(cls, user_id) -> List[str]:
         subscribers: List[Subscription] = await manager.execute(
-            Subscription.select(Subscription.subscriber_user).where(Subscription.main_user == user_id).join(User)
+            Subscription.select(Subscription,User)
+            .where(Subscription.main_user == user_id)
+            .join(User, on=Subscription.subscriber_user)
         )
+        subscribers = list(subscribers)
         return [model.subscriber_user.user_id for model in subscribers]

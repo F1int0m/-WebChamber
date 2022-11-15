@@ -80,6 +80,8 @@ async def user_subscribe(user_id: str) -> SubscribersListResponse:
     }
     await manager.get_or_create(Subscription, defaults=params)
 
+    # todo прикрутить уведомление
+
     new_subscribers = await Subscription.get_subscribers(user_id=user.user_id)
 
     return SubscribersListResponse(subscribers=new_subscribers)
