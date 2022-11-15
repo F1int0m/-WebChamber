@@ -1,11 +1,14 @@
 import logging
 from typing import List
 
-from peewee import CompositeKey
-
 from common import enums, utils
 from common.db.basic import BaseModel, EnumField, manager
-from playhouse.postgres_ext import CharField, DateTimeTZField, ForeignKeyField, CompositeKey
+from playhouse.postgres_ext import (
+    CharField,
+    CompositeKey,
+    DateTimeTZField,
+    ForeignKeyField,
+)
 
 log = logging.getLogger('db_logger')
 

@@ -8,7 +8,7 @@ import config
 import pytest
 from aioresponses import aioresponses
 from common import db
-from common.db.models import CSRFToken, User, Subscription
+from common.db.models import CSRFToken, Subscription, User
 from common.enums import UserRole
 from common.utils import uuid_str
 from server import init_app

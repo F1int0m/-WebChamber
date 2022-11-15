@@ -1,13 +1,17 @@
 from functools import partial
+from logging import getLogger
 
 from aiohttp import web
 from common import context, enums, errors
-from common.db.models import User, Subscription
 from common.db.basic import manager
-from common.models.response_models import PingResponse, UserResponse, SubscribersListResponse
+from common.db.models import Subscription, User
+from common.models.response_models import (
+    PingResponse,
+    SubscribersListResponse,
+    UserResponse,
+)
 from openrpc import RPCServer
 from web.handlers.jsonrpc_handler import route
-from logging import getLogger
 
 log = getLogger(__name__)
 

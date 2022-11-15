@@ -60,21 +60,21 @@ async def test_user_get__error_unknown_user(public_api_v1):
 
 @pytest.mark.parametrize('main_role,new_roles', [
     (
+        UserRole.platform_owner,
+        [
+            UserRole.restricted,
+            UserRole.active,
+            UserRole.admin,
             UserRole.platform_owner,
-            [
-                UserRole.restricted,
-                UserRole.active,
-                UserRole.admin,
-                UserRole.platform_owner,
-            ],
+        ],
     ),
     (
+        UserRole.admin,
+        [
+            UserRole.restricted,
+            UserRole.active,
             UserRole.admin,
-            [
-                UserRole.restricted,
-                UserRole.active,
-                UserRole.admin,
-            ],
+        ],
     )
 ])
 async def test_user_set_role__ok(public_api_v1, user: User, user_factory, main_role, new_roles):
@@ -92,28 +92,28 @@ async def test_user_set_role__ok(public_api_v1, user: User, user_factory, main_r
 
 @pytest.mark.parametrize('main_role,new_roles', [
     (
-            UserRole.active,
-            [
-                UserRole.restricted,
-                UserRole.active,
-                UserRole.admin,
-                UserRole.platform_owner,
-            ],
-    ),
-    (
+        UserRole.active,
+        [
             UserRole.restricted,
-            [
-                UserRole.restricted,
-                UserRole.active,
-                UserRole.admin,
-                UserRole.platform_owner
-            ],
+            UserRole.active,
+            UserRole.admin,
+            UserRole.platform_owner,
+        ],
     ),
     (
+        UserRole.restricted,
+        [
+            UserRole.restricted,
+            UserRole.active,
             UserRole.admin,
-            [
-                UserRole.platform_owner
-            ],
+            UserRole.platform_owner
+        ],
+    ),
+    (
+        UserRole.admin,
+        [
+            UserRole.platform_owner
+        ],
     ),
 ])
 async def test_user_set_role__error_wrong_main_role(public_api_v1, user: User, user_factory, main_role, new_roles):
