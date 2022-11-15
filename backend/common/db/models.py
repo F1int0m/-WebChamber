@@ -1,8 +1,9 @@
 import logging
+from typing import List
 
 from common import enums, utils
-from common.db.basic import BaseModel, EnumField
-from playhouse.postgres_ext import CharField, DateTimeTZField
+from common.db.basic import BaseModel, EnumField, manager
+from playhouse.postgres_ext import CharField, DateTimeTZField, ForeignKeyField
 
 log = logging.getLogger('db_logger')
 
@@ -45,3 +46,15 @@ class User(BaseModel):
         user_dict.pop('expires_at')
 
         return user_dict
+
+
+class Subscription(BaseModel):
+    main_user = ForeignKeyField(User, help_text='Основной юзер')
+    subscriber_user = ForeignKeyField(User, help_text='Подписчик')
+
+    @classmethod
+    async def get_subscribers(cls, user_id) -> List[str]:
+        subscribers: List[Subscription] = await manager.execute(
+            Subscription.select(Subscription.subscriber_user).where(Subscription.main_user == user_id).join(User)
+        )
+        return [model.subscriber_user.user_id for model in subscribers]

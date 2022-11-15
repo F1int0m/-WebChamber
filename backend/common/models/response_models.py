@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from common import enums
 from pydantic import AnyUrl, BaseModel, Field
@@ -15,3 +15,7 @@ class UserResponse(BaseModel):
     mood_text: Optional[str] = Field(title='Небольшой статус у юзера')
     description: Optional[str] = Field(title='Описание юзера')
     avatar_link: Optional[AnyUrl] = Field(title='Ссылка для загрузки аватарки')
+
+
+class SubscribersListResponse(BaseModel):
+    subscribers: List[str] = Field(..., title='Список id пользователей')
