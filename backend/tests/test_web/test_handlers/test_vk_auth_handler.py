@@ -38,7 +38,7 @@ async def test_code_response_handler__ok_good_response(test_app, mock_response, 
     assert await manager.count(CSRFToken.select()) == 1
 
     response = await test_app.get(
-        f'/auth/vk/code_response?code={test_code}&state={csrf_token.token}',
+        f'/auth/vk/code-response?code={test_code}&state={csrf_token.token}',
         allow_redirects=False
     )
     assert response.status == 302
@@ -47,7 +47,16 @@ async def test_code_response_handler__ok_good_response(test_app, mock_response, 
     token = response.cookies.get('webchamber_token').value
 
     user = await User.get(internal_token=token)
-    assert user
+    assert user.to_dict() == {
+        'avatar_name': None,
+        'description': None,
+        'mood_text': None,
+        'nickname': ANY,
+        'role': 'ACTIVE',
+        'user_id': '1234567'
+    }
+    assert user.access_token == 'test_token'
+    assert user.internal_token == token
 
     assert await manager.count(CSRFToken.select()) == 0
 
@@ -60,13 +69,14 @@ async def test_code_response_handler__error_vk_error_response(test_app, mock_res
              f'client_secret={config.VK_CLIENT_SECRET}&'
              f'code={test_code}&'
              f'redirect_uri={config.VK_REDIRECT_URI}'),
-        payload=mocks.mock_vk_code_response_error()
+        payload=mocks.mock_vk_code_response_error(),
+        status=401,
     )
 
     assert await manager.count(CSRFToken.select()) == 1
 
     response = await test_app.get(
-        f'/auth/vk/code_response?code={test_code}&state={csrf_token.token}',
+        f'/auth/vk/code-response?code={test_code}&state={csrf_token.token}',
         allow_redirects=False
     )
     assert response.status == 400

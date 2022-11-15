@@ -1,17 +1,24 @@
 import asyncio
+import sys
 from functools import partial
 from typing import Awaitable, Callable, Dict
 
+import aiohttp
 import config
 import pytest
 from aioresponses import aioresponses
 from common import db
 from common.db.models import CSRFToken, User
+from common.enums import UserRole
+from common.utils import uuid_str
 from server import init_app
 
 
 @pytest.fixture(scope='session', autouse=True)
 def event_loop():
+    if sys.platform.lower().startswith('win'):
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     yield asyncio.get_event_loop()
 
 
@@ -25,6 +32,24 @@ async def mock_response():
 async def test_app(aiohttp_client):
     app = init_app()
     yield await aiohttp_client(app)
+
+
+@pytest.fixture
+def authorized_api_client(test_app, user: User) -> Callable:
+    async def _request(
+            url: str,
+            method: str = 'POST',
+            cookies: dict = None,
+            **kwargs
+    ) -> aiohttp.ClientResponse:
+        cookies = cookies or {config.TOKEN_COOKIE_NAME: user.internal_token}
+
+        response: aiohttp.ClientResponse = await test_app.request(
+            method=method, path=url, cookies=cookies, **kwargs
+        )
+        return response
+
+    return _request
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -66,14 +91,31 @@ def jsonrpc_client(test_app):
 
 
 @pytest.fixture
-def user_factory() -> Callable[[], Awaitable[User]]:
-    async def wrapped(user_id=None, internal_token=None, access_token=None, expires_at=None) -> User:
+def user_factory():
+    async def wrapped(
+            user_id=None,
+            internal_token=None,
+            access_token=None,
+            expires_at=None,
+            nickname=None,
+            role=None,
+            avatar_name=None,
+            description=None,
+            mood_text=None,
+    ) -> User:
         params = {
             'user_id': user_id or 'test_id',
-            'internal_token': internal_token or 'internal_token',
+            'internal_token': internal_token or uuid_str(),
             'access_token': access_token or 'access_token',
             'expires_at': expires_at or '2030-12-30',
+            'nickname': nickname or 'test_user_nickname',
+            'role': role or UserRole.platform_owner,
+            'description': description or 'description of user',
+            'mood_text': mood_text or 'mood text of user',
         }
+
+        if avatar_name:
+            params.update({'avatar_name': avatar_name})
         user = await User.create(**params)
         return user
 
@@ -93,4 +135,4 @@ async def csrf_token() -> CSRFToken:
 
 @pytest.fixture
 async def user(user_factory):
-    return await user_factory()
+    return await user_factory(mood_text='mood')

@@ -4,6 +4,7 @@ from common import errors
 from peewee import DoesNotExist, IntegrityError
 from peewee_async import Manager, PooledPostgresqlDatabase
 from playhouse.postgres_ext import CharField, Model
+from playhouse.shortcuts import model_to_dict
 
 __all__ = ['pg_db', 'manager', 'BaseModel', 'EnumField', ]
 
@@ -31,6 +32,9 @@ class BaseModel(Model):
 
     def __repr__(self):
         return f'{self.__class__.__name__}:{self._get_pk_value()}'
+
+    def to_dict(self):
+        return model_to_dict(self)
 
     def is_changed(self, **kwargs):
         for name, value in kwargs.items():

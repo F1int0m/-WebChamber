@@ -28,6 +28,7 @@ class DoesNotExists(BaseRPCError):
 class AccessDenied(BaseRPCError):
     code = 4003
     message = 'Access denied'
+    http_status = 403  # только для части с REST, в jsonrpc не используется и отдается 200
 
 
 class VKOauthError(BaseRPCError):

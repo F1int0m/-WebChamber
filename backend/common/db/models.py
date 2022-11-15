@@ -1,7 +1,7 @@
 import logging
 
-from common import utils
-from common.db.basic import BaseModel
+from common import enums, utils
+from common.db.basic import BaseModel, EnumField
 from playhouse.postgres_ext import CharField, DateTimeTZField
 
 log = logging.getLogger('db_logger')
@@ -18,6 +18,13 @@ class User(BaseModel):
     """Таблица для хранения всей инфы о юзере """
 
     user_id = CharField(primary_key=True)
+    role = EnumField(enum=enums.UserRole, default=enums.UserRole.active)
+    nickname = CharField(unique=True)
+    mood_text = CharField(null=True)
+    description = CharField(null=True)
+
+    avatar_name = CharField(help_text='Название файла аватарки юзера', null=True)
+
     access_token = CharField(help_text='Токен для доступа к вк')
     expires_at = DateTimeTZField(help_text='Время, до которого действует вк токен, то есть авторизация валидна')
 
@@ -29,3 +36,12 @@ class User(BaseModel):
     @staticmethod
     async def get_by_token(internal_access_token: str):
         return await User.get(internal_token=internal_access_token)
+
+    def to_dict(self):
+        user_dict = super().to_dict()
+
+        user_dict.pop('internal_token')
+        user_dict.pop('access_token')
+        user_dict.pop('expires_at')
+
+        return user_dict
