@@ -44,8 +44,6 @@ services:
       - minio
     entrypoint: >
       /bin/sh -c "
-      echo ${MINIO_ACCESS_KEY};
-      echo ${MINIO_SECRET_KEY};
       /usr/bin/mc alias set myminio http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
       /usr/bin/mc mb myminio/${MINIO_DEFAULT_BUCKET};
       /usr/bin/mc policy set public myminio/${MINIO_DEFAULT_BUCKET};
