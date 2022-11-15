@@ -68,6 +68,13 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
 
 
 @openrpc.method()
+async def user_subscribers_list(user_id) -> SubscribersListResponse:
+    subscribers = await Subscription.get_subscribers(user_id=user_id)
+
+    return SubscribersListResponse(subscribers=subscribers)
+
+
+@openrpc.method()
 async def user_subscribe(user_id: str) -> SubscribersListResponse:
     user = context.user.get()
 

@@ -60,7 +60,7 @@ class Subscription(BaseModel):
     @classmethod
     async def get_subscribers(cls, user_id) -> List[str]:
         subscribers: List[Subscription] = await manager.execute(
-            Subscription.select(Subscription,User)
+            Subscription.select(Subscription, User)
             .where(Subscription.main_user == user_id)
             .join(User, on=Subscription.subscriber_user)
         )

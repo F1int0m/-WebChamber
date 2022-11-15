@@ -219,3 +219,21 @@ async def test_user_unsubscribe__ok_unsubscribe_yourself(public_api_v1, user: Us
             'subscribers': []
         }
     }
+
+
+async def test_user_subscribers_list__ok(public_api_v1, user: User, user_factory, subscribes_factory):
+    user_second = await user_factory(user_id='second', nickname='123')
+    user_third = await user_factory(user_id='third', nickname='321')
+    await subscribes_factory(user=user, subscribers=[user_second, user_third])
+
+    response = await public_api_v1(
+        method='user_subscribers_list',
+        user_id=user.user_id
+    )
+    assert response == {
+        'id': 2,
+        'jsonrpc': '2.0',
+        'result': {
+            'subscribers': ['second', 'third']
+        }
+    }
