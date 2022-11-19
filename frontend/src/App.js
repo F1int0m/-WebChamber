@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import {useDispatch, useSelector} from "react-redux";
+import {useState} from "react";
 
 function App() {
+  const dispatch = useDispatch()
+  const token = useSelector(state => state.token)
+  const [newToken, setNewToken] = useState('')
+
+  const UpdateToken = () => {
+    console.log(newToken)
+    dispatch({type: 'UPDATE_TOKEN', payload: newToken})
+  }
+
+  const HandleChange = (e) => {
+    setNewToken(e.target.value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3>Current token: {token}</h3>
+      <form>
+        <label>Type new token:</label>
+        <input onChange={e => HandleChange(e)}/>
+        <button type={"button"} onClick={UpdateToken}>Update token</button>
+      </form>
     </div>
   );
 }
