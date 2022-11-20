@@ -60,5 +60,6 @@ async def close():
 
 
 def create_tables():
-    for table in tables:
+    fixed_tables = [models.User, *tables]
+    for table in fixed_tables:
         table.create_table()
