@@ -17,11 +17,14 @@ services:
       VK_CLIENT_SECRET: ${VK_CLIENT_SECRET}
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      VK_REDIRECT_URI: ${VK_REDIRECT_URI}
+      FRONTEND_FINISH_AUTH_URL: ${FRONTEND_FINISH_AUTH_URL}
     entrypoint: [ 'python', 'server.py' ]
     ports:
       - '80:8080'
     depends_on:
       - postgres
+      - minio
 
   postgres:
     image: postgres:15
