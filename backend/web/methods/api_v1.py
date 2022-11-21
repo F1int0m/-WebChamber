@@ -1,11 +1,19 @@
 from functools import partial
+from logging import getLogger
 
 from aiohttp import web
 from common import context, enums, errors
-from common.db.models import User
-from common.models.response_models import PingResponse, UserResponse
+from common.db.basic import manager
+from common.db.models import Subscription, User
+from common.models.response_models import (
+    PingResponse,
+    SubscribersListResponse,
+    UserResponse,
+)
 from openrpc import RPCServer
 from web.handlers.jsonrpc_handler import route
+
+log = getLogger(__name__)
 
 openrpc = RPCServer(title='WebChamber api')
 
@@ -61,3 +69,46 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
     user = context.user.get()
 
     return await user.update_instance(nickname=nickname, mood_text=mood_text, description=description)
+
+
+@openrpc.method()
+async def user_subscribers_list(user_id) -> SubscribersListResponse:
+    subscribers = await Subscription.get_subscribers(user_id=user_id)
+
+    return SubscribersListResponse(subscribers=subscribers)
+
+
+@openrpc.method()
+async def user_subscribe(user_id: str) -> SubscribersListResponse:
+    user = context.user.get()
+
+    if user.user_id == user_id:
+        raise errors.NoValidData("Can't subscribe yourself")
+
+    params = {
+        'main_user': user.user_id,
+        'subscriber_user': user_id,
+    }
+    await manager.get_or_create(Subscription, defaults=params)
+
+    # todo прикрутить уведомление
+
+    new_subscribers = await Subscription.get_subscribers(user_id=user.user_id)
+
+    return SubscribersListResponse(subscribers=new_subscribers)
+
+
+@openrpc.method()
+async def user_unsubscribe(user_id: str) -> SubscribersListResponse:
+    user = context.user.get()
+
+    try:
+        model = await Subscription.get(main_user=user.user_id, subscriber_user=user_id)
+        await manager.delete(model)
+
+    except errors.DoesNotExists:
+        log.info('Already unsubscribed')
+
+    new_subscribers = await Subscription.get_subscribers(user_id=user.user_id)
+
+    return SubscribersListResponse(subscribers=new_subscribers)

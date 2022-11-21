@@ -31,6 +31,11 @@ class AccessDenied(BaseRPCError):
     http_status = 403  # только для части с REST, в jsonrpc не используется и отдается 200
 
 
+class NoValidData(BaseRPCError):
+    code = 4005
+    message = 'Invalid data'
+
+
 class VKOauthError(BaseRPCError):
     code = 5001
     message = 'VK oauth integration error'

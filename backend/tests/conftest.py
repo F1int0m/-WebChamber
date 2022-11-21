@@ -1,14 +1,14 @@
 import asyncio
 import sys
 from functools import partial
-from typing import Awaitable, Callable, Dict
+from typing import Awaitable, Callable, Dict, List
 
 import aiohttp
 import config
 import pytest
 from aioresponses import aioresponses
 from common import db
-from common.db.models import CSRFToken, User
+from common.db.models import CSRFToken, Subscription, User
 from common.enums import UserRole
 from common.utils import uuid_str
 from server import init_app
@@ -63,7 +63,7 @@ async def clean_db(init_db):
     yield
 
     for table in db.tables:
-        table.truncate_table()
+        table.truncate_table(cascade=True)
 
 
 @pytest.fixture
@@ -88,6 +88,11 @@ def jsonrpc_client(test_app):
         return result
 
     return _jsonrpc
+
+
+@pytest.fixture
+def public_api_v1(jsonrpc_client, user) -> Callable[..., Awaitable[Dict]]:
+    return partial(jsonrpc_client, url='/api/v1/public/jsonrpc', user=user)
 
 
 @pytest.fixture
@@ -123,8 +128,14 @@ def user_factory():
 
 
 @pytest.fixture
-def public_api_v1(jsonrpc_client, user) -> Callable[..., Awaitable[Dict]]:
-    return partial(jsonrpc_client, url='/api/v1/public/jsonrpc', user=user)
+def subscribes_factory():
+    async def wrapped(user, subscribers: List) -> List:
+        result = []
+        for subscriber in subscribers:
+            result.append(await Subscription.create(main_user=user, subscriber_user=subscriber))
+
+        return result
+    return wrapped
 
 
 @pytest.fixture
