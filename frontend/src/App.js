@@ -1,30 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
-import {useDispatch, useSelector} from "react-redux";
-import {useState} from "react";
+import {Routes, Route, NavLink} from "react-router-dom";
+
+import Layout from "./Layout";
+import MainPage from "./MainPage";
+import TokenSetup from "./tokenSetup";
+import NotFound from "./NotFound";
+
 
 function App() {
-  const dispatch = useDispatch()
-  const token = useSelector(state => state.token)
-  const [newToken, setNewToken] = useState('')
-
-  const UpdateToken = () => {
-    console.log(newToken)
-    dispatch({type: 'UPDATE_TOKEN', payload: newToken})
-  }
-
-  const HandleChange = (e) => {
-    setNewToken(e.target.value)
-  }
-
   return (
     <div className="App">
-      <h3>Current token: {token}</h3>
-      <form>
-        <label>Type new token:</label>
-        <input onChange={e => HandleChange(e)}/>
-        <button type={"button"} onClick={UpdateToken}>Update token</button>
-      </form>
+        <Routes>
+            <Route path={'/'} element={<Layout />}>
+                <Route index element={<MainPage/>}/>
+                <Route path={'favourites'} element={<TokenSetup/>}/>
+                <Route path={'settings'} element={<MainPage/>}/>
+                <Route path={'profile'} element={<MainPage/>}/>
+                <Route path={'*'} element={<NotFound/>}/>
+            </Route>
+        </Routes>
     </div>
   );
 }
