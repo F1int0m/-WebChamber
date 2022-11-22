@@ -1,11 +1,11 @@
 import React from 'react';
 
-const MainPage = () => {
+const Profile = () => {
     return (
         <div>
-            <h1>Main page</h1>
+            <h1>Profile</h1>
         </div>
     );
 };
 
-export default MainPage;
+export default Profile;
