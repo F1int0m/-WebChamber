@@ -1,4 +1,4 @@
 local.py
 .idea
-.env
+frontend/.env.preparation
 /postgres-data/

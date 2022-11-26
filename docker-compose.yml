@@ -26,6 +26,17 @@ services:
       - postgres
       - minio
 
+  frontend:
+    build:
+      context: frontend/.
+      dockerfile: Dockerfile
+    entrypoint: ['npm', 'start']
+    ports:
+      - '3000:3000'
+    depends_on:
+      - app
+
+
   postgres:
     image: postgres:15
     environment:

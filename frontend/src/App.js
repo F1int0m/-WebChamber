@@ -1,5 +1,6 @@
 import './App.css';
 import {Routes, Route} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 import MainHeader from "./content/components/navigation/MainHeader";
 import Challenges from "./content/pages/private/chamber/Challenges";
@@ -12,23 +13,37 @@ import Profile from "./content/pages/private/Profile";
 import ChamberHeader from "./content/components/navigation/ChamberHeader";
 import Login from "./content/pages/public/Login";
 
+import {
+    ROOT_URL,
+    CHAMBER_ROOT_URL,
+    CHAMBER_CHALLENGES_URL,
+    CHAMBER_COLLABORATIONS_URL,
+    CHAMBER_TOPS_URL,
+    FAVOURITES_URL,
+    SETTINGS_URL,
+    PROFILE_URL,
+    LOGIN_URL,
+    NOT_FOUND_URL
+} from './env'
 
 function App() {
+    const isAuth = useSelector(state => state.is_auth)
+    console.log(process.env.ROOT_URL, typeof ROOT_URL)
   return (
     <div className="App">
         <Routes>
-            <Route path={'/'} element={<MainHeader />}>
-                <Route path={'favourites'} element={<Favourites />}/>
-                <Route path={'settings'} element={<Settings />}/>
-                <Route path={'profile/me'} element={<Profile />}/>
+            <Route path={ROOT_URL} element={<MainHeader />}>
+                <Route path={FAVOURITES_URL} element={<Favourites />}/>
+                <Route path={SETTINGS_URL} element={<Settings />}/>
+                <Route path={PROFILE_URL} element={<Profile />}/>
             </Route>
-            <Route path={'content'} element={<ChamberHeader />}>
-                <Route path={'challenges'} element={<Challenges />}/>
-                <Route path={'collaborations'} element={<Collaborations />}/>
-                <Route path={'tops'} element={<Tops />}/>
+            <Route path={CHAMBER_ROOT_URL} element={<ChamberHeader />}>
+                <Route path={CHAMBER_CHALLENGES_URL} element={<Challenges />}/>
+                <Route path={CHAMBER_COLLABORATIONS_URL} element={<Collaborations />}/>
+                <Route path={CHAMBER_TOPS_URL} element={<Tops />}/>
             </Route>
-            <Route path={'login'} element={<Login />}/>
-            <Route path={'*'} element={<NotFound />}/>
+            <Route path={LOGIN_URL} element={<Login />}/>
+            <Route path={NOT_FOUND_URL} element={<NotFound />}/>
         </Routes>
     </div>
   );

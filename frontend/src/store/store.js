@@ -11,7 +11,8 @@ const InitState = () => {
     }
     return {
         id: id,
-        token: token
+        token: token,
+        is_auth: false
     }
 }
 
@@ -19,9 +20,12 @@ const defaultState = InitState()
 
 const authReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case 'UPDATE_TOKEN':
-            localStorage.setItem('token', action.payload)
-            return {...state, token: action.payload}
+        case 'LOGIN':
+            localStorage.setItem('token', action.payload);
+            return {...state, token: action.payload, is_auth: true}
+        case 'LOGOUT':
+            localStorage.removeItem('token')
+            return {...state, token: '', is_auth: false}
         default:
             return state
     }

@@ -1,7 +1,9 @@
+import {FETCH_AUTH_URL} from "../env";
+
 export async function FetchOAuth() {
     // Вызывает на беке метод установки токена в куки
-    const response = await fetch('http://212.220.113.111/auth/vk/login-start', {
-        method: 'POST',
+    const response = await fetch(FETCH_AUTH_URL, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         },
