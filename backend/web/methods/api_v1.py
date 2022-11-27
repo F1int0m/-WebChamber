@@ -72,14 +72,14 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
 
 
 @openrpc.method()
-async def user_subscribers_list(user_id) -> SubscribersListResponse:
-    subscribers = await Subscription.get_subscribers(user_id=user_id)
+async def user_subscribers_list(user_id, page=1, limit=100) -> SubscribersListResponse:
+    subscribers, total_count = await Subscription.get_subscribers(user_id=user_id, page=page, limit=limit)
 
-    return SubscribersListResponse(subscribers=subscribers)
+    return SubscribersListResponse(subscribers=subscribers, total_subscribers_count=total_count)
 
 
 @openrpc.method()
-async def user_subscribe(user_id: str) -> SubscribersListResponse:
+async def user_subscribe(user_id: str) -> bool:
     user = context.user.get()
 
     if user.user_id == user_id:
@@ -89,17 +89,15 @@ async def user_subscribe(user_id: str) -> SubscribersListResponse:
         'main_user': user.user_id,
         'subscriber_user': user_id,
     }
-    await manager.get_or_create(Subscription, defaults=params)
+    _, created = await manager.get_or_create(Subscription, defaults=params)
 
     # todo прикрутить уведомление
 
-    new_subscribers = await Subscription.get_subscribers(user_id=user.user_id)
-
-    return SubscribersListResponse(subscribers=new_subscribers)
+    return created
 
 
 @openrpc.method()
-async def user_unsubscribe(user_id: str) -> SubscribersListResponse:
+async def user_unsubscribe(user_id: str) -> bool:
     user = context.user.get()
 
     try:
@@ -108,7 +106,6 @@ async def user_unsubscribe(user_id: str) -> SubscribersListResponse:
 
     except errors.DoesNotExists:
         log.info('Already unsubscribed')
+        return False
 
-    new_subscribers = await Subscription.get_subscribers(user_id=user.user_id)
-
-    return SubscribersListResponse(subscribers=new_subscribers)
+    return True

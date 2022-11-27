@@ -1,7 +1,8 @@
 from typing import List, Optional
 
 from common import enums
-from pydantic import AnyUrl, BaseModel, Field
+from common.db.models import User
+from pydantic import AnyUrl, BaseModel, Field, validator
 
 
 class PingResponse(BaseModel):
@@ -18,4 +19,9 @@ class UserResponse(BaseModel):
 
 
 class SubscribersListResponse(BaseModel):
-    subscribers: List[str] = Field(..., title='Список id пользователей')
+    subscribers: List[UserResponse] = Field(..., title='Список пользователей')
+    total_subscribers_count: int = Field(..., title='Общее число подписчиков')
+
+    @validator('subscribers', pre=True)
+    def convert_users(cls, value: List[User]):
+        return [user.to_dict() for user in value]
