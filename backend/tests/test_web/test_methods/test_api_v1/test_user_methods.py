@@ -1,7 +1,7 @@
 from unittest.mock import ANY
 
 import pytest
-from common.db.models import User
+from common.db.models import Subscription, User
 from common.enums import UserRole
 
 
@@ -168,9 +168,19 @@ async def test_user_subscribe__ok(public_api_v1, user: User, user_factory):
     assert response == {
         'id': 2,
         'jsonrpc': '2.0',
-        'result': {
-            'subscribers': ['second']
-        }
+        'result': True
+    }
+
+    subscribers, count = await Subscription.get_subscribers(user_id=user.user_id)
+    assert count == len(subscribers) == 1
+
+    assert subscribers[0].to_dict() == {
+        'avatar_name': None,
+        'description': 'description of user',
+        'mood_text': 'mood text of user',
+        'nickname': '123',
+        'role': 'PLATFORM_OWNER',
+        'user_id': 'second'
     }
 
 
@@ -201,10 +211,10 @@ async def test_user_unsubscribe__ok(public_api_v1, user: User, user_factory, sub
     assert response == {
         'id': 2,
         'jsonrpc': '2.0',
-        'result': {
-            'subscribers': []
-        }
+        'result': True
     }
+    subscribers, count = await Subscription.get_subscribers(user_id=user.user_id)
+    assert count == len(subscribers) == 0
 
 
 async def test_user_unsubscribe__ok_unsubscribe_yourself(public_api_v1, user: User):
@@ -215,10 +225,11 @@ async def test_user_unsubscribe__ok_unsubscribe_yourself(public_api_v1, user: Us
     assert response == {
         'id': 2,
         'jsonrpc': '2.0',
-        'result': {
-            'subscribers': []
-        }
+        'result': False
     }
+
+    subscribers, count = await Subscription.get_subscribers(user_id=user.user_id)
+    assert count == len(subscribers) == 0
 
 
 async def test_user_subscribers_list__ok(public_api_v1, user: User, user_factory, subscribes_factory):
