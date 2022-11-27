@@ -234,6 +234,20 @@ async def test_user_subscribers_list__ok(public_api_v1, user: User, user_factory
         'id': 2,
         'jsonrpc': '2.0',
         'result': {
-            'subscribers': ['second', 'third']
+            'total_subscribers_count': 2,
+            'subscribers': [
+                {'avatar_link': None,
+                 'description': 'description of user',
+                 'mood_text': 'mood text of user',
+                 'nickname': '123',
+                 'role': 'PLATFORM_OWNER',
+                 'user_id': 'second'},
+                {'avatar_link': None,
+                 'description': 'description of user',
+                 'mood_text': 'mood text of user',
+                 'nickname': '321',
+                 'role': 'PLATFORM_OWNER',
+                 'user_id': 'third'}
+            ]
         }
     }

@@ -1,5 +1,5 @@
 import logging
-from typing import List
+from typing import List, Tuple
 
 from common import enums, utils
 from common.db.basic import BaseModel, EnumField, manager
@@ -61,11 +61,17 @@ class Subscription(BaseModel):
         primary_key = CompositeKey('main_user', 'subscriber_user')
 
     @classmethod
-    async def get_subscribers(cls, user_id) -> List[str]:
-        subscribers: List[Subscription] = await manager.execute(
+    async def get_subscribers(cls, user_id, page=1, limit=100) -> Tuple[List[User], int]:
+        query = (
             Subscription.select(Subscription, User)
             .where(Subscription.main_user == user_id)
             .join(User, on=Subscription.subscriber_user)
+            .paginate(page, limit)
         )
-        subscribers = list(subscribers)
-        return [model.subscriber_user.user_id for model in subscribers]
+
+        subscribers: List[Subscription] = await manager.execute(query)
+        subscribers_count = await manager.count(query=query, clear_limit=True)
+
+        # subscribers = list(subscribers)
+
+        return [model.subscriber_user for model in subscribers], subscribers_count  # noqa

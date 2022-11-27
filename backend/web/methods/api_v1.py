@@ -72,10 +72,10 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
 
 
 @openrpc.method()
-async def user_subscribers_list(user_id) -> SubscribersListResponse:
-    subscribers = await Subscription.get_subscribers(user_id=user_id)
+async def user_subscribers_list(user_id, page=1, limit=100) -> SubscribersListResponse:
+    subscribers, total_count = await Subscription.get_subscribers(user_id=user_id, page=page, limit=limit)
 
-    return SubscribersListResponse(subscribers=subscribers)
+    return SubscribersListResponse(subscribers=subscribers, total_subscribers_count=total_count)
 
 
 @openrpc.method()
