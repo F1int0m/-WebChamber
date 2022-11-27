@@ -10,9 +10,12 @@ function Login() {
     const [newToken, setNewToken] = useState()
 
     async function FetchToken() {
-        const response = await fetch(FETCH_AUTH_URL)
-            .then(res => res.json())
-        return response;
+        console.log('go to auth')
+        await fetch(FETCH_AUTH_URL, {
+            method: 'GET',
+            // todo надо узнать как тут красиво отлавливать 302 ответ с бека и адекватно редиректить пользователя
+            mode: 'no-cors'
+        })
     }
 
     function HandleClick() {
