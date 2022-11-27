@@ -11,16 +11,16 @@ class PingResponse(BaseModel):
 
 class UserResponse(BaseModel):
     user_id: str = Field(...)
-    role: enums.UserRole = Field(..., description='Роль юзера в системе, влияет на доступ')
-    nickname: str = Field(..., description='Уникальное имя пользователя')
-    mood_text: Optional[str] = Field(description='Небольшой статус у юзера')
-    description: Optional[str] = Field(description='Описание юзера')
-    avatar_link: Optional[AnyUrl] = Field(description='Ссылка для загрузки аватарки')
+    role: enums.UserRole = Field(..., title='Роль юзера в системе, влияет на доступ')
+    nickname: str = Field(..., title='Уникальное имя пользователя')
+    mood_text: Optional[str] = Field(title='Небольшой статус у юзера')
+    description: Optional[str] = Field(title='Описание юзера')
+    avatar_link: Optional[AnyUrl] = Field(title='Ссылка для загрузки аватарки')
 
 
 class SubscribersListResponse(BaseModel):
-    subscribers: List[UserResponse] = Field(..., description='Список id пользователей')
-    total_subscribers_count: int = Field(..., description='Общее число подписчиков')
+    subscribers: List[UserResponse] = Field(..., title='Список пользователей')
+    total_subscribers_count: int = Field(..., title='Общее число подписчиков')
 
     @validator('subscribers', pre=True)
     def convert_users(cls, value: List[User]):
