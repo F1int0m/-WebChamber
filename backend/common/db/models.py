@@ -72,6 +72,4 @@ class Subscription(BaseModel):
         subscribers: List[Subscription] = await manager.execute(query)
         subscribers_count = await manager.count(query=query, clear_limit=True)
 
-        # subscribers = list(subscribers)
-
         return [model.subscriber_user for model in subscribers], subscribers_count  # noqa
