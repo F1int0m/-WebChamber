@@ -2,3 +2,4 @@ local.py
 .idea
 frontend/.env.preparation
 /postgres-data/
+.env.example
