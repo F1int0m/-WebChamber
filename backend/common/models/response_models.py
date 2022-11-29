@@ -17,9 +17,6 @@ class UserResponse(BaseModel):
     description: Optional[str] = Field(title='Описание юзера')
     avatar_link: Optional[AnyUrl] = Field(title='Ссылка для загрузки аватарки')
 
-    class Config:
-        orm_mode = True
-
 
 class UserListResponse(BaseModel):
     users: List[UserResponse]
