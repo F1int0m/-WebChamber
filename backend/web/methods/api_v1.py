@@ -8,6 +8,7 @@ from common.db.models import Subscription, User
 from common.models.response_models import (
     PingResponse,
     SubscribersListResponse,
+    UserListResponse,
     UserResponse,
 )
 from openrpc import RPCServer
@@ -69,6 +70,20 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
     user = context.user.get()
 
     return await user.update_instance(nickname=nickname, mood_text=mood_text, description=description)
+
+
+@openrpc.method()
+async def user_search(nickname_substring: str, page=1, limit=100):
+    users = await manager.execute(User.select().where(User.nickname.contains(nickname_substring)).paginate(page, limit))
+    minio_client = context.minio_client.get()
+
+    user_list = []
+    for user in users:
+        avatar_link = minio_client.get_user_avatar(user=user)
+
+        user_list.append(UserResponse(**user.to_dict(), avatar_link=avatar_link))
+
+    return UserListResponse(users=user_list)
 
 
 @openrpc.method()

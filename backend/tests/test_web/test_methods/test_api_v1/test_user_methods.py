@@ -1,11 +1,11 @@
-from unittest.mock import ANY
+from unittest.mock import ANY, patch
 
 import pytest
 from common.db.models import Subscription, User
 from common.enums import UserRole
 
 
-async def test_user_get_self__ok(public_api_v1):
+async def test_user_get_self__ok(public_api_v1, user: User):
     response = await public_api_v1(method='user_get_self')
     assert response['result'] == {
         'avatar_link': None,
@@ -13,7 +13,7 @@ async def test_user_get_self__ok(public_api_v1):
         'mood_text': 'mood',
         'nickname': 'test_user_nickname',
         'role': 'PLATFORM_OWNER',
-        'user_id': 'test_id'
+        'user_id': user.user_id
     }
 
 
@@ -25,25 +25,30 @@ async def test_user_get__ok(public_api_v1, user: User):
         'mood_text': 'mood',
         'nickname': 'test_user_nickname',
         'role': 'PLATFORM_OWNER',
-        'user_id': 'test_id'
+        'user_id': user.user_id
     }
 
 
-async def test_user_get__ok_have_avatar(jsonrpc_client, user_factory):
+@patch(
+    'common.clients.minio_cient.MinioClient.get_user_avatar',
+    new=lambda *args, **kwargs: 'http://test.com'
+)
+async def test_user_get__ok_have_avatar(jsonrpc_client, user_factory, mock_response):
     avatar_name = 'custom.png'
     user = await user_factory(avatar_name=avatar_name)
+
     response = await jsonrpc_client(
         url='/api/v1/public/jsonrpc',
         method='user_get_self',
         user=user
     )
     assert response['result'] == {
-        'avatar_link': ANY,
+        'avatar_link': 'http://test.com',
         'description': 'description of user',
         'mood_text': 'mood text of user',
         'nickname': 'test_user_nickname',
         'role': 'PLATFORM_OWNER',
-        'user_id': 'test_id'
+        'user_id': user.user_id
     }
 
 
@@ -56,6 +61,35 @@ async def test_user_get__error_unknown_user(public_api_v1):
         'id': 2,
         'jsonrpc': '2.0'
     }
+
+
+async def test_user_search__ok(public_api_v1, user_factory):
+    user = await user_factory(nickname='custom_name')
+    response = await public_api_v1(
+        method='user_search',
+        nickname_substring='cust'
+    )
+    assert response['result'] == {
+        'users': [
+            {
+                'avatar_link': None,
+                'description': 'description of user',
+                'mood_text': 'mood text of user',
+                'nickname': 'custom_name',
+                'role': 'PLATFORM_OWNER',
+                'user_id': user.user_id
+            }
+        ]
+    }
+
+
+async def test_user_search__ok_empty(public_api_v1, user_factory):
+    await user_factory(nickname='custom_name')
+    response = await public_api_v1(
+        method='user_search',
+        nickname_substring='err4444'
+    )
+    assert response['result'] == {'users': []}
 
 
 @pytest.mark.parametrize('main_role,new_roles', [
@@ -137,7 +171,7 @@ async def test_user_edit__ok(public_api_v1, user: User):
         'mood_text': 'mood',
         'nickname': 'test_user_nickname',
         'role': 'PLATFORM_OWNER',
-        'user_id': 'test_id'
+        'user_id': user.user_id
     }
 
     response = await public_api_v1(
@@ -155,7 +189,7 @@ async def test_user_edit__ok(public_api_v1, user: User):
         'mood_text': '123321',
         'nickname': 'new_nickname',
         'role': 'PLATFORM_OWNER',
-        'user_id': 'test_id'
+        'user_id': user.user_id
     }
 
 

@@ -109,7 +109,7 @@ def user_factory():
             mood_text=None,
     ) -> User:
         params = {
-            'user_id': user_id or 'test_id',
+            'user_id': user_id or uuid_str(),
             'internal_token': internal_token or uuid_str(),
             'access_token': access_token or 'access_token',
             'expires_at': expires_at or '2030-12-30',
