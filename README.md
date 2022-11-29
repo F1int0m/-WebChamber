@@ -8,6 +8,8 @@
 
 Живем с прекомитами
 
+Кста, я - гей
+
 ```bash
 pre-commit install -f
 pre-commit install -f --hook-type pre-push
