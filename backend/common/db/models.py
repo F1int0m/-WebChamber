@@ -4,10 +4,12 @@ from typing import List, Tuple
 from common import enums, utils
 from common.db.basic import BaseModel, EnumField, manager
 from playhouse.postgres_ext import (
+    BooleanField,
     CharField,
     CompositeKey,
     DateTimeTZField,
     ForeignKeyField,
+    TextField,
 )
 
 log = logging.getLogger('db_logger')
@@ -24,7 +26,7 @@ class User(BaseModel):
     """Таблица для хранения всей инфы о юзере """
 
     user_id = CharField(primary_key=True)
-    role = EnumField(enum=enums.UserRole, default=enums.UserRole.active)
+    role = EnumField(enum=enums.UserRoleEnum, default=enums.UserRoleEnum.active)
     nickname = CharField(unique=True)
     mood_text = CharField(null=True)
     description = CharField(null=True)
@@ -73,3 +75,26 @@ class Subscription(BaseModel):
         subscribers_count = await manager.count(query=query, clear_limit=True)
 
         return [model.subscriber_user for model in subscribers], subscribers_count  # noqa
+
+
+class UserNotification(BaseModel):
+    user_id = ForeignKeyField(User)
+    notification_type = EnumField(enums.NotificationTypeEnum)
+
+    class Meta:
+        primary_key = CompositeKey('user_id', 'notification_type')
+
+
+class Notification(BaseModel):
+    notification_id = CharField(primary_key=True, default=utils.uuid_str)
+    user_id = ForeignKeyField(User)
+    notification_type = EnumField(enums.NotificationTypeEnum)
+
+    object_id = CharField(
+        null=True,
+        help_text=('Какой-то идентификатор какого-то обьекта, про который уведомление'
+                   'ID нового подписчика, поста или челенджа')
+    )
+
+    is_seen = BooleanField(help_text='Прочитано уведомление или нет', default=False)
+    text = TextField(help_text='Текст уведомления')

@@ -1,8 +1,10 @@
 from unittest.mock import ANY, patch
 
 import pytest
-from common.db.models import Subscription, User
-from common.enums import UserRole
+from common import enums
+from common.db.basic import manager
+from common.db.models import Notification, Subscription, User, UserNotification
+from common.enums import UserRoleEnum
 
 
 async def test_user_get_self__ok(public_api_v1, user: User):
@@ -11,7 +13,7 @@ async def test_user_get_self__ok(public_api_v1, user: User):
         'avatar_link': None,
         'description': 'description of user',
         'mood_text': 'mood',
-        'nickname': 'test_user_nickname',
+        'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
         'user_id': user.user_id
     }
@@ -23,7 +25,7 @@ async def test_user_get__ok(public_api_v1, user: User):
         'avatar_link': None,
         'description': 'description of user',
         'mood_text': 'mood',
-        'nickname': 'test_user_nickname',
+        'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
         'user_id': user.user_id
     }
@@ -46,7 +48,7 @@ async def test_user_get__ok_have_avatar(jsonrpc_client, user_factory, mock_respo
         'avatar_link': 'http://test.com',
         'description': 'description of user',
         'mood_text': 'mood text of user',
-        'nickname': 'test_user_nickname',
+        'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
         'user_id': user.user_id
     }
@@ -94,25 +96,25 @@ async def test_user_search__ok_empty(public_api_v1, user_factory):
 
 @pytest.mark.parametrize('main_role,new_roles', [
     (
-        UserRole.platform_owner,
+        UserRoleEnum.platform_owner,
         [
-            UserRole.restricted,
-            UserRole.active,
-            UserRole.admin,
-            UserRole.platform_owner,
+            UserRoleEnum.restricted,
+            UserRoleEnum.active,
+            UserRoleEnum.admin,
+            UserRoleEnum.platform_owner,
         ],
     ),
     (
-        UserRole.admin,
+        UserRoleEnum.admin,
         [
-            UserRole.restricted,
-            UserRole.active,
-            UserRole.admin,
+            UserRoleEnum.restricted,
+            UserRoleEnum.active,
+            UserRoleEnum.admin,
         ],
     )
 ])
 async def test_user_set_role__ok(public_api_v1, user: User, user_factory, main_role, new_roles):
-    target_user = await user_factory(user_id='second user', nickname='abcd', role=UserRole.active)
+    target_user = await user_factory(user_id='second user', nickname='abcd', role=UserRoleEnum.active)
     await user.update_instance(role=main_role)
 
     for role in new_roles:
@@ -126,32 +128,32 @@ async def test_user_set_role__ok(public_api_v1, user: User, user_factory, main_r
 
 @pytest.mark.parametrize('main_role,new_roles', [
     (
-        UserRole.active,
+        UserRoleEnum.active,
         [
-            UserRole.restricted,
-            UserRole.active,
-            UserRole.admin,
-            UserRole.platform_owner,
+            UserRoleEnum.restricted,
+            UserRoleEnum.active,
+            UserRoleEnum.admin,
+            UserRoleEnum.platform_owner,
         ],
     ),
     (
-        UserRole.restricted,
+        UserRoleEnum.restricted,
         [
-            UserRole.restricted,
-            UserRole.active,
-            UserRole.admin,
-            UserRole.platform_owner
+            UserRoleEnum.restricted,
+            UserRoleEnum.active,
+            UserRoleEnum.admin,
+            UserRoleEnum.platform_owner
         ],
     ),
     (
-        UserRole.admin,
+        UserRoleEnum.admin,
         [
-            UserRole.platform_owner
+            UserRoleEnum.platform_owner
         ],
     ),
 ])
 async def test_user_set_role__error_wrong_main_role(public_api_v1, user: User, user_factory, main_role, new_roles):
-    old_role = UserRole.active
+    old_role = UserRoleEnum.active
     target_user = await user_factory(user_id='second user', nickname='abcd', role=old_role)
     await user.update_instance(role=main_role)
 
@@ -169,7 +171,7 @@ async def test_user_edit__ok(public_api_v1, user: User):
         'avatar_name': ANY,
         'description': 'description of user',
         'mood_text': 'mood',
-        'nickname': 'test_user_nickname',
+        'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
         'user_id': user.user_id
     }
@@ -187,7 +189,7 @@ async def test_user_edit__ok(public_api_v1, user: User):
         'avatar_name': ANY,
         'description': 'description',
         'mood_text': '123321',
-        'nickname': 'new_nickname',
+        'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
         'user_id': user.user_id
     }
@@ -205,16 +207,16 @@ async def test_user_subscribe__ok(public_api_v1, user: User, user_factory):
         'result': True
     }
 
-    subscribers, count = await Subscription.get_subscribers(user_id=user.user_id)
+    subscribers, count = await Subscription.get_subscribers(user_id=user_second.user_id)
     assert count == len(subscribers) == 1
 
     assert subscribers[0].to_dict() == {
         'avatar_name': None,
         'description': 'description of user',
-        'mood_text': 'mood text of user',
-        'nickname': '123',
+        'mood_text': user.mood_text,
+        'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
-        'user_id': 'second'
+        'user_id': user.user_id
     }
 
 
@@ -295,4 +297,121 @@ async def test_user_subscribers_list__ok(public_api_v1, user: User, user_factory
                  'user_id': 'third'}
             ]
         }
+    }
+
+
+async def test_user_notification_update__ok(public_api_v1, user: User):
+    notification_list = ['SUBSCRIBER', 'LIKE']
+
+    response = await public_api_v1(
+        method='user_notification_update',
+        notification_list=notification_list
+    )
+
+    assert response['result']
+    notifications = await manager.execute(
+        UserNotification.select(UserNotification).where(UserNotification.user_id == user.user_id)
+    )
+
+    assert len(notifications) == 2
+
+    for record in notifications:
+        assert record.notification_type in notification_list
+
+
+async def test_user_notification_list__ok_show_all(public_api_v1, user: User):
+    await Notification.create(
+        user_id=user.user_id,
+        notification_type=enums.NotificationTypeEnum.subscriber,
+        text='test_notification',
+        is_seen=True,
+    )
+    await Notification.create(
+        user_id=user.user_id,
+        notification_type=enums.NotificationTypeEnum.like,
+        text='test_notification'
+    )
+    response = await public_api_v1(
+        method='user_notification_list',
+    )
+
+    assert response['result'] == {
+        'notifications': [
+            {
+                'is_seen': True,
+                'notification_id': ANY,
+                'notification_type': 'SUBSCRIBER',
+                'object_id': None,
+                'text': 'test_notification'
+            },
+            {
+                'is_seen': False,
+                'notification_id': ANY,
+                'notification_type': 'LIKE',
+                'object_id': None,
+                'text': 'test_notification'
+            }
+        ]
+    }
+
+
+async def test_user_notification_list__ok_show_only_unwatched(public_api_v1, user: User):
+    await Notification.create(
+        user_id=user.user_id,
+        notification_type=enums.NotificationTypeEnum.subscriber,
+        text='test_notification',
+        is_seen=True,
+    )
+    await Notification.create(
+        user_id=user.user_id,
+        notification_type=enums.NotificationTypeEnum.like,
+        text='test_notification'
+    )
+    response = await public_api_v1(
+        method='user_notification_list',
+        only_unwatched=True
+    )
+
+    assert response['result'] == {
+        'notifications': [
+            {
+                'is_seen': False,
+                'notification_id': ANY,
+                'notification_type': 'LIKE',
+                'object_id': None,
+                'text': 'test_notification'
+            }
+        ]
+    }
+
+
+async def test_notification_mark_watched(public_api_v1, user: User):
+    notification = await Notification.create(
+        user_id=user.user_id,
+        notification_type=enums.NotificationTypeEnum.subscriber,
+        text='test_notification',
+    )
+    assert notification.to_dict() == {
+        'is_seen': False,
+        'notification_id': ANY,
+        'notification_type': 'SUBSCRIBER',
+        'object_id': None,
+        'text': 'test_notification',
+        'user_id': user.user_id
+    }
+
+    response = await public_api_v1(
+        method='notification_mark_watched',
+        notification_ids=[notification.notification_id]
+    )
+
+    assert response['result']
+    new_notification = await Notification.get(notification_id=notification.notification_id)
+    assert new_notification.to_dict() == {
+        'is_seen': True,
+        'notification_id': ANY,
+        'notification_type': 'SUBSCRIBER',
+        'object_id': None,
+        'text': 'test_notification',
+        'user_id': user.user_id
     }

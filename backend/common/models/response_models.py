@@ -11,7 +11,7 @@ class PingResponse(BaseModel):
 
 class UserResponse(BaseModel):
     user_id: str = Field(...)
-    role: enums.UserRole = Field(..., title='Роль юзера в системе, влияет на доступ')
+    role: enums.UserRoleEnum = Field(..., title='Роль юзера в системе, влияет на доступ')
     nickname: str = Field(..., title='Уникальное имя пользователя')
     mood_text: Optional[str] = Field(title='Небольшой статус у юзера')
     description: Optional[str] = Field(title='Описание юзера')
@@ -32,3 +32,20 @@ class SubscribersListResponse(BaseModel):
     @validator('subscribers', pre=True)
     def convert_users(cls, value: List[User]):
         return [user.to_dict() for user in value]
+
+
+class Notification(BaseModel):
+    notification_id: str = Field(..., title='id конкретного уведомления')
+    notification_type: enums.NotificationTypeEnum = Field(..., title=' Тип уведомления')
+    object_id: Optional[str] = Field(
+        title=(
+            'Какой-то идентификатор какого-то обьекта, про который уведомление'
+            'ID нового подписчика, поста или челенджа'
+        )
+    )
+    is_seen: bool = Field(title='Прочитано уведомление или нет')
+    text: str = Field(title='Текст уведомления')
+
+
+class NotificationListResponse(BaseModel):
+    notifications: List[Notification]
