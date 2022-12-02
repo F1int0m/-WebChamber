@@ -21,4 +21,5 @@ export const NOT_FOUND_URL = '*'
 
 // api
 export const HOST = 'http://localhost:3000/'
-export const FETCH_AUTH_URL = HOST + 'auth/vk/login-start'
+export const SERVER_HOST = 'http://localhost:80/'
+export const FETCH_AUTH_URL = SERVER_HOST + 'auth/vk/login-start'
