@@ -13,13 +13,9 @@ const MainHeader = () => {
                     <NavLink to={'/login'}>Logout</NavLink>
                 </h1>
             </header>
-
             <Outlet/>
-
             <footer>
-
             </footer>
-            
         </div>
     );
 };

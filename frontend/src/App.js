@@ -1,6 +1,6 @@
-import './App.css';
+import './style/App.css';
 import {Routes, Route} from "react-router-dom";
-import {useSelector} from "react-redux";
+// import {useSelector} from "react-redux";
 
 import MainHeader from "./content/components/navigation/MainHeader";
 import Challenges from "./content/pages/private/chamber/Challenges";
@@ -27,8 +27,8 @@ import {
 } from './env'
 
 function App() {
-    const isAuth = useSelector(state => state.is_auth)
-    console.log(process.env.ROOT_URL, typeof ROOT_URL)
+    // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
+    //       const isAuth = useSelector(state => state.is_auth)
   return (
     <div className="App">
         <Routes>

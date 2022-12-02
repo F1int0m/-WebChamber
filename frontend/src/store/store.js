@@ -1,17 +1,11 @@
 import {createStore} from "redux";
+import {SetOAuthToken} from "../auth/setOAuthToken";
 
 const InitState = () => {
-    let id = localStorage.getItem('id')
-    let token = localStorage.getItem('token')
-    if (!id && !token) {
-        localStorage.setItem('id', '1')
-        localStorage.setItem('token', 'not_found')
-        id = localStorage.getItem('id')
-        token = localStorage.getItem('token')
-    }
+    // TODO: Нам нужно узнавать id юзера сразу после авторизации? Если да,
+    //  то прописать соответствующий метод и вызывать сразу после отлова токена в сторе
     return {
-        id: id,
-        token: token,
+        id: '',
         is_auth: false
     }
 }
@@ -21,10 +15,12 @@ const defaultState = InitState()
 const authReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'LOGIN':
-            localStorage.setItem('token', action.payload);
-            return {...state, token: action.payload, is_auth: true}
+            SetOAuthToken()
+            // TODO: id = getUserID()
+            return {...state, is_auth: true}
         case 'LOGOUT':
             localStorage.removeItem('token')
+            // TODO: id = ''
             return {...state, token: '', is_auth: false}
         default:
             return state
