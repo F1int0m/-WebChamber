@@ -5,7 +5,7 @@ from urllib.parse import urlencode
 import config
 from aiohttp import web
 from aiohttp_pydantic import PydanticView
-from aiohttp_pydantic.oas.typing import r302, r400, r403
+from aiohttp_pydantic.oas.typing import r200, r302, r400, r403
 from common import context, errors, utils
 from common.db.basic import manager
 from common.db.models import CSRFToken, User
@@ -17,12 +17,12 @@ log = getLogger(__name__)
 
 class StartLoginHandler(PydanticView):
 
-    async def get(self) -> r302:
+    async def get(self) -> r200[str]:
         """
         Запрос для авторизации/регистрации юзера в сервисе через ВК.
 
         Status Codes:
-            302: Редирект на авторизацию в вк
+            200: В теле будет ссылка для перенаправления
 
         Tags: auth
         """
@@ -35,8 +35,7 @@ class StartLoginHandler(PydanticView):
             'state': csrf_token.token,
         }
         query = urlencode(params)
-
-        return web.HTTPFound(location=f'{config.VK_AUTHORIZE_URL}?{query}')
+        return web.HTTPOk(text=f'{config.VK_AUTHORIZE_URL}?{query}')
 
 
 class VKCodeResponse(PydanticView):
