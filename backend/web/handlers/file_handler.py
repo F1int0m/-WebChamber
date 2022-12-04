@@ -27,6 +27,6 @@ class AvatarImageHandler(PydanticView):
 
         await user.update_instance(avatar_name=file_name)
 
-        minio_client.upload_file(file_data=file_data, file_name=f'/avatar/{user.user_id}/{file_name}')
+        minio_client.upload_file(file_data=file_data, file_name=f'avatar/{user.user_id}/{file_name}')
 
         return HTTPOk()

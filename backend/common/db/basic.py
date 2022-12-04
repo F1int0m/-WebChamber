@@ -34,7 +34,7 @@ class BaseModel(Model):
         return f'{self.__class__.__name__}:{self._get_pk_value()}'
 
     def to_dict(self):
-        return model_to_dict(self)
+        return model_to_dict(self, recurse=False)
 
     def is_changed(self, **kwargs):
         for name, value in kwargs.items():
