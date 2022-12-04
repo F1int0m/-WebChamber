@@ -7,10 +7,10 @@ import aiohttp
 import config
 import pytest
 from aioresponses import aioresponses
-from common import db
-from common.db.models import CSRFToken, Subscription, User
-from common.enums import UserRole
-from common.utils import uuid_str
+from common import db, enums
+from common.db.models import CSRFToken, Subscription, User, UserNotification
+from common.enums import UserRoleEnum
+from common.utils import create_default_nickname, uuid_str
 from server import init_app
 
 
@@ -109,12 +109,12 @@ def user_factory():
             mood_text=None,
     ) -> User:
         params = {
-            'user_id': user_id or 'test_id',
+            'user_id': user_id or uuid_str(),
             'internal_token': internal_token or uuid_str(),
             'access_token': access_token or 'access_token',
             'expires_at': expires_at or '2030-12-30',
-            'nickname': nickname or 'test_user_nickname',
-            'role': role or UserRole.platform_owner,
+            'nickname': nickname or create_default_nickname(),
+            'role': role or UserRoleEnum.platform_owner,
             'description': description or 'description of user',
             'mood_text': mood_text or 'mood text of user',
         }
@@ -135,6 +135,7 @@ def subscribes_factory():
             result.append(await Subscription.create(main_user=user, subscriber_user=subscriber))
 
         return result
+
     return wrapped
 
 
@@ -147,3 +148,16 @@ async def csrf_token() -> CSRFToken:
 @pytest.fixture
 async def user(user_factory):
     return await user_factory(mood_text='mood')
+
+
+@pytest.fixture()
+def notification_factory():
+    async def wrapped(
+            user_to_create,
+            notifications_list: List[enums.NotificationTypeEnum] = None
+    ):
+        result = notifications_list or enums.NotificationTypeEnum
+        for notification_type in result:
+            await UserNotification.create(user_id=user_to_create, notification_type=notification_type)
+
+    return wrapped
