@@ -8,16 +8,16 @@ from tests.resources import mocks
 
 async def test_start_login__ok(test_app):
     response = await test_app.get('/auth/vk/login-start', allow_redirects=False)
-    assert response.status == 302
+    assert response.status == 200
 
     tokens = await manager.execute(CSRFToken.select())
     assert len(tokens) == 1
     token: CSRFToken = tokens[0]
 
-    assert response.headers['Location'] == (
+    assert await response.text() == (
         f'{config.VK_AUTHORIZE_URL}?'
         f'client_id={config.VK_CLIENT_ID}&'
-        f'redirect_uri={config.VK_REDIRECT_URI}&'
+        f'redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fvk%2Fcode-response&'
         'scope=email&'
         'response_type=code&'
         f'state={token.token}'
