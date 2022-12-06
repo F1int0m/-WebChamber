@@ -37,20 +37,14 @@ async def ping() -> PingResponse:
 async def user_get_self() -> UserResponse:
     user = context.user.get()
 
-    minio_client = context.minio_client.get()
-    avatar_link = minio_client.get_user_avatar(user=user)
-
-    return UserResponse(**user.to_dict(), avatar_link=avatar_link)
+    return UserResponse(**user.to_dict())
 
 
 @openrpc.method()
 async def user_get(user_id: str) -> UserResponse:
     user = await User.get(user_id=user_id)
 
-    minio_client = context.minio_client.get()
-    avatar_link = minio_client.get_user_avatar(user=user)
-
-    return UserResponse(**user.to_dict(), avatar_link=avatar_link)
+    return UserResponse(**user.to_dict())
 
 
 @openrpc.method()
@@ -59,7 +53,7 @@ async def user_set_role(user_id: str, user_role: enums.UserRoleEnum) -> bool:
     current_user = context.user.get()
 
     if (
-            user_role.is_less_or_equal_than(current_user.role) and
+            user_role.can_be_changed_by(current_user.role) and
             current_user.role in [enums.UserRoleEnum.platform_owner, enums.UserRoleEnum.admin]
     ):
         await user.update_instance(role=user_role)
@@ -78,15 +72,8 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
 @openrpc.method()
 async def user_search(nickname_substring: str, page=1, limit=100) -> UserListResponse:
     users = await manager.execute(User.select().where(User.nickname.contains(nickname_substring)).paginate(page, limit))
-    minio_client = context.minio_client.get()
 
-    user_list = []
-    for user in users:
-        avatar_link = minio_client.get_user_avatar(user=user)
-
-        user_list.append(UserResponse(**user.to_dict(), avatar_link=avatar_link))
-
-    return UserListResponse(users=user_list)
+    return UserListResponse(users=[user.to_dict() for user in users])
 
 
 @openrpc.method()

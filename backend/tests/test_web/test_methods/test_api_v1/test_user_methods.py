@@ -1,4 +1,4 @@
-from unittest.mock import ANY, patch
+from unittest.mock import ANY
 
 import pytest
 from common import enums
@@ -10,7 +10,7 @@ from common.enums import UserRoleEnum
 async def test_user_get_self__ok(public_api_v1, user: User):
     response = await public_api_v1(method='user_get_self')
     assert response['result'] == {
-        'avatar_link': None,
+        'avatar_link': 'http://test.com/avatar.png',
         'description': 'description of user',
         'mood_text': 'mood',
         'nickname': user.nickname,
@@ -22,32 +22,9 @@ async def test_user_get_self__ok(public_api_v1, user: User):
 async def test_user_get__ok(public_api_v1, user: User):
     response = await public_api_v1(method='user_get', user_id=user.user_id)
     assert response['result'] == {
-        'avatar_link': None,
+        'avatar_link': 'http://test.com/avatar.png',
         'description': 'description of user',
         'mood_text': 'mood',
-        'nickname': user.nickname,
-        'role': 'PLATFORM_OWNER',
-        'user_id': user.user_id
-    }
-
-
-@patch(
-    'common.clients.minio_cient.MinioClient.get_user_avatar',
-    new=lambda *args, **kwargs: 'http://test.com'
-)
-async def test_user_get__ok_have_avatar(jsonrpc_client, user_factory, mock_response):
-    avatar_name = 'custom.png'
-    user = await user_factory(avatar_name=avatar_name)
-
-    response = await jsonrpc_client(
-        url='/api/v1/public/jsonrpc',
-        method='user_get_self',
-        user=user
-    )
-    assert response['result'] == {
-        'avatar_link': 'http://test.com',
-        'description': 'description of user',
-        'mood_text': 'mood text of user',
         'nickname': user.nickname,
         'role': 'PLATFORM_OWNER',
         'user_id': user.user_id
@@ -74,7 +51,7 @@ async def test_user_search__ok(public_api_v1, user_factory):
     assert response['result'] == {
         'users': [
             {
-                'avatar_link': None,
+                'avatar_link': 'http://test.com/avatar.png',
                 'description': 'description of user',
                 'mood_text': 'mood text of user',
                 'nickname': 'custom_name',
@@ -168,7 +145,7 @@ async def test_user_set_role__error_wrong_main_role(public_api_v1, user: User, u
 
 async def test_user_edit__ok(public_api_v1, user: User):
     assert user.to_dict() == {
-        'avatar_name': ANY,
+        'avatar_link': 'http://test.com/avatar.png',
         'description': 'description of user',
         'mood_text': 'mood',
         'nickname': user.nickname,
@@ -186,7 +163,7 @@ async def test_user_edit__ok(public_api_v1, user: User):
 
     user = await User.get()
     assert user.to_dict() == {
-        'avatar_name': ANY,
+        'avatar_link': 'http://test.com/avatar.png',
         'description': 'description',
         'mood_text': '123321',
         'nickname': user.nickname,
@@ -211,7 +188,7 @@ async def test_user_subscribe__ok(public_api_v1, user: User, user_factory):
     assert count == len(subscribers) == 1
 
     assert subscribers[0].to_dict() == {
-        'avatar_name': None,
+        'avatar_link': 'http://test.com/avatar.png',
         'description': 'description of user',
         'mood_text': user.mood_text,
         'nickname': user.nickname,
@@ -283,13 +260,13 @@ async def test_user_subscribers_list__ok(public_api_v1, user: User, user_factory
         'result': {
             'total_subscribers_count': 2,
             'subscribers': [
-                {'avatar_link': None,
+                {'avatar_link': 'http://test.com/avatar.png',
                  'description': 'description of user',
                  'mood_text': 'mood text of user',
                  'nickname': '123',
                  'role': 'PLATFORM_OWNER',
                  'user_id': 'second'},
-                {'avatar_link': None,
+                {'avatar_link': 'http://test.com/avatar.png',
                  'description': 'description of user',
                  'mood_text': 'mood text of user',
                  'nickname': '321',

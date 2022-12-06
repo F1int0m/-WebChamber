@@ -104,7 +104,7 @@ def user_factory():
             expires_at=None,
             nickname=None,
             role=None,
-            avatar_name=None,
+            avatar_link=None,
             description=None,
             mood_text=None,
     ) -> User:
@@ -117,10 +117,9 @@ def user_factory():
             'role': role or UserRoleEnum.platform_owner,
             'description': description or 'description of user',
             'mood_text': mood_text or 'mood text of user',
+            'avatar_link': avatar_link or 'http://test.com/avatar.png'
         }
 
-        if avatar_name:
-            params.update({'avatar_name': avatar_name})
         user = await User.create(**params)
         return user
 

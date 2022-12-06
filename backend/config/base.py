@@ -17,8 +17,9 @@ DB_MAX_CONNECTIONS = 20
 MINIO_ENDPOINT = 'minio:9000'
 MINIO_ROOT_USER = 'webchamber'
 MINIO_ROOT_PASSWORD = 'changeme123'
-
 MINIO_BUCKET = 'webchamberbucket'
+
+MINIO_USER_ENDPOINT = 'http://localhost:9000'
 
 # Уровень логирования
 # Один из DEBUG, INFO, WARNING, ERROR, CRITICAL

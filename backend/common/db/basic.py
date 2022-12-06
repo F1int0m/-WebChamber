@@ -73,6 +73,9 @@ class BaseModel(Model):
         except DoesNotExist:
             raise errors.DoesNotExists(message=f'{cls.__name__} does not exists', data=cls.__name__)
 
+    async def refresh(self):
+        return await type(self).get(self._pk_expr())
+
 
 class EnumField(CharField):
     """

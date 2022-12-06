@@ -31,7 +31,7 @@ class User(BaseModel):
     mood_text = CharField(null=True)
     description = CharField(null=True)
 
-    avatar_name = CharField(help_text='Название файла аватарки юзера', null=True)
+    avatar_link = CharField(help_text='Ссылка на аватарку пользователя', null=True)
 
     access_token = CharField(help_text='Токен для доступа к вк')
     expires_at = DateTimeTZField(help_text='Время, до которого действует вк токен, то есть авторизация валидна')
@@ -98,3 +98,14 @@ class Notification(BaseModel):
 
     is_seen = BooleanField(help_text='Прочитано уведомление или нет', default=False)
     text = TextField(help_text='Текст уведомления')
+
+
+class Challenge(BaseModel):
+    challenge_id = CharField(primary_key=True, default=utils.uuid_str)
+    name = CharField()
+    description = CharField()
+    status = EnumField(enums.ChallengeStatusEnum)
+
+
+class Post(BaseModel):
+    post_id = CharField(primary_key=True, default=utils.uuid_str)

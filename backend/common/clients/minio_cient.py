@@ -37,5 +37,5 @@ class MinioClient:
         return url
 
     def get_user_avatar(self, user: User) -> Optional[str]:
-        if user.avatar_name:
-            return self.get_download_link(file_path=f'avatar/{user.user_id}/{user.avatar_name}')
+        if user.avatar_link:
+            return self.get_download_link(file_path=f'avatar/{user.user_id}/{user.avatar_link}')
