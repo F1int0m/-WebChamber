@@ -46,3 +46,24 @@ class Notification(BaseModel):
 
 class NotificationListResponse(BaseModel):
     notifications: List[Notification]
+
+
+class PostResponse(BaseModel):
+    post_id: str = Field(...)
+    challenge_id: Optional[str] = Field()
+
+    author_ids: List[str] = Field(...)
+
+    description: str = Field(...)
+
+    preview_link: Optional[AnyUrl] = Field(description='Ссылка на превью поста')
+    data_link: Optional[AnyUrl] = Field(description='Ссылка на содержимое поста')
+    type: enums.PostTypeEnum = Field(...)
+
+    tags_list: List[str] = Field(...)
+
+    likes_count: int = Field(...)
+
+
+class PostListResponse(BaseModel):
+    posts: List[PostResponse]

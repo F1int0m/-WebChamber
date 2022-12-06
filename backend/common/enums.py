@@ -34,7 +34,12 @@ class NotificationTypeEnum(str, Enum):
     like = 'LIKE'
 
 
-class ChallengeStatusEnum:
+class ChallengeStatusEnum(str, Enum):
     deleted = 'DELETED'
     active = 'ACTIVE'
     done = 'DONE'
+
+
+class PostTypeEnum(str, Enum):
+    platform = 'PLATFORM'
+    external = 'EXTERNAL'

@@ -8,7 +8,14 @@ import config
 import pytest
 from aioresponses import aioresponses
 from common import db, enums
-from common.db.models import CSRFToken, Subscription, User, UserNotification
+from common.db.models import (
+    CSRFToken,
+    Post,
+    PostAuthors,
+    Subscription,
+    User,
+    UserNotification,
+)
 from common.enums import UserRoleEnum
 from common.utils import create_default_nickname, uuid_str
 from server import init_app
@@ -85,6 +92,8 @@ def jsonrpc_client(test_app):
         result = await response.json()
 
         assert result['id'] == jsonrpc_request['id']
+        assert response.status == 200
+
         return result
 
     return _jsonrpc
@@ -158,5 +167,37 @@ def notification_factory():
         result = notifications_list or enums.NotificationTypeEnum
         for notification_type in result:
             await UserNotification.create(user_id=user_to_create, notification_type=notification_type)
+
+    return wrapped
+
+
+@pytest.fixture
+def post_factory(user: User):
+    async def wrapped(
+            challenge_id=None,
+            description=None,
+            preview_link=None,
+            data_link=None,
+            is_external_source=False,
+            tags_list=None,
+            author_ids=None
+    ) -> Post:
+        params = {
+            'preview_link': preview_link or 'http://test.com',
+            'data_link': data_link or 'http://test.com/data',
+            'is_external_source': is_external_source,
+            'tags_list': tags_list or ['tag'],
+            'description': description or 'description of user',
+        }
+        if challenge_id:
+            params.update({'challenge_id': challenge_id})
+
+        post = await Post.create(**params)
+
+        author_ids = author_ids or [user.user_id]
+        for user_id in author_ids:
+            await PostAuthors.create(post_id=post.post_id, user_id=user_id)
+
+        return post
 
     return wrapped
