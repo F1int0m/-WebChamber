@@ -1,6 +1,7 @@
 from io import BytesIO
 from typing import Union
 
+import config
 from aiohttp.web import HTTPOk
 from aiohttp_pydantic import PydanticView
 from aiohttp_pydantic.oas.typing import r200, r403
@@ -25,8 +26,9 @@ class AvatarImageHandler(PydanticView):
 
         file_data = BytesIO(await self.request.content.read())
 
-        await user.update_instance(avatar_name=file_name)
+        s3_filename = f'avatar/{user.user_id}/{file_name}'
+        minio_client.upload_file(file_data=file_data, file_name=s3_filename)
 
-        minio_client.upload_file(file_data=file_data, file_name=f'avatar/{user.user_id}/{file_name}')
+        await user.update_instance(avatar_link=f'{config.MINIO_USER_ENDPOINT}/{config.MINIO_BUCKET}/{s3_filename}')
 
         return HTTPOk()

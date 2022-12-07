@@ -7,15 +7,21 @@ class UserRoleEnum(str, Enum):
     admin = 'ADMIN'
     platform_owner = 'PLATFORM_OWNER'
 
-    def is_less_or_equal_than(self, value_to_compare: 'UserRoleEnum'):
-        enum_to_int = {
+    @property
+    def enum_to_int(self):
+        return {
             UserRoleEnum.restricted: 1,
             UserRoleEnum.active: 2,
             UserRoleEnum.admin: 3,
             UserRoleEnum.platform_owner: 4,
         }
-        self_int = enum_to_int[self]
-        right_int = enum_to_int[value_to_compare]
+
+    def can_be_changed_by(self, current_role: 'UserRoleEnum'):
+        if current_role == UserRoleEnum.restricted:
+            return False
+
+        self_int = self.enum_to_int[self]
+        right_int = self.enum_to_int[current_role]
 
         return self_int <= right_int
 
@@ -26,3 +32,14 @@ class NotificationTypeEnum(str, Enum):
     challenge = 'CHALLENGE'
     status = 'STATUS'
     like = 'LIKE'
+
+
+class ChallengeStatusEnum(str, Enum):
+    deleted = 'DELETED'
+    active = 'ACTIVE'
+    done = 'DONE'
+
+
+class PostTypeEnum(str, Enum):
+    platform = 'PLATFORM'
+    external = 'EXTERNAL'

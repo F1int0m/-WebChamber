@@ -5,15 +5,25 @@ from typing import List
 from aiohttp import web
 from common import context, enums, errors
 from common.db.basic import manager
-from common.db.models import Notification, Subscription, User, UserNotification
+from common.db.models import (
+    Notification,
+    Post,
+    PostAuthors,
+    Subscription,
+    User,
+    UserNotification,
+)
+from common.models.request_models import ExternalPostData
 from common.models.response_models import (
     NotificationListResponse,
     PingResponse,
+    PostListResponse,
+    PostResponse,
     SubscribersListResponse,
     UserListResponse,
     UserResponse,
 )
-from common.service import notification_service
+from common.service import like_service, notification_service, post_service
 from openrpc import RPCServer
 from web.handlers.jsonrpc_handler import route
 
@@ -37,20 +47,14 @@ async def ping() -> PingResponse:
 async def user_get_self() -> UserResponse:
     user = context.user.get()
 
-    minio_client = context.minio_client.get()
-    avatar_link = minio_client.get_user_avatar(user=user)
-
-    return UserResponse(**user.to_dict(), avatar_link=avatar_link)
+    return UserResponse(**user.to_dict())
 
 
 @openrpc.method()
 async def user_get(user_id: str) -> UserResponse:
     user = await User.get(user_id=user_id)
 
-    minio_client = context.minio_client.get()
-    avatar_link = minio_client.get_user_avatar(user=user)
-
-    return UserResponse(**user.to_dict(), avatar_link=avatar_link)
+    return UserResponse(**user.to_dict())
 
 
 @openrpc.method()
@@ -59,7 +63,7 @@ async def user_set_role(user_id: str, user_role: enums.UserRoleEnum) -> bool:
     current_user = context.user.get()
 
     if (
-            user_role.is_less_or_equal_than(current_user.role) and
+            user_role.can_be_changed_by(current_user.role) and
             current_user.role in [enums.UserRoleEnum.platform_owner, enums.UserRoleEnum.admin]
     ):
         await user.update_instance(role=user_role)
@@ -78,15 +82,8 @@ async def user_edit(nickname: str = None, mood_text: str = None, description: st
 @openrpc.method()
 async def user_search(nickname_substring: str, page=1, limit=100) -> UserListResponse:
     users = await manager.execute(User.select().where(User.nickname.contains(nickname_substring)).paginate(page, limit))
-    minio_client = context.minio_client.get()
 
-    user_list = []
-    for user in users:
-        avatar_link = minio_client.get_user_avatar(user=user)
-
-        user_list.append(UserResponse(**user.to_dict(), avatar_link=avatar_link))
-
-    return UserListResponse(users=user_list)
+    return UserListResponse(users=[user.to_dict() for user in users])
 
 
 @openrpc.method()
@@ -161,3 +158,88 @@ async def user_notification_list(only_unwatched: bool = False, page=1, limit=100
 @openrpc.method()
 async def notification_mark_watched(notification_ids: List[str]) -> bool:
     return await notification_service.mark_watched(notification_ids=notification_ids, user=context.user.get())
+
+
+# Посты
+@openrpc.method()
+async def post_create(
+        description: str,
+        tags_list: List[str] = None,
+        external_data: ExternalPostData = None,
+        additional_authors_ids: List[str] = None,
+        challenge_id: str = None
+
+) -> PostResponse:
+    user = context.user.get()
+    if user.role == enums.UserRoleEnum.restricted:
+        raise errors.AccessDenied
+
+    params = {
+        'challenge_id': challenge_id,
+        'description': description,
+        'tags_list': tags_list or []
+    }
+    if external_data:
+        params.update({
+            'preview_link': external_data.external_preview_link,
+            'data_link': external_data.external_data_link,
+            'type': enums.PostTypeEnum.external
+        })
+
+    post = await Post.create(**params)
+
+    author_ids = [user.user_id]
+    if additional_authors_ids:
+        author_ids.extend(additional_authors_ids)
+
+    for user_id in author_ids:
+        await PostAuthors.create(post_id=post.post_id, user_id=user_id)
+
+    return PostResponse(**post.to_dict(), author_ids=author_ids, likes_count=0)
+
+
+@openrpc.method()
+async def post_get(post_id: str) -> PostResponse:
+    post = await Post.get(post_id=post_id)
+
+    authors = await manager.execute(
+        PostAuthors.select(PostAuthors, User).join(User).where(PostAuthors.post_id == post_id)
+    )
+
+    author_ids = [author.user_id.user_id for author in authors]
+
+    return PostResponse(
+        **post.to_dict(),
+        author_ids=author_ids,
+        likes_count=await like_service.post_get_likes_count(post_id)
+    )
+
+
+@openrpc.method()
+async def post_like(post_id: str) -> bool:
+    return await like_service.post_like(post_id)
+
+
+@openrpc.method()
+async def post_unlike(post_id: str) -> bool:
+    return await like_service.post_unlike(post_id)
+
+
+@openrpc.method()
+async def post_filtered_list(
+        user_id: str = None,
+        challenge_id: str = None,
+        tags: List[str] = None,
+        post_type: enums.PostTypeEnum = None,
+        page: int = 1,
+        limit: int = 100
+) -> PostListResponse:
+    posts_raw = await post_service.get_posts_with_likes(
+        user_id=user_id,
+        challenge_id=challenge_id,
+        tags=tags,
+        post_type=post_type,
+        page=page,
+        limit=limit
+    )
+    return PostListResponse(posts=[post.to_dict(extra_attrs=['likes_count', 'author_ids']) for post in posts_raw])
