@@ -11,7 +11,6 @@ import Settings from "./content/pages/private/Settings";
 import Profile from "./content/pages/private/Profile";
 import ChamberHeader from "./content/components/navigation/ChamberHeader";
 import Login from "./content/pages/public/Login";
-import People from "./content/pages/private/chamber/People";
 
 import {
     ROOT_URL,
@@ -41,7 +40,6 @@ function App() {
                 <Route path={CHAMBER_CHALLENGES_URL} element={<Challenges />}/>
                 <Route path={CHAMBER_COLLABORATIONS_URL} element={<Collaborations />}/>
                 <Route path={CHAMBER_TOPS_URL} element={<Tops />}/>
-                <Route path={'/content/people'} element={<People />}/>
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>
