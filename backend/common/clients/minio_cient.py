@@ -1,8 +1,6 @@
 from datetime import timedelta
-from typing import Optional
 
 import config
-from common.db.models import User
 from minio import Minio
 
 
@@ -35,7 +33,3 @@ class MinioClient:
             expires=timedelta(hours=2),
         )
         return url
-
-    def get_user_avatar(self, user: User) -> Optional[str]:
-        if user.avatar_link:
-            return self.get_download_link(file_path=f'avatar/{user.user_id}/{user.avatar_link}')
