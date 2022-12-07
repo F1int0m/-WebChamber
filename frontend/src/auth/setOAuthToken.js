@@ -14,13 +14,11 @@ export async function SetOAuthToken() {
             'id': 0
         }
     */
-    try {
-        await fetch(FETCH_AUTH_URL, {
-            method: 'GET',
-            mode: 'no-cors',
-        }).then()
-    } catch (e) {
-        // TODO: надо узнать как тут красиво отлавливать 302 ответ с бека и адекватно редиректить пользователя
-        console.log(e)
-    }
+
+    await fetch(FETCH_AUTH_URL)
+        .then(response => {
+            response
+                .text()
+                .then((text) => console.log(document.location = text))
+        })
 }
