@@ -23,6 +23,7 @@ class AlreadyExists(BaseRPCError):
 class DoesNotExists(BaseRPCError):
     code = 4002
     message = "Object doesn't exists"
+    http_status = 404
 
 
 class AccessDenied(BaseRPCError):

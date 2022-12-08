@@ -42,7 +42,7 @@ async def test_app(aiohttp_client):
 
 
 @pytest.fixture
-def authorized_api_client(test_app, user: User) -> Callable:
+def authorized_api_client(test_app, user: User):
     async def _request(
             url: str,
             method: str = 'POST',
@@ -176,21 +176,27 @@ def post_factory(user: User):
     async def wrapped(
             challenge_id=None,
             description=None,
-            preview_link=None,
-            data_link=None,
             is_external_source=False,
             tags_list=None,
-            author_ids=None
+            author_ids=None,
+
+            fill_links=True,
+            preview_link=None,
+            data_link=None,
     ) -> Post:
         params = {
-            'preview_link': preview_link or 'http://test.com',
-            'data_link': data_link or 'http://test.com/data',
             'is_external_source': is_external_source,
             'tags_list': tags_list or ['tag'],
             'description': description or 'description of user',
         }
         if challenge_id:
             params.update({'challenge_id': challenge_id})
+
+        if fill_links:
+            params.update(
+                {'preview_link': preview_link or 'http://test.com',
+                 'data_link': data_link or 'http://test.com/data', }
+            )
 
         post = await Post.create(**params)
 
