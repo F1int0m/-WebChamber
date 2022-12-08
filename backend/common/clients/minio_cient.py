@@ -1,6 +1,7 @@
-from datetime import timedelta
+from io import BytesIO
 
 import config
+from aiohttp.web import Request
 from minio import Minio
 
 
@@ -27,10 +28,10 @@ class MinioClient:
         )
         return result
 
-    def get_download_link(self, file_path: str) -> str:
-        url = self.client.presigned_get_object(
-            bucket_name=self.bucket,
-            object_name=file_path,
-            expires=timedelta(hours=2),
-        )
-        return url
+    async def upload_file_from_request(self, request: Request, s3_filename: str):
+        file_data = BytesIO(await request.content.read())
+        content_type = request.headers.get('Content-Type', '')
+
+        self.upload_file(file_data=file_data, file_name=s3_filename, mime_type=content_type)
+
+        return f'{config.MINIO_USER_ENDPOINT}/{config.MINIO_BUCKET}/{s3_filename}'

@@ -16,6 +16,10 @@ class UserRoleEnum(str, Enum):
             UserRoleEnum.platform_owner: 4,
         }
 
+    @staticmethod
+    def admin_roles():
+        return [UserRoleEnum.admin, UserRoleEnum.platform_owner]
+
     def can_be_changed_by(self, current_role: 'UserRoleEnum'):
         if current_role == UserRoleEnum.restricted:
             return False
