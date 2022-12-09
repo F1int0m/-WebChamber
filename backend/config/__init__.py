@@ -1,5 +1,6 @@
 # flake8: noqa
 import ast
+import http.client as http_client
 import logging
 import os as os_package
 import sys
