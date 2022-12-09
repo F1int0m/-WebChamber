@@ -14,13 +14,14 @@ import Login from "./content/pages/public/Login";
 
 import {
     ROOT_URL,
-    CHAMBER_ROOT_URL,
-    CHAMBER_CHALLENGES_URL,
-    CHAMBER_COLLABORATIONS_URL,
-    CHAMBER_TOPS_URL,
+    CHAMBER_URL,
     FAVOURITES_URL,
     SETTINGS_URL,
     PROFILE_URL,
+    CHALLENGES_URL,
+    CASUAL_URL,
+    COLLABORATIONS_URL,
+    TOPS_URL,
     LOGIN_URL,
     NOT_FOUND_URL
 } from './env'
@@ -34,12 +35,15 @@ function App() {
             <Route path={ROOT_URL} element={<MainHeader />}>
                 <Route path={FAVOURITES_URL} element={<Favourites />}/>
                 <Route path={SETTINGS_URL} element={<Settings />}/>
-                <Route path={PROFILE_URL} element={<Profile />}/>
-            </Route>
-            <Route path={CHAMBER_ROOT_URL} element={<ChamberHeader />}>
-                <Route path={CHAMBER_CHALLENGES_URL} element={<Challenges />}/>
-                <Route path={CHAMBER_COLLABORATIONS_URL} element={<Collaborations />}/>
-                <Route path={CHAMBER_TOPS_URL} element={<Tops />}/>
+                <Route path={PROFILE_URL} element={<Profile />}>
+                    <Route path={CHALLENGES_URL} element={}/>
+                    <Route path={CASUAL_URL} element={}/>
+                </Route>
+                <Route path={CHAMBER_URL} element={<ChamberHeader />}>
+                    <Route path={CHALLENGES_URL} element={<Challenges />}/>
+                    <Route path={COLLABORATIONS_URL} element={<Collaborations />}/>
+                    <Route path={TOPS_URL} element={<Tops />}/>
+                </Route>
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>

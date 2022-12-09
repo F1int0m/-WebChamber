@@ -1,16 +1,25 @@
 import React from 'react';
 import {NavLink, Outlet} from "react-router-dom";
+import {
+    ROOT_URL,
+    LOGIN_URL,
+    PROFILE_URL,
+    SETTINGS_URL,
+    CHALLENGES_URL,
+    FAVOURITES_URL,
+    CHAMBER_URL
+} from "../../../env";
 
 const MainHeader = () => {
     return (
         <div>
             <header>
                 <h1>
-                    <NavLink to={'/content/challenges'}>Chamber</NavLink>
-                    <NavLink to={'/favourites'}>Избранное</NavLink>
-                    <NavLink to={'/settings'}>Настройки</NavLink>
-                    <NavLink to={'/profile/me'}>Профиль</NavLink>
-                    <NavLink to={'/login'}>Logout</NavLink>
+                    <NavLink to={ROOT_URL + CHAMBER_URL + CHALLENGES_URL}>Chamber</NavLink>
+                    <NavLink to={ROOT_URL + FAVOURITES_URL}>Избранное</NavLink>
+                    <NavLink to={ROOT_URL + SETTINGS_URL}>Настройки</NavLink>
+                    <NavLink to={ROOT_URL + PROFILE_URL + CHALLENGES_URL}>Профиль</NavLink>
+                    <NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>
                 </h1>
             </header>
             <Outlet/>
