@@ -11,7 +11,7 @@ export const PROFILE_URL = process.env.REACT_APP_PROFILE_URL;
 
 export const CASUAL_URL = process.env.REACT_APP_CASUAL_URL;
 export const CHALLENGES_URL = process.env.REACT_APP_CHALLENGES_URL;
-export const COLLABORATIONS_URL = process.env.REACT_APPCOLLABORATIONS_URL;
+export const COLLABORATIONS_URL = process.env.REACT_APP_COLLABORATIONS_URL;
 export const TOPS_URL = process.env.REACT_APP_TOPS_URL;
 
 export const LOGIN_URL = process.env.REACT_APP_LOGIN_URL;

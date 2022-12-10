@@ -1,17 +1,15 @@
 import React from 'react';
 import ProfileBox from "../../components/ProfileBox/ProfileBox";
 import {info} from "../../components/ProfileBox/data";
-import ContentFeed from "../../components/ContentFeed/ContentFeed";
 import {NavLink, Outlet} from "react-router-dom";
 import {
     ROOT_URL,
     PROFILE_URL,
     CHALLENGES_URL,
     CASUAL_URL
-} from "../../../env";
+} from "../../../system/env";
 
 const Profile = () => {
-
     return (
         <div>
             <h1>Профиль</h1>

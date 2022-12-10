@@ -24,7 +24,9 @@ import {
     TOPS_URL,
     LOGIN_URL,
     NOT_FOUND_URL
-} from './env'
+} from './system/env'
+import Content from "./content/components/Content/Content";
+import {profileCasualPosts, profileChallengesPosts} from "./content/components/ProfileBox/data";
 
 function App() {
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
@@ -36,8 +38,8 @@ function App() {
                 <Route path={FAVOURITES_URL} element={<Favourites />}/>
                 <Route path={SETTINGS_URL} element={<Settings />}/>
                 <Route path={PROFILE_URL} element={<Profile />}>
-                    <Route path={CHALLENGES_URL} element={}/>
-                    <Route path={CASUAL_URL} element={}/>
+                    <Route path={CHALLENGES_URL} element={<Content type={'challenges-profile'} data={profileChallengesPosts}/>}/>
+                    <Route path={CASUAL_URL} element={<Content type={'casual-profile'} data={profileCasualPosts}/>}/>
                 </Route>
                 <Route path={CHAMBER_URL} element={<ChamberHeader />}>
                     <Route path={CHALLENGES_URL} element={<Challenges />}/>

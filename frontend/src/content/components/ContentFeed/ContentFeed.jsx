@@ -1,10 +1,12 @@
 import React from 'react';
+import Search from "../Search/Search";
+import ContentGrid from "../ContentGrid/ContentGrid";
 
-const ContentFeed = ({data}) => {
+const ContentFeed = ({addContentButton, data}) => {
     return (
         <div>
-            // search / search + button
-            // ContentGrid
+            <Search addContentButton={addContentButton}/>
+            <ContentGrid data={data}/>
         </div>
     );
 };

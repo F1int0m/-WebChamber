@@ -8,7 +8,7 @@ import {
     CHALLENGES_URL,
     FAVOURITES_URL,
     CHAMBER_URL
-} from "../../../env";
+} from "../../../system/env";
 
 const MainHeader = () => {
     return (

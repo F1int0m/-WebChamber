@@ -6,7 +6,7 @@ import {
     COLLABORATIONS_URL,
     ROOT_URL,
     TOPS_URL
-} from "../../../env";
+} from "../../../system/env";
 
 const ChamberHeader = () => {
     return (
