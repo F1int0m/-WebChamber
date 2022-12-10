@@ -20,8 +20,8 @@ export const NOT_FOUND_URL = process.env.REACT_APP_NOT_FOUND_URL;
 
 
 // api
-export const HOST = 'http://localhost:3000/';
+export const HOST = process.env.REACT_APP_HOST;
 
-export const SERVER_HOST = 'http://localhost:80/';
+export const SERVER_HOST = process.env.REACT_APP_SERVER_HOST;
 
 export const FETCH_AUTH_URL = SERVER_HOST + process.env.REACT_APP_FETCH_AUTH_URL;
