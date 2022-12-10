@@ -48,7 +48,7 @@ async def test_code_response_handler__ok_good_response(test_app, mock_response, 
 
     user = await User.get(internal_token=token)
     assert user.to_dict() == {
-        'avatar_name': None,
+        'avatar_link': None,
         'description': None,
         'mood_text': None,
         'nickname': ANY,

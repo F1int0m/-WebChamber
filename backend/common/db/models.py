@@ -4,6 +4,7 @@ from typing import List, Tuple
 from common import enums, utils
 from common.db.basic import BaseModel, EnumField, manager
 from playhouse.postgres_ext import (
+    ArrayField,
     BooleanField,
     CharField,
     CompositeKey,
@@ -26,12 +27,12 @@ class User(BaseModel):
     """Таблица для хранения всей инфы о юзере """
 
     user_id = CharField(primary_key=True)
-    role = EnumField(enum=enums.UserRoleEnum, default=enums.UserRoleEnum.active)
+    role: enums.UserRoleEnum = EnumField(enum=enums.UserRoleEnum, default=enums.UserRoleEnum.active)
     nickname = CharField(unique=True)
     mood_text = CharField(null=True)
     description = CharField(null=True)
 
-    avatar_name = CharField(help_text='Название файла аватарки юзера', null=True)
+    avatar_link = CharField(help_text='Ссылка на аватарку пользователя', null=True)
 
     access_token = CharField(help_text='Токен для доступа к вк')
     expires_at = DateTimeTZField(help_text='Время, до которого действует вк токен, то есть авторизация валидна')
@@ -98,3 +99,56 @@ class Notification(BaseModel):
 
     is_seen = BooleanField(help_text='Прочитано уведомление или нет', default=False)
     text = TextField(help_text='Текст уведомления')
+
+
+class Challenge(BaseModel):
+    challenge_id = CharField(primary_key=True, default=utils.uuid_str)
+    name = CharField()
+    description = CharField()
+    status = EnumField(enums.ChallengeStatusEnum)
+
+    background_link = CharField(help_text='Ссылка на обложку челленджа', null=True)
+
+
+class Post(BaseModel):
+    post_id = CharField(primary_key=True, default=utils.uuid_str)
+    challenge_id = ForeignKeyField(Challenge, null=True, index=True)
+    description = CharField()
+
+    preview_link = CharField(help_text='Ссылка на превью поста', null=True)
+    data_link = CharField(help_text='Ссылка на контент в посте. Может быть любая ссылка на любой источник', null=True)
+    type = EnumField(enums.PostTypeEnum, default=enums.PostTypeEnum.platform)
+
+    tags_list = ArrayField(field_class=CharField)
+
+
+class PostAuthors(BaseModel):
+    post_id = ForeignKeyField(Post)
+    user_id = ForeignKeyField(User)
+
+    class Meta:
+        primary_key = CompositeKey('post_id', 'user_id')
+
+
+class UserLike(BaseModel):
+    main_user_id = ForeignKeyField(User)
+    user_who_like = ForeignKeyField(User)
+
+    class Meta:
+        primary_key = CompositeKey('main_user_id', 'user_who_like')
+
+
+class ChallengeLike(BaseModel):
+    challenge_id = ForeignKeyField(Challenge)
+    user_id = ForeignKeyField(User)
+
+    class Meta:
+        primary_key = CompositeKey('challenge_id', 'user_id')
+
+
+class PostLike(BaseModel):
+    post_id = ForeignKeyField(Post)
+    user_id = ForeignKeyField(User)
+
+    class Meta:
+        primary_key = CompositeKey('post_id', 'user_id')

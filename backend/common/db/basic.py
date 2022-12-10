@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from common import errors
 from peewee import DoesNotExist, IntegrityError
@@ -33,8 +34,8 @@ class BaseModel(Model):
     def __repr__(self):
         return f'{self.__class__.__name__}:{self._get_pk_value()}'
 
-    def to_dict(self):
-        return model_to_dict(self, recurse=False)
+    def to_dict(self, extra_attrs: List = None):
+        return model_to_dict(self, recurse=False, extra_attrs=extra_attrs)
 
     def is_changed(self, **kwargs):
         for name, value in kwargs.items():
@@ -63,8 +64,8 @@ class BaseModel(Model):
         async with manager.atomic():
             try:
                 return await manager.create(cls, **kwargs)
-            except IntegrityError:
-                raise errors.AlreadyExists(data=cls.__name__)
+            except IntegrityError as exc:
+                raise errors.AlreadyExists(data=cls.__name__, message=exc.orig.diag.message_detail)
 
     @classmethod
     async def get(cls, *args, **kwargs) -> 'BaseModel':
@@ -72,6 +73,9 @@ class BaseModel(Model):
             return await manager.get(cls, *args, **kwargs)
         except DoesNotExist:
             raise errors.DoesNotExists(message=f'{cls.__name__} does not exists', data=cls.__name__)
+
+    async def refresh(self):
+        return await type(self).get(self._pk_expr())
 
 
 class EnumField(CharField):

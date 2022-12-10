@@ -42,6 +42,8 @@ def init_app():
     oauth_app.router.add_route('GET', '/vk/code-response', vk_auth_handler.VKCodeResponse)
 
     file_app.router.add_route('POST', '/user-avatar/{file_name:.*}', file_handler.AvatarImageHandler)
+    file_app.router.add_route('POST', '/post-data/{post_id:.*}/{file_name:.*}', file_handler.PostDataHandler)
+    file_app.router.add_route('POST', '/post-preview/{post_id:.*}/{file_name:.*}', file_handler.PostPreviewHandler)
 
     application.add_subapp('/api', jsonrpc_api_v1)
     application.add_subapp('/auth', oauth_app)
