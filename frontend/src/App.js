@@ -1,16 +1,16 @@
 import './style/App.css';
 import {Routes, Route} from "react-router-dom";
 
-import MainHeader from "./content/components/navigation/MainHeader";
-import Challenges from "./content/pages/private/chamber/Challenges";
-import NotFound from "./content/pages/system/NotFound";
-import Collaborations from "./content/pages/private/chamber/Collaborations";
-import Tops from "./content/pages/private/chamber/Tops";
-import Favourites from "./content/pages/private/Favourites";
-import Settings from "./content/pages/private/Settings";
-import Profile from "./content/pages/private/Profile";
-import ChamberHeader from "./content/components/navigation/ChamberHeader";
-import Login from "./content/pages/public/Login";
+import MainHeader from "./view/components/navigation/MainHeader";
+import Challenges from "./view/pages/private/chamber/Challenges";
+import NotFound from "./view/pages/system/NotFound";
+import Collaborations from "./view/pages/private/chamber/Collaborations";
+import Tops from "./view/pages/private/chamber/Tops";
+import Favourites from "./view/pages/private/Favourites";
+import Settings from "./view/pages/private/Settings";
+import Profile from "./view/pages/private/Profile";
+import ChamberHeader from "./view/components/navigation/ChamberHeader";
+import Login from "./view/pages/public/Login";
 
 import {
     ROOT_URL,
@@ -25,8 +25,8 @@ import {
     LOGIN_URL,
     NOT_FOUND_URL
 } from './system/env'
-import Content from "./content/components/Content/Content";
-import {profileCasualPosts, profileChallengesPosts} from "./content/components/ProfileBox/data";
+import Content from "./view/components/Content/Content";
+import {profileCasualPosts, profileChallengesPosts} from "./view/components/ProfileBox/data";
 
 function App() {
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
@@ -39,7 +39,7 @@ function App() {
                 <Route path={SETTINGS_URL} element={<Settings />}/>
                 <Route path={PROFILE_URL} element={<Profile />}>
                     <Route path={CHALLENGES_URL} element={<Content type={'challenges-profile'} data={profileChallengesPosts}/>}/>
-                    <Route path={CASUAL_URL} element={<Content type={'casual-profile'} data={profileCasualPosts}/>}/>
+                    <Route path={CASUAL_URL} element={<Content type={'casual-profile-me'} data={profileCasualPosts}/>}/>
                 </Route>
                 <Route path={CHAMBER_URL} element={<ChamberHeader />}>
                     <Route path={CHALLENGES_URL} element={<Challenges />}/>

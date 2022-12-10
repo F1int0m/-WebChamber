@@ -1,0 +1,10 @@
+.box {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexContainer {
+    /*генерирует flex-контейнер уровня блока*/
+    display: -webkit-flex;
+    display: flex;
+}

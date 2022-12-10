@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentFeed from "../ContentFeed/ContentFeed";
+import ContentFeed from "./ContentFeed/ContentFeed";
 
 const Content = ({type, data}) => {
     return (

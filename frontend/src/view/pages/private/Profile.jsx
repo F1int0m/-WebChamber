@@ -12,8 +12,7 @@ import {
 const Profile = () => {
     return (
         <div>
-            <h1>Профиль</h1>
-            <ProfileBox isFull={false} info={info}/>
+            <ProfileBox isFull={true} info={info}/>
             <header>
                 <h1>
                     <NavLink to={ROOT_URL + PROFILE_URL + CHALLENGES_URL}>Челленджи</NavLink>

@@ -1,11 +1,12 @@
 import React from 'react';
+import styles from './post.module.scss'
 
 const Post = ({data}) => {
     let post;
     if (data.type === 'challenge') {
         post = <div>
             <p>{data.previewImage}</p>
-            <h3>{data.title}</h3>
+            <h3 className={styles.aaa}>{data.title}</h3>
             <p>{data.likes}</p>
         </div>
     } else if (data.type === 'one-author') {
@@ -29,7 +30,7 @@ const Post = ({data}) => {
         </div>
     }
     return (
-        <div>
+        <div className={styles.flexContainer}>
             {post}
         </div>
     );

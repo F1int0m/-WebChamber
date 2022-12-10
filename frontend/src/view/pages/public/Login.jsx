@@ -25,7 +25,7 @@ function Login() {
         const nt = FetchToken()
         setNewToken(nt)
         authCheck({type: 'LOGIN', payload: newToken})
-        navigate('/content/challenges');
+        navigate('/view/challenges');
     }
 
     return (

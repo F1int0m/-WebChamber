@@ -1,0 +1,13 @@
+.box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    width: 300px;
+}
+
+.flexContainer {
+    /*генерирует flex-контейнер уровня строки*/
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    border: 1px solid gray;
+}
