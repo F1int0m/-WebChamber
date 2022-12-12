@@ -1,4 +1,5 @@
 aiohttp==3.8.3
+aiohttp-middlewares==2.2.0
 aiohttp-pydantic==1.12.2
 aiopg==1.4.0
 aiosignal==1.2.0

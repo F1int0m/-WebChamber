@@ -4,6 +4,7 @@ from logging import getLogger
 
 import config
 from aiohttp import web
+from aiohttp_middlewares import cors_middleware
 from aiohttp_pydantic import oas
 from common import db
 from common.clients.minio_cient import MinioClient
@@ -29,7 +30,7 @@ async def prepare_app_to_stop(application):
 
 
 def init_app():
-    application = web.Application(middlewares=[set_context])
+    application = web.Application(middlewares=[set_context, cors_middleware(allow_all=True)])
 
     jsonrpc_api_v1 = web.Application(middlewares=[check_auth])
     oauth_app = web.Application(middlewares=[json_response])
