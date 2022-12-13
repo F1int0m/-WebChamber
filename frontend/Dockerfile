@@ -11,9 +11,6 @@ RUN npm install react-scripts@5.0.1 -g
 
 COPY . /app
 
-RUN rm -f /app/.env.*
-RUN echo printenv > /app/.env.production
-
 RUN npm run build
 
 
