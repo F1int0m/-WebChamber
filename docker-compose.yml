@@ -5,7 +5,9 @@ services:
   nginx:
     build:
       context: frontend/.
-      dockerfile: Dockerfile_nginx
+      dockerfile: Dockerfile
+    env_file:
+      - .env
     ports:
       - '80:80'
     depends_on:
@@ -18,36 +20,14 @@ services:
       dockerfile: Dockerfile
       args:
         - Test:true
-    environment:
-      PYTHONPATH: '.'
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASS: ${DB_PASS}
-      DB_HOST: ${DB_HOST}
-      VK_CLIENT_ID: ${VK_CLIENT_ID}
-      VK_CLIENT_SECRET: ${VK_CLIENT_SECRET}
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
-      MINIO_USER_ENDPOINT: ${MINIO_USER_ENDPOINT}
-      VK_REDIRECT_URI: ${VK_REDIRECT_URI}
-      FRONTEND_FINISH_AUTH_URL: ${FRONTEND_FINISH_AUTH_URL}
+    env_file:
+      - .env
     entrypoint: [ 'python', 'server.py' ]
     ports:
       - '8080:8080'
     depends_on:
       - postgres
       - minio
-
-  frontend:
-    build:
-      context: frontend/.
-      dockerfile: Dockerfile
-    entrypoint: ['npm', 'start']
-    ports:
-      - '3000:3000'
-    depends_on:
-      - app
-
 
   postgres:
     image: postgres:15

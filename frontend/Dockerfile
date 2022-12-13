@@ -1,20 +1,24 @@
-# pull official base image
-FROM node:16.13.0
+FROM node:16 as build
 
-# set working directory
-WORKDIR /frontend
+WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /frontend/node_modules/.bin:$PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
+COPY package.json /app/package.json
+
 RUN npm install
 RUN npm install react-scripts@5.0.1 -g
 
-# add app
-COPY . ./
+COPY . /app
 
-# start app
-CMD ["npm", "start"]
+RUN rm -f /app/.env.*
+RUN echo printenv > /app/.env.production
+
+RUN npm run build
+
+
+FROM nginx:1.21 AS start_prod
+COPY --from=build /app/build /usr/share/nginx/html
+COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+
+CMD ["nginx", "-g", "daemon off;"]
