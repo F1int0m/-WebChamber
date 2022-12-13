@@ -1,4 +1,4 @@
-import {FETCH_AUTH_URL} from "../env";
+import {FETCH_AUTH_URL} from "../system/env";
 
 export async function SetOAuthToken() {
     // Вызывает на беке установку токена в куки

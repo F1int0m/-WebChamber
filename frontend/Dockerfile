@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:16.13.0
+FROM node:16
 
 # set working directory
 WORKDIR /frontend
