@@ -1,0 +1,22 @@
+$accent_darker: #7B4DB1;
+
+.box {
+  width: 1156px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.nav {
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+
+  color: $accent_darker;
+
+  border-bottom: 1px solid $accent_darker;
+}

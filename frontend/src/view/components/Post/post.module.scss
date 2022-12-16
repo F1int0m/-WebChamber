@@ -1,13 +1,33 @@
+$text_primary: #565656;
+
 .box {
     display: flex;
     flex-direction: column;
-    border: 1px solid gray;
-    width: 300px;
+    align-items: flex-start;
 }
 
-.flexContainer {
-    /*генерирует flex-контейнер уровня строки*/
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    border: 1px solid gray;
+.postBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.media {
+    width: 275px;
+    height: 165px;
+    border-radius: 8px;
+}
+
+.text {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: $text_primary;
+}
+
+.likes {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
 }

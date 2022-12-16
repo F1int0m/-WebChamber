@@ -1,0 +1,13 @@
+.box {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    width: 1156px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+}

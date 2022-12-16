@@ -1,0 +1,40 @@
+$text_primary: #565656;
+
+.text {
+    color: $text_primary;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+.mainNavBox {
+  display: flex;
+  align-self: stretch;
+  flex-grow: 1;
+  order: 0;
+  align-items: center;
+  gap: 20px;
+}
+
+.additionalNavBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header {
+  width: 1156px;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

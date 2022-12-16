@@ -1,28 +1,20 @@
+$text_primary: #565656;
+$accent: #905DCC;
+
+
+
 .profileBox {
-  border: 1px solid blue;
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
+  width: 1156px;
+  padding: 0;
 }
 
 .avatarBox {
-  border: 1px solid green;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 20px 0px;
-
-  width: 150px;
-  height: 190px;
-
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
+  padding: 20px 0;
 }
 
 .mainInfoBox{
@@ -30,17 +22,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 20px 0px 20px 20px;
-  gap: 20px;
-
-  width: 1006px;
+  padding: 20px 0 20px 20px;
+  gap: 10px;
   height: 190px;
 
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 1;
   align-self: stretch;
   flex-grow: 1;
 }
@@ -48,16 +33,17 @@
 .row1 {
   display: flex;
   flex-direction: row;
-  align-items: center;
-  padding: 0px;
-
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 0;
 }
 
 .row2 {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0;
   gap: 20px;
 
 }
@@ -66,23 +52,58 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 8px 0px 0px;
+  padding: 8px 0 0;
   gap: 10px;
 
-}
-
-.nickname {
-  display: flex;
-  flex: 1 0 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
 }
 
 .statistics {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0;
   gap: 20px;
+}
+
+.header2 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.nickname {
+  display: flex;
+  justify-self: flex-start;
+
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  color: $text_primary;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 0 20px 20px;
+}
+
+.stats {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: $accent;
+}
+
+.description {
+  text-align: left;
+}
+
+.buttonsArea {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 12px;
 }

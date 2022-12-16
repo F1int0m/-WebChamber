@@ -1,24 +1,16 @@
 import React from 'react';
 import ProfileBox from "../../components/ProfileBox/ProfileBox";
 import {info} from "../../components/ProfileBox/data";
-import {NavLink, Outlet} from "react-router-dom";
-import {
-    ROOT_URL,
-    PROFILE_URL,
-    CHALLENGES_URL,
-    CASUAL_URL
-} from "../../../system/env";
+import {Outlet} from "react-router-dom";
+import style from '../setupPages.module.scss'
+import ContentHeader from "../../components/Content/ContentHeader/ContentHeader";
 
 const Profile = () => {
     return (
-        <div>
+        <div className={style.setupProfile}>
             <ProfileBox isFull={true} info={info}/>
-            <header>
-                <h1>
-                    <NavLink to={ROOT_URL + PROFILE_URL + CHALLENGES_URL}>Челленджи</NavLink>
-                    <NavLink to={ROOT_URL + PROFILE_URL + CASUAL_URL}>Все работы</NavLink>
-                </h1>
-            </header>
+            <ContentHeader />
+
             <Outlet />
         </div>
     );

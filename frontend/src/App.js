@@ -1,4 +1,4 @@
-import './style/App.css';
+import './view/style/App.css';
 import {Routes, Route} from "react-router-dom";
 
 import MainHeader from "./view/components/navigation/MainHeader";

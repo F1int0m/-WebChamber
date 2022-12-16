@@ -1,37 +1,25 @@
 import React from 'react';
 import styles from './post.module.scss'
 
+import PreviewImage1 from "../../../static/images/preview1.jpg"
+
+import InfoBlockChallenge from "./InfoBlockChallenge";
+import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
+import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
+
 const Post = ({data}) => {
-    let post;
+    let infoBlock;
     if (data.type === 'challenge') {
-        post = <div>
-            <p>{data.previewImage}</p>
-            <h3 className={styles.aaa}>{data.title}</h3>
-            <p>{data.likes}</p>
-        </div>
+        infoBlock = <InfoBlockChallenge data={data}/>
     } else if (data.type === 'one-author') {
-        post = <div>
-            <p>{data.previewImage}</p>
-            <p>{data.avatar}</p>
-            <h3>{data.authorNickname}</h3>
-            <p>{data.likes}</p>
-        </div>
+        infoBlock = <InfoBlockOneAuthor data={data}/>
     } else if (data.type === 'multiple-authors') {
-        post = <div>
-            <p>{data.previewImage}</p>
-            <h3>{data.title}</h3>
-            {data.authors.map(author =>
-                <div key={author.authorId}>
-                    <p>{author.avatar}</p>
-                    <p>{author.authorNickname}</p>
-                </div>
-            )}
-            <p>{data.likes}</p>
-        </div>
+        infoBlock = <InfoBlockMultipleAuthors data={data}/>
     }
     return (
-        <div className={styles.flexContainer}>
-            {post}
+        <div className={styles.postBox}>
+            <img src={PreviewImage1} alt={'preview'} className={styles.media}/>
+            {infoBlock}
         </div>
     );
 };
