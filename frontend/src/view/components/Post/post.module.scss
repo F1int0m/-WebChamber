@@ -4,6 +4,14 @@ $text_primary: #565656;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 4px 0;
+}
+
+.reverseBox {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 8px 0;
 }
 
 .postBox {

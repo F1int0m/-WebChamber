@@ -8,6 +8,8 @@ import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
 import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
 
 const Post = ({data}) => {
+    // TODO: вынести выбор инфо-блока в конфиг ContentFeed-а
+
     let infoBlock;
     if (data.type === 'challenge') {
         infoBlock = <InfoBlockChallenge data={data}/>

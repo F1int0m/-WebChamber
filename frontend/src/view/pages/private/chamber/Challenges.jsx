@@ -1,10 +1,10 @@
 import React from 'react';
+import ContentFeed from "../../../components/Content/ContentFeed/ContentFeed";
 
 const Challenges = () => {
     return (
         <div>
-            <h1>Chamber</h1>
-            <h2>Challenges</h2>
+            <h1>sdasd</h1>
         </div>
     );
 };

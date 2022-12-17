@@ -3,11 +3,10 @@ import {NavLink, Outlet} from "react-router-dom";
 
 import {
     ROOT_URL,
-    PROFILE_URL,
     SETTINGS_URL,
     CHALLENGES_URL,
     FAVOURITES_URL,
-    CHAMBER_URL
+    CHAMBER_URL, PROFILE_PAGE
 } from "../../../system/env";
 import style from './MainHeader.module.scss'
 
@@ -28,7 +27,7 @@ const MainHeader = () => {
                     <div className={style.additionalNavBox}>
                         <img src={NotificationsIcon} alt={'Notifications'}/>
                         <NavLink to={ROOT_URL + SETTINGS_URL}><img src={SettingsIcon} alt={'Settings'}/></NavLink>
-                        <NavLink to={ROOT_URL + PROFILE_URL + CHALLENGES_URL}><img src={ProfileIcon} alt={'Profile'}/></NavLink>
+                        <NavLink to={'/profile/challenges'}><img src={ProfileIcon} alt={'Profile'}/></NavLink>
                         {/*<NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>*/}
                     </div>
                 </header>

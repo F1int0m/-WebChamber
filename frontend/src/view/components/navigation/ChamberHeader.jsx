@@ -5,17 +5,18 @@ import {
     CHAMBER_URL,
     COLLABORATIONS_URL,
     ROOT_URL,
-    TOPS_URL
 } from "../../../system/env";
+
+import styles from '../../style/App.css'
 
 const ChamberHeader = () => {
     return (
-        <div>
+        <div className={styles.App}>
             <header>
                 <h2>
                     <NavLink to={ROOT_URL + CHAMBER_URL + CHALLENGES_URL}>Челленджи</NavLink>
-                    <NavLink to={ROOT_URL + CHAMBER_URL + COLLABORATIONS_URL}>Коллаборации</NavLink>
-                    <NavLink to={ROOT_URL + CHAMBER_URL + TOPS_URL}>Топ работ</NavLink>
+                    <NavLink to={ROOT_URL + CHAMBER_URL + COLLABORATIONS_URL}>Все работы</NavLink>
+                    <NavLink to={ROOT_URL + CHAMBER_URL + 'people'}>Люди</NavLink>
                 </h2>
             </header>
             <Outlet/>

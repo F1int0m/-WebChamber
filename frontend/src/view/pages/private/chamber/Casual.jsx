@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Collaborations = () => {
+const Casual = () => {
     return (
         <div>
             <h1>Chamber</h1>
@@ -9,4 +9,4 @@ const Collaborations = () => {
     );
 };
 
-export default Collaborations;
+export default Casual;

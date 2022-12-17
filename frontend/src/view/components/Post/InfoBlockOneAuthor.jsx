@@ -1,11 +1,20 @@
 import React from 'react';
 
+import styles from "./post.module.scss";
+import LikesIcon from "../../../static/icons/likes.svg";
+import AvatarImage from "../../../static/images/avatar.jpg";
+
 const InfoBlockOneAuthor = ({data}) => {
     return (
-        <div>
-            <p>{data.avatar}</p>
-            <h3>{data.authorNickname}</h3>
-            <p>{data.likes}</p>
+        <div className={styles.reverseBox}>
+            <img src={AvatarImage} alt={'avatar'}/>
+            <div className={styles.box}>
+                <span className={styles.text}>{data.authorNickname}</span>
+                <div className={styles.likes}>
+                    <span className={styles.text}>{data.likes}</span>
+                    <span><img src={LikesIcon} alt={'Likes'}/></span>
+                </div>
+            </div>
         </div>
     );
 };

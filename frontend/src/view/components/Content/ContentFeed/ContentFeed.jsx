@@ -1,13 +1,13 @@
 import React from 'react';
 import Search from "../../Search/Search";
 import ContentGrid from "../ContentGrid/ContentGrid";
-import ContentHeader from "../ContentHeader/ContentHeader";
+import setupContentFeed from "../setupContentFeed";
 
-const ContentFeed = ({addContentButton, data}) => {
+const ContentFeed = ({pageType, data}) => {
+    const config = setupContentFeed(pageType)
     return (
         <div>
-            <ContentHeader />
-            <Search addContentButton={addContentButton}/>
+            <Search addContentButton={config.showButtons.addContent}/>
             <ContentGrid data={data}/>
         </div>
     );

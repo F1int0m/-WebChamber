@@ -7,8 +7,8 @@ const InfoBlockChallenge = ({data}) => {
         <div className={styles.box}>
             <span className={styles.text}>{data.title}</span>
             <div className={styles.likes}>
-                <span><img src={LikesIcon} alt={'Likes'}/></span>
                 <span className={styles.text}>{data.likes}</span>
+                <span><img src={LikesIcon} alt={'Likes'}/></span>
             </div>
         </div>
     );

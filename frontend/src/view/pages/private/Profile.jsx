@@ -9,9 +9,8 @@ const Profile = () => {
     return (
         <div className={style.setupProfile}>
             <ProfileBox isFull={true} info={info}/>
-            <ContentHeader />
-
-            <Outlet />
+            <ContentHeader page={'profile'}/>
+            <Outlet/>
         </div>
     );
 };

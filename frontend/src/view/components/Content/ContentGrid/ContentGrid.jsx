@@ -3,7 +3,6 @@ import Post from "../../Post/Post";
 import styles from './grid.module.scss'
 
 const ContentGrid = ({data}) => {
-    console.log(data)
     return (
         <div className={styles.flexContainer}>
             {data.map(postInfo =>

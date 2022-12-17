@@ -7,7 +7,20 @@ export const FAVOURITES_URL = process.env.REACT_APP_FAVOURITES_URL;
 
 export const SETTINGS_URL = process.env.REACT_APP_SETTINGS_URL;
 
-export const PROFILE_URL = process.env.REACT_APP_PROFILE_URL;
+export const PROFILE_PAGE = {
+    "URL": process.env.REACT_APP_PROFILE_URL,
+    "CHALLENGES": {
+        "URL": process.env.REACT_APP_CHALLENGES_URL,
+        "TYPE": "challenges-profile"
+    },
+    "CASUAL": {
+        "URL": process.env.REACT_APP_CASUAL_URL,
+        "TYPE": {
+            "ME": "casual-profile-me",
+            "NOT_ME": "casual-profile"
+        }
+    }
+};
 
 export const CASUAL_URL = process.env.REACT_APP_CASUAL_URL;
 export const CHALLENGES_URL = process.env.REACT_APP_CHALLENGES_URL;
