@@ -6,7 +6,8 @@ import {
     SETTINGS_URL,
     CHALLENGES_URL,
     FAVOURITES_URL,
-    CHAMBER_URL, PROFILE_PAGE
+    CHAMBER_URL,
+    LOGIN_URL
 } from "../../../system/env";
 import style from './MainHeader.module.scss'
 
@@ -28,7 +29,7 @@ const MainHeader = () => {
                         <img src={NotificationsIcon} alt={'Notifications'}/>
                         <NavLink to={ROOT_URL + SETTINGS_URL}><img src={SettingsIcon} alt={'Settings'}/></NavLink>
                         <NavLink to={'/profile/challenges'}><img src={ProfileIcon} alt={'Profile'}/></NavLink>
-                        {/*<NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>*/}
+                        <NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>
                     </div>
                 </header>
             </div>

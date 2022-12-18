@@ -1,0 +1,14 @@
+{
+  "URL": "profile/",
+  "CHALLENGES": {
+    "URL": "challenges",
+    "TYPE": "challenges-profile"
+  },
+  "CASUAL": {
+    "URL": "casual",
+    "TYPE": {
+      "ME": "casual-profile-me",
+      "NOT_ME": "casual-profile"
+    }
+  }
+}

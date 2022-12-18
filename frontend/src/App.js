@@ -2,14 +2,10 @@ import './view/style/App.css';
 import {Routes, Route} from "react-router-dom";
 
 import MainHeader from "./view/components/navigation/MainHeader";
-import Challenges from "./view/pages/private/chamber/Challenges";
 import NotFound from "./view/pages/system/NotFound";
-import Casual from "./view/pages/private/chamber/Casual";
-import Tops from "./view/pages/private/chamber/Tops";
 import Favourites from "./view/pages/private/Favourites";
 import Settings from "./view/pages/private/Settings";
 import Profile from "./view/pages/private/Profile";
-import ChamberHeader from "./view/components/navigation/ChamberHeader";
 import Login from "./view/pages/public/Login";
 
 import {
@@ -19,13 +15,11 @@ import {
     SETTINGS_URL,
     PROFILE_PAGE,
     CHALLENGES_URL,
-    COLLABORATIONS_URL,
-    TOPS_URL,
     LOGIN_URL,
     NOT_FOUND_URL
 } from './system/env'
 import ContentFeed from "./view/components/Content/ContentFeed/ContentFeed";
-import {profileCasualPosts, profileChallengesPosts} from "./view/components/ProfileBox/data";
+import {profileCasualPosts, profileChallengesPosts} from "./system/fakeData";
 import People from "./view/pages/private/chamber/People";
 import Chamber from "./view/pages/private/Chamber";
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileBox from "../../../components/ProfileBox/ProfileBox";
-import {info} from "../../../components/ProfileBox/data";
+import {info} from "../../../../system/fakeData";
 
 const People = () => {
     // TODO: внедрить в ContentFeed

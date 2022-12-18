@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileBox from "../../components/ProfileBox/ProfileBox";
-import {info} from "../../components/ProfileBox/data";
+import {info} from "../../../system/fakeData";
 import {Outlet} from "react-router-dom";
 import style from '../setupPages.module.scss'
 import ContentHeader from "../../components/Content/ContentHeader/ContentHeader";
