@@ -54,13 +54,16 @@ async def json_response(request: web.Request, handler):
 
 @web.middleware
 async def check_auth(request: web.Request, handler):
-    if user_token := request.cookies.get(config.TOKEN_COOKIE_NAME):
+    if user_token := request.headers.get(config.AUTH_HEADER_NAME):
         try:
             user = await User.get_by_token(internal_access_token=user_token)
         except errors.DoesNotExists:
+            log.info('Wrong token')
             return web.HTTPForbidden()
 
         context.user.set(user)
         return await handler(request)
+
+    log.info('No header')
 
     return web.HTTPForbidden()

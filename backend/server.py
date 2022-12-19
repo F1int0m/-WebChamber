@@ -30,7 +30,7 @@ async def prepare_app_to_stop(application):
 
 
 def init_app():
-    application = web.Application(middlewares=[set_context, cors_middleware(allow_all=True)])
+    application = web.Application(middlewares=[set_context, cors_middleware(allow_all=True, allow_headers=['*'])])
 
     jsonrpc_api_v1 = web.Application(middlewares=[check_auth])
     oauth_app = web.Application(middlewares=[json_response])

@@ -49,7 +49,7 @@ def authorized_api_client(test_app, user: User):
             cookies: dict = None,
             **kwargs
     ) -> aiohttp.ClientResponse:
-        cookies = cookies or {config.TOKEN_COOKIE_NAME: user.internal_token}
+        cookies = cookies or {config.AUTH_HEADER_NAME: user.internal_token}
 
         response: aiohttp.ClientResponse = await test_app.request(
             method=method, path=url, cookies=cookies, **kwargs
@@ -84,7 +84,7 @@ def jsonrpc_client(test_app):
         }
         cookies = cookies or {}
         if user:
-            cookies.update({config.TOKEN_COOKIE_NAME: user.internal_token})
+            cookies.update({config.AUTH_HEADER_NAME: user.internal_token})
 
         response = await test_app.post(
             path=url, json=jsonrpc_request, cookies=cookies
