@@ -12,9 +12,9 @@ async def test_ping__ok(public_api_v1):
 
 
 @pytest.mark.parametrize('cookies', [
-    {config.TOKEN_COOKIE_NAME: None},
-    {config.TOKEN_COOKIE_NAME: ''},
-    {config.TOKEN_COOKIE_NAME: 'any other token'},
+    {config.AUTH_HEADER_NAME: None},
+    {config.AUTH_HEADER_NAME: ''},
+    {config.AUTH_HEADER_NAME: 'any other token'},
     {},
 ])
 async def test_ping__error_unauthorized(test_app, cookies):
