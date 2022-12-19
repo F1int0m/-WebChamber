@@ -1,7 +1,7 @@
 import React from 'react';
 //import {useNavigate} from "react-router-dom";
 //import {useDispatch, useSelector} from "react-redux";
-import {SetOAuthToken} from "../../../auth/setOAuthToken";
+import {SetOAuthToken} from "../../../api/auth/setOAuthToken";
 
 function Login() {
     // const navigate = useNavigate();

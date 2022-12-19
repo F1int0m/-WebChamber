@@ -1,5 +1,5 @@
 import {createStore} from "redux";
-import {SetOAuthToken} from "../auth/setOAuthToken";
+import {SetOAuthToken} from "../api/auth/setOAuthToken";
 
 const InitState = () => {
     // TODO: Нам нужно узнавать id юзера сразу после авторизации? Если да,

@@ -28,3 +28,4 @@ export const NOT_FOUND_URL = '*';
 // api
 export const SERVER_HOST = process.env.REACT_APP_SERVER_HOST;
 export const AUTH_URL = process.env.REACT_APP_AUTH_URL;
+export const JSONRPC_URL = process.env.REACT_APP_JSONRPC_URL
