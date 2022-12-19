@@ -1,20 +1,16 @@
 // pages
-export const ROOT_URL = process.env.REACT_APP_ROOT_URL;
-
-export const CHAMBER_URL = process.env.REACT_APP_CHAMBER_URL;
-
-export const FAVOURITES_URL = process.env.REACT_APP_FAVOURITES_URL;
-
-export const SETTINGS_URL = process.env.REACT_APP_SETTINGS_URL;
-
+export const ROOT_URL = '/';
+export const CHAMBER_URL = 'chamber/';
+export const FAVOURITES_URL = 'favourites';
+export const SETTINGS_URL = 'settings';
 export const PROFILE_PAGE = {
-    "URL": process.env.REACT_APP_PROFILE_URL,
+    "URL": 'profile/',
     "CHALLENGES": {
-        "URL": process.env.REACT_APP_CHALLENGES_URL,
+        "URL": 'challenges',
         "TYPE": "challenges-profile"
     },
     "CASUAL": {
-        "URL": process.env.REACT_APP_CASUAL_URL,
+        "URL": 'casual',
         "TYPE": {
             "ME": "casual-profile-me",
             "NOT_ME": "casual-profile"
@@ -22,15 +18,12 @@ export const PROFILE_PAGE = {
     }
 };
 
-export const CASUAL_URL = process.env.REACT_APP_CASUAL_URL;
-export const CHALLENGES_URL = process.env.REACT_APP_CHALLENGES_URL;
-export const COLLABORATIONS_URL = process.env.REACT_APP_COLLABORATIONS_URL;
-export const TOPS_URL = process.env.REACT_APP_TOPS_URL;
-
-export const LOGIN_URL = process.env.REACT_APP_LOGIN_URL;
-
-export const NOT_FOUND_URL = process.env.REACT_APP_NOT_FOUND_URL;
-
+export const CASUAL_URL = 'casual';
+export const CHALLENGES_URL = 'challenges';
+export const COLLABORATIONS_URL = 'collaborations';
+export const PEOPLE_URL = 'people';
+export const LOGIN_URL = 'login';
+export const NOT_FOUND_URL = '*';
 
 // api
 export const SERVER_HOST = process.env.REACT_APP_SERVER_HOST;

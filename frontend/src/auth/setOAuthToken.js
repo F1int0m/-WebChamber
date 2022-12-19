@@ -1,19 +1,7 @@
 import {AUTH_URL} from "../system/env";
 
 export async function SetOAuthToken() {
-    // Вызывает на беке установку токена в куки
-    /*
-    Шаблон для обычных post-fetch методов
-    headers: {
-            'Content-Type': 'application/json'
-        }
-    body: JSON.stringify({
-            'jsonrpc': '2.0',
-            'method': 'ping',
-            'params': [],
-            'id': 0
-        }
-    */
+    console.log('Go to auth on url=' + AUTH_URL)
 
     await fetch(AUTH_URL)
         .then(response => {

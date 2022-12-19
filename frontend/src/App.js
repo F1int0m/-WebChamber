@@ -15,6 +15,8 @@ import {
     SETTINGS_URL,
     PROFILE_PAGE,
     CHALLENGES_URL,
+    CASUAL_URL,
+    PEOPLE_URL,
     LOGIN_URL,
     NOT_FOUND_URL
 } from './system/env'
@@ -53,10 +55,10 @@ function App() {
                     <Route path={CHALLENGES_URL} element={
                         <ContentFeed pageType={'challenges-chamber'} data={profileCasualPosts}/>
                     }/>
-                    <Route path={'casual'} element={
+                    <Route path={CASUAL_URL} element={
                         <ContentFeed pageType={'casual-chamber'} data={profileCasualPosts}/>
                     }/>
-                    <Route path={'people'} element={
+                    <Route path={PEOPLE_URL} element={
                         <People />
                     }/>
                 </Route>
