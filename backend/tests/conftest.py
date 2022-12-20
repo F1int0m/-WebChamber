@@ -75,19 +75,19 @@ async def clean_db(init_db):
 
 @pytest.fixture
 def jsonrpc_client(test_app):
-    async def _jsonrpc(method: str, *, url: str = None, user: User = None, cookies=None, **params) -> Dict:
+    async def _jsonrpc(method: str, *, url: str = None, user: User = None, headers=None, **params) -> Dict:
         jsonrpc_request = {
             'jsonrpc': '2.0',
             'id': 2,
             'method': method,
             'params': params or {},
         }
-        cookies = cookies or {}
+        headers = headers or {}
         if user:
-            cookies.update({config.AUTH_HEADER_NAME: user.internal_token})
+            headers.update({config.AUTH_HEADER_NAME: user.internal_token})
 
         response = await test_app.post(
-            path=url, json=jsonrpc_request, cookies=cookies
+            path=url, json=jsonrpc_request, headers=headers
         )
         result = await response.json()
 

@@ -64,6 +64,8 @@ class PostResponse(BaseModel):
 
     likes_count: int = Field(...)
 
+    is_reviewed: bool = Field(...)
+
 
 class PostListResponse(BaseModel):
     posts: List[PostResponse]

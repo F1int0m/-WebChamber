@@ -25,6 +25,7 @@ async def test_post_create__ok(public_api_v1, user: User, user_factory):
         'likes_count': 0,
         'post_id': ANY,
         'preview_link': None,
+        'is_reviewed': False,
         'tags_list': ['test', 'new_tag']
     }
 
@@ -94,6 +95,7 @@ async def test_post_get__ok(public_api_v1, post_factory, user: User):
         'type': 'PLATFORM',
         'likes_count': 0,
         'post_id': post.post_id,
+        'is_reviewed': False,
         'preview_link': 'http://test.com',
         'tags_list': ['tag']
     }
@@ -137,6 +139,7 @@ async def test_post_like__ok(public_api_v1, post_factory, user: User, user_facto
         'type': 'PLATFORM',
         'likes_count': 5,
         'post_id': post.post_id,
+        'is_reviewed': False,
         'preview_link': 'http://test.com',
         'tags_list': ['tag']
     }
@@ -169,6 +172,7 @@ async def test_post_unlike(public_api_v1, post_factory, user: User):
         'type': 'PLATFORM',
         'likes_count': 0,
         'post_id': post.post_id,
+        'is_reviewed': False,
         'preview_link': 'http://test.com',
         'tags_list': ['tag']
     }
@@ -188,6 +192,7 @@ async def test_post_filtered_list__ok_all_existing_post(public_api_v1, post_fact
                 'description': 'description of user',
                 'likes_count': 0,
                 'post_id': ANY,
+                'is_reviewed': False,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag'],
                 'type': 'PLATFORM'},
@@ -213,6 +218,7 @@ async def test_post_filtered_list__ok_filters_by_user(public_api_v1, post_factor
                 'description': 'collab post',
                 'likes_count': 0,
                 'post_id': post_2.post_id,
+                'is_reviewed': False,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag'],
                 'type': 'PLATFORM'
@@ -224,6 +230,7 @@ async def test_post_filtered_list__ok_filters_by_user(public_api_v1, post_factor
                 'description': 'solo post',
                 'likes_count': 0,
                 'post_id': post_1.post_id,
+                'is_reviewed': False,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag'],
                 'type': 'PLATFORM'
@@ -248,9 +255,10 @@ async def test_post_filtered_list__ok_filters_by_tags(public_api_v1, post_factor
                 'data_link': 'http://test.com/data',
                 'description': 'description of user',
                 'likes_count': 0,
-                'post_id': post_2.post_id,
+                'post_id': post_1.post_id,
+                'is_reviewed': False,
                 'preview_link': 'http://test.com',
-                'tags_list': ['tag1', 'tag2'],
+                'tags_list': ['tag1'],
                 'type': 'PLATFORM'
             },
             {
@@ -259,10 +267,12 @@ async def test_post_filtered_list__ok_filters_by_tags(public_api_v1, post_factor
                 'data_link': 'http://test.com/data',
                 'description': 'description of user',
                 'likes_count': 0,
-                'post_id': post_1.post_id,
+                'post_id': post_2.post_id,
+                'is_reviewed': False,
                 'preview_link': 'http://test.com',
-                'tags_list': ['tag1'],
+                'tags_list': ['tag1', 'tag2'],
                 'type': 'PLATFORM'
-            }
+            },
+
         ]
     }

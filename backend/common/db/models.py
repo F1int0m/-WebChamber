@@ -34,7 +34,6 @@ class User(BaseModel):
 
     avatar_link = CharField(help_text='Ссылка на аватарку пользователя', null=True)
 
-    access_token = CharField(help_text='Токен для доступа к вк')
     expires_at = DateTimeTZField(help_text='Время, до которого действует вк токен, то есть авторизация валидна')
 
     internal_token = CharField(
@@ -46,11 +45,10 @@ class User(BaseModel):
     async def get_by_token(internal_access_token: str):
         return await User.get(internal_token=internal_access_token)
 
-    def to_dict(self):
+    def to_dict(self, extra_attrs: List = None):
         user_dict = super().to_dict()
 
         user_dict.pop('internal_token')
-        user_dict.pop('access_token')
         user_dict.pop('expires_at')
 
         return user_dict
@@ -120,6 +118,8 @@ class Post(BaseModel):
     type = EnumField(enums.PostTypeEnum, default=enums.PostTypeEnum.platform)
 
     tags_list = ArrayField(field_class=CharField)
+
+    is_reviewed = BooleanField(default=False)
 
 
 class PostAuthors(BaseModel):
