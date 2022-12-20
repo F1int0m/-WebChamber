@@ -243,3 +243,18 @@ async def post_filtered_list(
         limit=limit
     )
     return PostListResponse(posts=[post.to_dict(extra_attrs=['likes_count', 'author_ids']) for post in posts_raw])
+
+
+@openrpc.method()
+async def post_set_reviewed_status(post_id: str, status: bool) -> PostResponse:
+    user = context.user.get()
+    if user.role not in enums.UserRoleEnum.admin_roles():
+        raise errors.AccessDenied
+
+    post = await Post.get(post_id=post_id)
+
+    await post.update_instance(is_reviewed=status)
+
+    post = await post_service.get_single_post_full(post_id=post_id)
+
+    return PostResponse(**post.to_dict(extra_attrs=['likes_count', 'author_ids']))

@@ -276,3 +276,50 @@ async def test_post_filtered_list__ok_filters_by_tags(public_api_v1, post_factor
 
         ]
     }
+
+
+@mark.parametrize('status', [True, False])
+@mark.parametrize('user_role', enums.UserRoleEnum.admin_roles())
+async def test_post_set_reviewed_status__ok(public_api_v1, post_factory, user: User, status, user_role):
+    post = await post_factory()
+    await user.update_instance(role=user_role)
+
+    response = await public_api_v1(
+        'post_set_reviewed_status',
+        post_id=post.post_id,
+        status=status
+    )
+    assert response['result'] == {
+        'author_ids': [user.user_id],
+        'challenge_id': None,
+        'data_link': 'http://test.com/data',
+        'description': 'description of user',
+        'type': 'PLATFORM',
+        'likes_count': 0,
+        'post_id': post.post_id,
+        'is_reviewed': status,
+        'preview_link': 'http://test.com',
+        'tags_list': ['tag']
+    }
+    assert (await post.refresh()).to_dict() == {
+        'challenge_id': None,
+        'data_link': 'http://test.com/data',
+        'description': 'description of user',
+        'is_reviewed': status,
+        'post_id': post.post_id,
+        'preview_link': 'http://test.com',
+        'tags_list': ['tag'],
+        'type': 'PLATFORM'}
+
+
+@mark.parametrize('user_role', [enums.UserRoleEnum.active, enums.UserRoleEnum.restricted])
+async def test_post_set_reviewed_status__error_wrong_role(public_api_v1, post_factory, user: User, user_role):
+    post = await post_factory()
+    await user.update_instance(role=user_role)
+
+    response = await public_api_v1(
+        'post_set_reviewed_status',
+        post_id=post.post_id,
+        status=True
+    )
+    assert response['error'] == {'code': 4003, 'data': None, 'message': 'Access denied'}
