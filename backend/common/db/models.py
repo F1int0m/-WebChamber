@@ -101,11 +101,14 @@ class Notification(BaseModel):
 
 class Challenge(BaseModel):
     challenge_id = CharField(primary_key=True, default=utils.uuid_str)
+
     name = CharField()
     description = CharField()
-    status = EnumField(enums.ChallengeStatusEnum)
+    create_datetime = DateTimeTZField(default=utils.now_utc)
+    end_datetime = DateTimeTZField()
+    status = EnumField(enum=enums.ChallengeStatusEnum, default=enums.ChallengeStatusEnum.wait_for_review)
 
-    background_link = CharField(help_text='Ссылка на обложку челленджа', null=True)
+    background_link = CharField(null=True, help_text='Ссылка на обложку челленджа')
 
 
 class Post(BaseModel):

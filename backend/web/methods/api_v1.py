@@ -1,3 +1,4 @@
+import datetime
 from functools import partial
 from logging import getLogger
 from typing import List
@@ -6,6 +7,7 @@ from aiohttp import web
 from common import context, enums, errors
 from common.db.basic import manager
 from common.db.models import (
+    Challenge,
     Notification,
     Post,
     PostAuthors,
@@ -15,6 +17,7 @@ from common.db.models import (
 )
 from common.models.request_models import ExternalPostData
 from common.models.response_models import (
+    ChallengeResponse,
     NotificationListResponse,
     PingResponse,
     PostListResponse,
@@ -23,7 +26,12 @@ from common.models.response_models import (
     UserListResponse,
     UserResponse,
 )
-from common.service import like_service, notification_service, post_service
+from common.service import (
+    challenge_service,
+    like_service,
+    notification_service,
+    post_service,
+)
 from openrpc import RPCServer
 from web.handlers.jsonrpc_handler import route
 
@@ -258,3 +266,41 @@ async def post_set_reviewed_status(post_id: str, status: bool) -> PostResponse:
     post = await post_service.get_single_post_full(post_id=post_id)
 
     return PostResponse(**post.to_dict(extra_attrs=['likes_count', 'author_ids']))
+
+
+@openrpc.method()
+async def challenge_create(
+        name: str,
+        description: str,
+        end_datetime: datetime.datetime
+) -> ChallengeResponse:
+    user = context.user.get()
+    if user.role not in enums.UserRoleEnum.admin_roles():
+        raise errors.AccessDenied
+
+    challenge = await Challenge.create(
+        name=name,
+        description=description,
+        end_datetime=end_datetime
+    )
+
+    response_challenge = await challenge_service.get_challenges_full(challenge_id=challenge.challenge_id)
+    return ChallengeResponse(**response_challenge.to_dict(extra_attrs=['total_likes']))
+
+
+@openrpc.method()
+async def challenge_get(challenge_id: str) -> ChallengeResponse:
+    challenge = await challenge_service.get_challenges_full(challenge_id=challenge_id)
+
+    return ChallengeResponse(**challenge.to_dict(extra_attrs=['total_likes']))
+
+
+@openrpc.method()
+async def challenge_filtered_list(
+        create_date: datetime.date = None,
+        end_date: datetime.date = None,
+        status: enums.ChallengeStatusEnum = None,
+        page: int = 1,
+        limit: int = 100
+):
+    pass

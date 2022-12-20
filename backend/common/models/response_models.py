@@ -1,3 +1,4 @@
+import datetime
 from typing import List, Optional
 
 from common import enums
@@ -69,3 +70,17 @@ class PostResponse(BaseModel):
 
 class PostListResponse(BaseModel):
     posts: List[PostResponse]
+
+
+class ChallengeResponse(BaseModel):
+    challenge_id: str = Field(...)
+
+    name: str = Field(...)
+    description: str = Field(...)
+    create_datetime: datetime.datetime = Field(..., example='')  # todo дописать пример даты
+    end_datetime: datetime.datetime = Field(..., example='')
+    status: enums.ChallengeStatusEnum = Field(...)
+
+    background_link: Optional[AnyUrl] = Field()
+
+    total_likes: int = Field(..., description='Суммарное количество лайков со всех постов в челендже')
