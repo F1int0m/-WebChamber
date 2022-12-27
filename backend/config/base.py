@@ -37,3 +37,5 @@ VK_SCOPE = 'email'
 FRONTEND_FINISH_AUTH_URL = 'http://212.220.113.111/'
 AUTH_HEADER_NAME = 'webchamber_token'
 TOKEN_MIN_SIZE = 15
+
+DATETIME_FORMAT = '%d-%m-%Y %H:%M:%S'

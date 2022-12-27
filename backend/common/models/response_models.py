@@ -84,3 +84,7 @@ class ChallengeResponse(BaseModel):
     background_link: Optional[AnyUrl] = Field()
 
     total_likes: int = Field(..., description='Суммарное количество лайков со всех постов в челендже')
+
+
+class ChallengeListResponse(BaseModel):
+    challenges: List[ChallengeResponse]

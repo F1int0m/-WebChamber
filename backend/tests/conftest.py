@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import sys
 from functools import partial
 from typing import Awaitable, Callable, Dict, List
@@ -9,6 +10,7 @@ import pytest
 from aioresponses import aioresponses
 from common import db, enums
 from common.db.models import (
+    Challenge,
     CSRFToken,
     Post,
     PostAuthors,
@@ -16,7 +18,7 @@ from common.db.models import (
     User,
     UserNotification,
 )
-from common.enums import UserRoleEnum
+from common.enums import ChallengeStatusEnum, UserRoleEnum
 from common.utils import create_default_nickname, uuid_str
 from server import init_app
 
@@ -205,5 +207,29 @@ def post_factory(user: User):
             await PostAuthors.create(post_id=post.post_id, user_id=user_id)
 
         return post
+
+    return wrapped
+
+
+@pytest.fixture
+def challenge_factory():
+    async def wrapped(
+            name=None,
+            description=None,
+            create_datetime=None,
+            end_datetime=None,
+            status=None,
+    ) -> Challenge:
+        params = {
+            'name': name or 'test_challenge_name',
+            'create_datetime': create_datetime or datetime.datetime.now(),
+            'end_datetime': end_datetime or datetime.datetime.now(),
+            'description': description or 'description of challenge',
+            'status': status or ChallengeStatusEnum.wait_for_review
+        }
+
+        challenge = await Challenge.create(**params)
+
+        return challenge
 
     return wrapped

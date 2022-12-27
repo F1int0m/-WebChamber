@@ -9,7 +9,7 @@ from peewee import JOIN, fn
 
 BASE_CHALLENGE_QUERY = Challenge.select(
     Challenge,
-    fn.Count(ChallengeLike.post_id).alias('total_likes')
+    fn.Count(ChallengeLike.challenge_id).alias('total_likes')
 ).join(
     ChallengeLike, JOIN.LEFT_OUTER
 ).group_by(
@@ -17,7 +17,7 @@ BASE_CHALLENGE_QUERY = Challenge.select(
 )
 
 
-async def get_challenges_full(challenge_id) -> Challenge:
+async def get_challenge_full(challenge_id) -> Challenge:
     query = BASE_CHALLENGE_QUERY.where(Challenge.challenge_id == challenge_id)
     result = list(await manager.execute(query))
     if len(result) == 0:
@@ -33,7 +33,7 @@ async def get_challenges_filtered_full(
         page: int = 1,
         limit: int = 100
 ) -> List[Challenge]:
-    query = BASE_CHALLENGE_QUERY.page(page, limit)
+    query = BASE_CHALLENGE_QUERY.paginate(page, limit)
 
     if create_date:
         query = query.where(Challenge.create_datetime > create_date).order_by(Challenge.create_datetime)
