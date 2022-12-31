@@ -27,19 +27,19 @@ async def get_challenge_full(challenge_id) -> Challenge:
 
 
 async def get_challenges_filtered_full(
-        create_date: datetime.date = None,
-        end_date: datetime.date = None,
+        create_datetime: datetime = None,
+        end_datetime: datetime = None,
         status: ChallengeStatusEnum = None,
         page: int = 1,
         limit: int = 100
 ) -> List[Challenge]:
     query = BASE_CHALLENGE_QUERY.paginate(page, limit)
 
-    if create_date:
-        query = query.where(Challenge.create_datetime > create_date).order_by(Challenge.create_datetime)
+    if create_datetime:
+        query = query.where(Challenge.create_datetime > create_datetime).order_by(Challenge.create_datetime)
 
-    if end_date:
-        query = query.where(Challenge.end_datetime < end_date).order_by(Challenge.end_datetime)
+    if end_datetime:
+        query = query.where(Challenge.end_datetime < end_datetime).order_by(Challenge.end_datetime)
 
     if status:
         query = query.where(Challenge.status == status)

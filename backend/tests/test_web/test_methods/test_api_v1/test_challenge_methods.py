@@ -116,8 +116,9 @@ async def test_challenge_filtered_list__ok_no_filter(public_api_v1, challenge_fa
     assert challenge_3_data in response_challenges
 
 
+@freezegun.freeze_time(datetime.date(2022, 10, 12))
 async def test_challenge_filtered_list__ok_filter_create_date(public_api_v1, challenge_factory):
-    challenge_1 = await challenge_factory(
+    await challenge_factory(
         create_datetime=datetime.date(2022, 10, 1),
         end_datetime=datetime.date(2022, 10, 11),
         status=ChallengeStatusEnum.wait_for_review
@@ -128,6 +129,56 @@ async def test_challenge_filtered_list__ok_filter_create_date(public_api_v1, cha
         status=ChallengeStatusEnum.active,
     )
     challenge_3 = await challenge_factory(
+        create_datetime=datetime.date(2022, 10, 3),
+        end_datetime=datetime.date(2022, 10, 13),
+        status=ChallengeStatusEnum.deleted,
+    )
+    challenge_2_data = {
+        'background_link': None,
+        'challenge_id': challenge_2.challenge_id,
+        'create_datetime': '2022-10-02T00:00:00+00:00',
+        'description': 'description of challenge',
+        'end_datetime': '2022-10-12T00:00:00+00:00',
+        'name': 'test_challenge_name',
+        'status': 'ACTIVE',
+        'total_likes': 0
+    }
+    challenge_3_data = {
+        'background_link': None,
+        'challenge_id': challenge_3.challenge_id,
+        'create_datetime': '2022-10-03T00:00:00+00:00',
+        'description': 'description of challenge',
+        'end_datetime': '2022-10-13T00:00:00+00:00',
+        'name': 'test_challenge_name',
+        'status': 'DELETED',
+        'total_likes': 0
+    }
+
+    response = await public_api_v1(
+        'challenge_filtered_list',
+        create_datetime='01-10-2022 12:00:00'
+    )
+
+    response_challenges = response['result']['challenges']
+    assert len(response_challenges) == 2
+
+    assert challenge_2_data in response_challenges
+    assert challenge_3_data in response_challenges
+
+
+@freezegun.freeze_time(datetime.date(2022, 10, 12))
+async def test_challenge_filtered_list__ok_filter_end_date(public_api_v1, challenge_factory):
+    challenge_1 = await challenge_factory(
+        create_datetime=datetime.date(2022, 10, 1),
+        end_datetime=datetime.date(2022, 10, 11),
+        status=ChallengeStatusEnum.wait_for_review
+    )
+    challenge_2 = await challenge_factory(
+        create_datetime=datetime.date(2022, 10, 2),
+        end_datetime=datetime.date(2022, 10, 12),
+        status=ChallengeStatusEnum.active,
+    )
+    await challenge_factory(
         create_datetime=datetime.date(2022, 10, 3),
         end_datetime=datetime.date(2022, 10, 13),
         status=ChallengeStatusEnum.deleted,
@@ -152,25 +203,14 @@ async def test_challenge_filtered_list__ok_filter_create_date(public_api_v1, cha
         'status': 'ACTIVE',
         'total_likes': 0
     }
-    challenge_3_data = {
-        'background_link': None,
-        'challenge_id': challenge_3.challenge_id,
-        'create_datetime': '2022-10-03T00:00:00+00:00',
-        'description': 'description of challenge',
-        'end_datetime': '2022-10-13T00:00:00+00:00',
-        'name': 'test_challenge_name',
-        'status': 'DELETED',
-        'total_likes': 0
-    }
 
     response = await public_api_v1(
         'challenge_filtered_list',
-        create_date='12-10-2020'
+        end_datetime='12-10-2022 12:00:00'
     )
 
     response_challenges = response['result']['challenges']
-    assert len(response_challenges) == 3
+    assert len(response_challenges) == 2
 
     assert challenge_1_data in response_challenges
     assert challenge_2_data in response_challenges
-    assert challenge_3_data in response_challenges

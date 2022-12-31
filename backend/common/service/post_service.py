@@ -25,6 +25,7 @@ async def get_posts_with_likes(
         challenge_id: str = None,
         tags: List[str] = None,
         post_type: enums.PostTypeEnum = None,
+        only_reviewed: bool = False,
         page: int = 1,
         limit: int = 100
 ) -> List[Post]:
@@ -33,6 +34,7 @@ async def get_posts_with_likes(
 
     Обогащает модельки полями likes_count и author_ids
 
+    :param only_reviewed: Показывать только прошедшие модерацию посты
     """
     query = BASE_POST_QUERY.paginate(page, limit)
 
@@ -45,6 +47,8 @@ async def get_posts_with_likes(
         query = query.where(Post.tags_list.contains(tags))
     if post_type:
         query = query.where(Post.type == post_type)
+    if only_reviewed:
+        query = query.where(Post.is_reviewed == only_reviewed)
 
     return await manager.execute(query)
 

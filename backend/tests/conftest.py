@@ -48,13 +48,16 @@ def authorized_api_client(test_app, user: User):
     async def _request(
             url: str,
             method: str = 'POST',
-            cookies: dict = None,
+            headers: dict = None,
             **kwargs
     ) -> aiohttp.ClientResponse:
-        cookies = cookies or {config.AUTH_HEADER_NAME: user.internal_token}
+        if headers:
+            headers.update({config.AUTH_HEADER_NAME: user.internal_token})
+        else:
+            headers = {config.AUTH_HEADER_NAME: user.internal_token}
 
         response: aiohttp.ClientResponse = await test_app.request(
-            method=method, path=url, cookies=cookies, **kwargs
+            method=method, path=url, headers=headers, **kwargs
         )
         return response
 
@@ -181,6 +184,7 @@ def post_factory(user: User):
             is_external_source=False,
             tags_list=None,
             author_ids=None,
+            is_reviewed=True,
 
             fill_links=True,
             preview_link=None,
@@ -190,6 +194,7 @@ def post_factory(user: User):
             'is_external_source': is_external_source,
             'tags_list': tags_list or ['tag'],
             'description': description or 'description of user',
+            'is_reviewed': is_reviewed
         }
         if challenge_id:
             params.update({'challenge_id': challenge_id})

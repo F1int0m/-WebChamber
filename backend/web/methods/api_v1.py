@@ -241,6 +241,7 @@ async def post_filtered_list(
         challenge_id: str = None,
         tags: List[str] = None,
         post_type: enums.PostTypeEnum = None,
+        only_reviewed: bool = False,
         page: int = 1,
         limit: int = 100
 ) -> PostListResponse:
@@ -249,6 +250,7 @@ async def post_filtered_list(
         challenge_id=challenge_id,
         tags=tags,
         post_type=post_type,
+        only_reviewed=only_reviewed,
         page=page,
         limit=limit
     )
@@ -299,7 +301,11 @@ async def challenge_get(challenge_id: str) -> ChallengeResponse:
     return ChallengeResponse(**challenge.to_dict(extra_attrs=['total_likes']))
 
 
-@openrpc.method(description='Время в формате:"DD-MM-YYYY HH:MM:SS"')
+@openrpc.method(
+    description=('Время в формате:"DD-MM-YYYY HH:MM:SS". '
+                 'При указании create_datetime возвращает все челленджи, созданные после этой даты. '
+                 'При указании end_datetime - все челленджи созданные до этой даты')
+)
 async def challenge_filtered_list(
         create_datetime: str = None,
         end_datetime: str = None,
@@ -311,11 +317,11 @@ async def challenge_filtered_list(
         create_datetime = datetime.datetime.strptime(create_datetime, config.DATETIME_FORMAT)
 
     if end_datetime:
-        end_datetime = datetime.datetime.strptime(create_datetime, config.DATETIME_FORMAT)
+        end_datetime = datetime.datetime.strptime(end_datetime, config.DATETIME_FORMAT)
 
     challenges = await challenge_service.get_challenges_filtered_full(
-        create_date=create_datetime,
-        end_date=end_datetime,
+        create_datetime=create_datetime,
+        end_datetime=end_datetime,
         status=status,
         page=page,
         limit=limit
