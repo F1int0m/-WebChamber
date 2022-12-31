@@ -40,6 +40,7 @@ class NotificationTypeEnum(str, Enum):
 
 class ChallengeStatusEnum(str, Enum):
     deleted = 'DELETED'
+    wait_for_review = 'WAIT_FOR_REVIEW'
     active = 'ACTIVE'
     done = 'DONE'
 

@@ -1,11 +1,14 @@
+import datetime
 from functools import partial
 from logging import getLogger
 from typing import List
 
+import config
 from aiohttp import web
 from common import context, enums, errors
 from common.db.basic import manager
 from common.db.models import (
+    Challenge,
     Notification,
     Post,
     PostAuthors,
@@ -15,6 +18,8 @@ from common.db.models import (
 )
 from common.models.request_models import ExternalPostData
 from common.models.response_models import (
+    ChallengeListResponse,
+    ChallengeResponse,
     NotificationListResponse,
     PingResponse,
     PostListResponse,
@@ -23,7 +28,12 @@ from common.models.response_models import (
     UserListResponse,
     UserResponse,
 )
-from common.service import like_service, notification_service, post_service
+from common.service import (
+    challenge_service,
+    like_service,
+    notification_service,
+    post_service,
+)
 from openrpc import RPCServer
 from web.handlers.jsonrpc_handler import route
 
@@ -231,6 +241,7 @@ async def post_filtered_list(
         challenge_id: str = None,
         tags: List[str] = None,
         post_type: enums.PostTypeEnum = None,
+        only_reviewed: bool = False,
         page: int = 1,
         limit: int = 100
 ) -> PostListResponse:
@@ -239,7 +250,82 @@ async def post_filtered_list(
         challenge_id=challenge_id,
         tags=tags,
         post_type=post_type,
+        only_reviewed=only_reviewed,
         page=page,
         limit=limit
     )
     return PostListResponse(posts=[post.to_dict(extra_attrs=['likes_count', 'author_ids']) for post in posts_raw])
+
+
+@openrpc.method()
+async def post_set_reviewed_status(post_id: str, status: bool) -> PostResponse:
+    user = context.user.get()
+    if user.role not in enums.UserRoleEnum.admin_roles():
+        raise errors.AccessDenied
+
+    post = await Post.get(post_id=post_id)
+
+    await post.update_instance(is_reviewed=status)
+
+    post = await post_service.get_single_post_full(post_id=post_id)
+
+    return PostResponse(**post.to_dict(extra_attrs=['likes_count', 'author_ids']))
+
+
+@openrpc.method(description='Время в формате:"DD-MM-YYYY HH:MM:SS"')
+async def challenge_create(
+        name: str,
+        description: str,
+        end_datetime: str
+) -> ChallengeResponse:
+    user = context.user.get()
+    if user.role not in enums.UserRoleEnum.admin_roles():
+        raise errors.AccessDenied
+
+    end_datetime = datetime.datetime.strptime(end_datetime, config.DATETIME_FORMAT)
+
+    challenge = await Challenge.create(
+        name=name,
+        description=description,
+        end_datetime=end_datetime
+    )
+
+    response_challenge = await challenge_service.get_challenge_full(challenge_id=challenge.challenge_id)
+    return ChallengeResponse(**response_challenge.to_dict(extra_attrs=['total_likes']))
+
+
+@openrpc.method()
+async def challenge_get(challenge_id: str) -> ChallengeResponse:
+    challenge = await challenge_service.get_challenge_full(challenge_id=challenge_id)
+
+    return ChallengeResponse(**challenge.to_dict(extra_attrs=['total_likes']))
+
+
+@openrpc.method(
+    description=('Время в формате:"DD-MM-YYYY HH:MM:SS". '
+                 'При указании create_datetime возвращает все челленджи, созданные после этой даты. '
+                 'При указании end_datetime - все челленджи созданные до этой даты')
+)
+async def challenge_filtered_list(
+        create_datetime: str = None,
+        end_datetime: str = None,
+        status: enums.ChallengeStatusEnum = None,
+        page: int = 1,
+        limit: int = 100
+) -> ChallengeListResponse:
+    if create_datetime:
+        create_datetime = datetime.datetime.strptime(create_datetime, config.DATETIME_FORMAT)
+
+    if end_datetime:
+        end_datetime = datetime.datetime.strptime(end_datetime, config.DATETIME_FORMAT)
+
+    challenges = await challenge_service.get_challenges_filtered_full(
+        create_datetime=create_datetime,
+        end_datetime=end_datetime,
+        status=status,
+        page=page,
+        limit=limit
+    )
+    return ChallengeListResponse(
+        challenges=[challenge.to_dict(extra_attrs=['total_likes']) for challenge in challenges]
+    )

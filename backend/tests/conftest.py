@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 import sys
 from functools import partial
 from typing import Awaitable, Callable, Dict, List
@@ -9,6 +10,7 @@ import pytest
 from aioresponses import aioresponses
 from common import db, enums
 from common.db.models import (
+    Challenge,
     CSRFToken,
     Post,
     PostAuthors,
@@ -16,7 +18,7 @@ from common.db.models import (
     User,
     UserNotification,
 )
-from common.enums import UserRoleEnum
+from common.enums import ChallengeStatusEnum, UserRoleEnum
 from common.utils import create_default_nickname, uuid_str
 from server import init_app
 
@@ -46,13 +48,16 @@ def authorized_api_client(test_app, user: User):
     async def _request(
             url: str,
             method: str = 'POST',
-            cookies: dict = None,
+            headers: dict = None,
             **kwargs
     ) -> aiohttp.ClientResponse:
-        cookies = cookies or {config.AUTH_HEADER_NAME: user.internal_token}
+        if headers:
+            headers.update({config.AUTH_HEADER_NAME: user.internal_token})
+        else:
+            headers = {config.AUTH_HEADER_NAME: user.internal_token}
 
         response: aiohttp.ClientResponse = await test_app.request(
-            method=method, path=url, cookies=cookies, **kwargs
+            method=method, path=url, headers=headers, **kwargs
         )
         return response
 
@@ -75,19 +80,19 @@ async def clean_db(init_db):
 
 @pytest.fixture
 def jsonrpc_client(test_app):
-    async def _jsonrpc(method: str, *, url: str = None, user: User = None, cookies=None, **params) -> Dict:
+    async def _jsonrpc(method: str, *, url: str = None, user: User = None, headers=None, **params) -> Dict:
         jsonrpc_request = {
             'jsonrpc': '2.0',
             'id': 2,
             'method': method,
             'params': params or {},
         }
-        cookies = cookies or {}
+        headers = headers or {}
         if user:
-            cookies.update({config.AUTH_HEADER_NAME: user.internal_token})
+            headers.update({config.AUTH_HEADER_NAME: user.internal_token})
 
         response = await test_app.post(
-            path=url, json=jsonrpc_request, cookies=cookies
+            path=url, json=jsonrpc_request, headers=headers
         )
         result = await response.json()
 
@@ -179,6 +184,7 @@ def post_factory(user: User):
             is_external_source=False,
             tags_list=None,
             author_ids=None,
+            is_reviewed=True,
 
             fill_links=True,
             preview_link=None,
@@ -188,6 +194,7 @@ def post_factory(user: User):
             'is_external_source': is_external_source,
             'tags_list': tags_list or ['tag'],
             'description': description or 'description of user',
+            'is_reviewed': is_reviewed
         }
         if challenge_id:
             params.update({'challenge_id': challenge_id})
@@ -205,5 +212,29 @@ def post_factory(user: User):
             await PostAuthors.create(post_id=post.post_id, user_id=user_id)
 
         return post
+
+    return wrapped
+
+
+@pytest.fixture
+def challenge_factory():
+    async def wrapped(
+            name=None,
+            description=None,
+            create_datetime=None,
+            end_datetime=None,
+            status=None,
+    ) -> Challenge:
+        params = {
+            'name': name or 'test_challenge_name',
+            'create_datetime': create_datetime or datetime.datetime.now(),
+            'end_datetime': end_datetime or datetime.datetime.now(),
+            'description': description or 'description of challenge',
+            'status': status or ChallengeStatusEnum.wait_for_review
+        }
+
+        challenge = await Challenge.create(**params)
+
+        return challenge
 
     return wrapped

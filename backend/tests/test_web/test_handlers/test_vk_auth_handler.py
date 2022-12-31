@@ -55,7 +55,6 @@ async def test_code_response_handler__ok_good_response(test_app, mock_response, 
         'role': 'ACTIVE',
         'user_id': '1234567'
     }
-    assert user.access_token == 'test_token'
     assert user.internal_token == token
 
     assert await manager.count(CSRFToken.select()) == 0
