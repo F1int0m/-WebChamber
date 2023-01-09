@@ -1,20 +1,18 @@
 import {JSONRPC_URL} from "../../system/env";
 
 async function ping() {
-    const url = 'http://212.220.113.111/backend/api/v1/public/jsonrpc'
-    await fetch(url, {
+    await fetch(JSONRPC_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            "Accept": "application/json",
-            'Cookie': 'webchamber_token=FcJWulBWDRYVm0k84RPz',
+            'webchamber_token': 'NDL-6fLoAfbDc4ckJp7y',
         },
-        body: {
+        body: JSON.stringify({
             'jsonrpc': '2.0',
             'method': 'ping',
             'params': [],
             'id': 0
-        }
+        })
     }).then(response => console.log(response))
 }
 

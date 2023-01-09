@@ -4,11 +4,12 @@ import AdditionalBox from "./AdditionalBox";
 import ButtonsArea from "./ButtonsArea";
 
 const InfoBox = ({isFull, info}) => {
+    const nickname = 'Username'
     return (
         <div className={style.infoBox}>
             <div className={style.row1}>
                 <span className={style.nickname}>
-                    {info.nickname}
+                    {nickname}
                 </span>
                 <ButtonsArea />
             </div>

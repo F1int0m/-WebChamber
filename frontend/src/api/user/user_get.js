@@ -1,17 +1,15 @@
 import {JSONRPC_URL} from "../../system/env";
 
 async function user_get({user_id}) {
-    const url = JSONRPC_URL + 'user_get'
-    await fetch(url, {
+    await fetch(JSONRPC_URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json',
-            'Cookie': 'webchamber_token=FcJWulBWDRYVm0k84RPz'
+            'webchamber_token': 'jG-ooRJ-yU_sLANU6LUu'
         },
         body: {
             'jsonrpc': '2.0',
-            'method': '',
+            'method': 'user_get',
             'params': [{
                 'user_id': user_id
             }],

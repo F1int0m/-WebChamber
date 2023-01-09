@@ -1,12 +1,17 @@
 $text_primary: #565656;
 $accent: #905DCC;
 
+$avatarImgSize: 150px;
+
+
+$mockup_border: 1px solid #ff9c9c;
 
 
 .profileBox {
   display: flex;
   flex-direction: row;
   width: 1156px;
+
   padding: 0;
 }
 
@@ -15,6 +20,11 @@ $accent: #905DCC;
   flex-direction: row;
   align-items: center;
   padding: 20px 0;
+}
+
+.avatarImg {
+  width: $avatarImgSize;
+  height: $avatarImgSize;
 }
 
 .mainInfoBox{
@@ -37,6 +47,7 @@ $accent: #905DCC;
   justify-content: space-between;
   flex-grow: 1;
   padding: 0;
+  gap: 40px;
 }
 
 .row2 {
@@ -54,7 +65,6 @@ $accent: #905DCC;
   align-items: flex-start;
   padding: 8px 0 0;
   gap: 10px;
-
 }
 
 .statistics {
@@ -72,6 +82,7 @@ $accent: #905DCC;
 .nickname {
   display: flex;
   justify-self: flex-start;
+  word-break: break-all;
 
   font-family: 'Roboto', sans-serif;
   font-style: normal;
@@ -84,17 +95,38 @@ $accent: #905DCC;
 .infoBox {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 0;
   padding: 0 0 20px 20px;
 }
 
-.stats {
+.stats_box {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}
+
+.stats_box_subs {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.stats_text {
   font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
   line-height: 21px;
   color: $accent;
+}
+
+.stats_icon_box {
+  width: 18px;
+  height: 18px;
+  display: flex;
 }
 
 .description {
@@ -104,6 +136,6 @@ $accent: #905DCC;
 .buttonsArea {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   gap: 12px;
 }

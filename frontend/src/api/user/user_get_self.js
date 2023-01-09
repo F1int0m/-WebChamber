@@ -1,20 +1,24 @@
 import {JSONRPC_URL} from "../../system/env";
+import request_init from "../../system/json_rpc/request_init"
+import {store} from "../../store/store";
+
+const state = store.getState()
+const token = state.auth.token
 
 async function user_get_self() {
-    const url = JSONRPC_URL + 'user_get_self'
-    await fetch(url, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: {
-            'jsonrpc': '2.0',
-            'method': '',
-            'params': [],
-            'id': 0
-        }
-    }).then(response => console.log(response))
+    try {
+        console.log('> token: ', token)
+        const req = request_init({
+            token: token,
+            method: 'user_get_self',
+            params: []
+        })
+        return await fetch(JSONRPC_URL, req)
+            .then(res => res.json())
+            .then(res => res.result)
+    } catch (e) {
+        console.error(e)
+    }
 }
 
 export default user_get_self;

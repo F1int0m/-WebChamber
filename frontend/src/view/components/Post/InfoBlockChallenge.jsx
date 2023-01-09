@@ -4,7 +4,7 @@ import LikesIcon from "../../../static/icons/likes.svg";
 
 const InfoBlockChallenge = ({data}) => {
     return (
-        <div className={styles.box}>
+        <div className={styles.infoBoxChallenge}>
             <span className={styles.text}>{data.title}</span>
             <div className={styles.likes}>
                 <span className={styles.text}>{data.likes}</span>

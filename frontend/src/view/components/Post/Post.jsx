@@ -1,14 +1,16 @@
 import React from 'react';
 import styles from './post.module.scss'
 
-import PreviewImage1 from "../../../static/images/preview1.jpg"
-
 import InfoBlockChallenge from "./InfoBlockChallenge";
 import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
 import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
+// import preview from '../../../static/images/preview1.jpg'
+
+import {useNavigate} from "react-router-dom";
 
 const Post = ({data}) => {
     // TODO: вынести выбор инфо-блока в конфиг ContentFeed-а
+    const navigate = useNavigate()
 
     let infoBlock;
     if (data.type === 'challenge') {
@@ -18,9 +20,14 @@ const Post = ({data}) => {
     } else if (data.type === 'multiple-authors') {
         infoBlock = <InfoBlockMultipleAuthors data={data}/>
     }
+
+    function handleClick() {
+        navigate('/post')
+    }
+
     return (
         <div className={styles.postBox}>
-            <img src={PreviewImage1} alt={'preview'} className={styles.media}/>
+            <img src={''} alt={'preview'} className={styles.media} onClick={handleClick}/>
             {infoBlock}
         </div>
     );

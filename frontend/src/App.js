@@ -24,6 +24,7 @@ import ContentFeed from "./view/components/Content/ContentFeed/ContentFeed";
 import {profileCasualPosts, profileChallengesPosts} from "./system/fakeData";
 import People from "./view/pages/private/chamber/People";
 import Chamber from "./view/pages/private/Chamber";
+import PostView from "./view/pages/private/PostView";
 
 function App() {
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
@@ -65,6 +66,7 @@ function App() {
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>
+            <Route path={'/post'} element={<PostView />}/>
         </Routes>
     </div>
   );

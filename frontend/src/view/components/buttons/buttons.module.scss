@@ -1,5 +1,7 @@
 $accent: #905DCC;
 
+$mockup_border: 1px solid #000000;
+
 .primaryBody {
   display: flex;
   flex-direction: row;
@@ -31,7 +33,13 @@ $accent: #905DCC;
 .iconBody {
   height: 32px;
   width: 32px;
+  padding: 0;
+  margin: 0;
   border: none;
-  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: transparent;
+
+  border: $mockup_border;
 }
