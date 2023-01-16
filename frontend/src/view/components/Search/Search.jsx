@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './style.module.scss'
+import style from './Search.module.scss'
 import ButtonPrimary from "../buttons/ButtonPrimary";
 
 import SearchIcon from '../../../static/icons/search.svg'

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from "./profile.module.scss"
+import style from "./profileFull.module.scss"
 import NotificationsIcon from '../../../static/icons/notifications_icon.svg'
 import ButtonPrimary from "../buttons/ButtonPrimary"
 import ButtonIcon from "../buttons/ButtonIcon"

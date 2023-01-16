@@ -1,0 +1,50 @@
+$accent: #905DCC;
+
+.row2 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  gap: 20px;
+}
+
+.stats_box_subs {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: baseline;
+}
+
+.stats_text {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 21px;
+  color: $accent;
+}
+
+.stats_box {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  align-items: center;
+}
+
+.stats_icon_box {
+  width: 18px;
+  height: 18px;
+  display: flex;
+}
+
+.row3 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 8px 0 0;
+  gap: 10px;
+}
+
+.description {
+  text-align: left;
+}

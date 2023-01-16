@@ -4,7 +4,7 @@ import styles from './post.module.scss'
 import InfoBlockChallenge from "./InfoBlockChallenge";
 import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
 import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
-// import preview from '../../../static/images/preview1.jpg'
+import preview from '../../../static/images/preview1.jpg'
 
 import {useNavigate} from "react-router-dom";
 
@@ -27,7 +27,7 @@ const Post = ({data}) => {
 
     return (
         <div className={styles.postBox}>
-            <img src={''} alt={'preview'} className={styles.media} onClick={handleClick}/>
+            <img src={preview} alt={preview} className={styles.media} onClick={handleClick}/>
             {infoBlock}
         </div>
     );

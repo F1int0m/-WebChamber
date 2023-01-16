@@ -1,23 +1,5 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_483_3320)">
-<circle cx="19" cy="18" r="13" stroke="#686868" stroke-width="2" shape-rendering="crispEdges"/>
-</g>
-<mask id="mask0_483_3320" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="4" width="28" height="28">
-<circle cx="19" cy="18" r="14" fill="#D9D9D9"/>
-</mask>
-<g mask="url(#mask0_483_3320)">
-<path d="M18.9998 10.5996C20.2198 10.5996 21.3898 11.0843 22.2525 11.9469C23.1152 12.8096 23.5998 13.9796 23.5998 15.1996C23.5998 16.4196 23.1152 17.5896 22.2525 18.4523C21.3898 19.315 20.2198 19.7996 18.9998 19.7996C17.7798 19.7996 16.6098 19.315 15.7471 18.4523C14.8844 17.5896 14.3998 16.4196 14.3998 15.1996C14.3998 13.9796 14.8844 12.8096 15.7471 11.9469C16.6098 11.0843 17.7798 10.5996 18.9998 10.5996ZM18.9998 24.5996C21.9723 24.5996 24.6128 25.2036 26.4731 26.1338C28.3929 27.0937 29.1998 28.2352 29.1998 29.1996V30.9996H8.7998V29.1996C8.7998 28.2352 9.60668 27.0937 11.5265 26.1338C13.3868 25.2036 16.0273 24.5996 18.9998 24.5996Z" stroke="#686868" stroke-width="2"/>
-</g>
-<defs>
-<filter id="filter0_d_483_3320" x="0" y="0" width="40" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="1" dy="2"/>
-<feGaussianBlur stdDeviation="3"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_483_3320"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_483_3320" result="shape"/>
-</filter>
-</defs>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28Z" stroke="#686868" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 20C18.7614 20 21 17.7614 21 15C21 12.2386 18.7614 10 16 10C13.2386 10 11 12.2386 11 15C11 17.7614 13.2386 20 16 20Z" stroke="#686868" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M7.9751 24.9248C8.72749 23.4428 9.87555 22.1981 11.292 21.3287C12.7085 20.4592 14.3381 19.999 16.0001 19.999C17.6621 19.999 19.2917 20.4592 20.7082 21.3287C22.1246 22.1981 23.2727 23.4428 24.0251 24.9248" stroke="#686868" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -7,7 +7,7 @@ import {
     ROOT_URL,
 } from "../../../system/env";
 
-import styles from '../../style/App.css'
+import styles from '../../style/App.module.css'
 
 const ChamberHeader = () => {
     return (

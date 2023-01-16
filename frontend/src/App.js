@@ -1,4 +1,4 @@
-import './view/style/App.css';
+import './view/style/App.module.css';
 import {Routes, Route} from "react-router-dom";
 
 import MainHeader from "./view/components/navigation/MainHeader";
@@ -31,10 +31,11 @@ function App() {
     //       const isAuth = useSelector(state => state.is_auth)
 
     const isMyProfile = true;
+
   return (
     <div className="App">
         <Routes>
-            <Route path={ROOT_URL} element={<MainHeader />}>
+            <Route path={ROOT_URL} element={<MainHeader/>}>
                 <Route path={FAVOURITES_URL} element={<Favourites />}/>
                 <Route path={SETTINGS_URL} element={<Settings />}/>
                 <Route path={PROFILE_PAGE.URL} element={<Profile />}>
@@ -63,10 +64,10 @@ function App() {
                         <People />
                     }/>
                 </Route>
+                <Route path={'/post'} element={<PostView />}/>
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>
-            <Route path={'/post'} element={<PostView />}/>
         </Routes>
     </div>
   );

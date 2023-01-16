@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import AvatarImage from "../../../static/images/avatar.jpg";
+import AvatarImage from "../../../static/images/avatar.jpg";
 import styles from './post.module.scss'
 
 const AuthorsList = ({authors}) => {
@@ -17,7 +17,7 @@ const AuthorsList = ({authors}) => {
             {
                 isOpened && authors.map(author =>
                     <div key={author.authorId}>
-                        <img src={''} alt={'avatar'}/>
+                        <img src={AvatarImage} alt={'avatar'}/>
                         <span>{author.authorNickname}</span>
                     </div>
                 )
