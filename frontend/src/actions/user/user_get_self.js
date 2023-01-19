@@ -1,21 +1,18 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
-import {store} from "../../store/store";
+import {setSelfUserInfo} from "../../store/reducers/userReducer";
 
-const state = store.getState()
-const token = state.auth.token
-
-async function user_get_self() {
+async function user_get_self(dispatch) {
     try {
-        console.log('> token: ', token)
         const req = request_init({
-            token: token,
             method: 'user_get_self',
             params: []
         })
-        return await fetch(JSONRPC_URL, req)
+        await fetch(JSONRPC_URL, req)
             .then(res => res.json())
-            .then(res => res.result)
+            .then(res => {
+                dispatch(setSelfUserInfo(res.result))
+            })
     } catch (e) {
         console.error(e)
     }

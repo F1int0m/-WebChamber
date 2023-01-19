@@ -1,16 +1,16 @@
-import {SetOAuthToken} from "../../api/auth/setOAuthToken";
+import {SetOAuthToken} from "../../actions/auth/setOAuthToken";
 
 const InitState = () => {
     return {
         id: '',
         is_auth: false,
-        token: 'iebTgvJJ_JXzvgnj2lbl'
+        token: 'hkZGFq63jQYL7WhRkK2x'
     }
 }
 
 const defaultState = InitState()
 
-export default function auth(state = defaultState, action) {
+export default function authReducer(state = defaultState, action) {
     switch (action.type) {
         case 'GET_AUTH_TOKEN':
             return state

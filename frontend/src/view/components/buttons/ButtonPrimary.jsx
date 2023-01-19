@@ -4,7 +4,7 @@ import style from './buttons.module.scss'
 
 const ButtonPrimary = ({text, callback, isIcon, iconLink}) => {
     return (
-        <button className={style.primaryBody}>
+        <button className={style.primaryBody} onClick={callback}>
             {isIcon &&
                 <img src={iconLink} alt={text}/>
             }

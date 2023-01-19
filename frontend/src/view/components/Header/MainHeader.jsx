@@ -18,30 +18,8 @@ import SettingsIcon from '../../../static/icons/settings_icon.svg'
 import ProfileIcon from '../../../static/icons/profile_icon.svg'
 import logo from '../../../static/images/logo.png'
 
-import user_get_self from "../../../api/user/user_get_self";
-import {store} from "../../../store/store";
-
 
 const MainHeader = () => {
-    async function handleProfileClick() {
-        await user_get_self()
-            .then(data => {
-                store.dispatch({
-                    type: 'profile/get_self',
-                    payload:
-                        {
-                            isLoading: false,
-                            user_id: data.user_id,
-                            role: data.role,
-                            nickname: data.nickname,
-                            mood_text: data.mood_text,
-                            description: data.description,
-                            avatar_link: data.avatar_link
-                        }
-                })
-        })
-    }
-
     const location = useLocation();
     const style = location.pathname.toString() === '/post' ? darkMode : lightMode
 
@@ -65,7 +43,6 @@ const MainHeader = () => {
                             <img src={SettingsIcon} alt={'Settings'}/>
                         </NavLink>
                         <NavLink to={ROOT_URL + PROFILE_PAGE.URL + PROFILE_PAGE.CHALLENGES.URL}
-                                 onClick={handleProfileClick}
                                  className={style.navLink}>
                             <img src={ProfileIcon} alt={'Profile'}/>
                         </NavLink>

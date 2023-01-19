@@ -8,8 +8,7 @@ const AdditionalBox = ({info}) => {
     const subs = '12 000'
     const likes = '103 455'
     const saves = '20 140'
-    const description = 'А также некоторые особенности внутренней политики призваны к ответу. В частности, внедрение современных методик однозначно определяет каждого участника как способного принимать собственные решения касаемо направле...'
-
+    const description = info.description || 'Много о себе не говорит.'
     return (
         <div>
             <div className={styles.row2}>

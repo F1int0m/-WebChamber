@@ -1,7 +1,7 @@
 import './view/style/App.module.css';
 import {Routes, Route} from "react-router-dom";
 
-import MainHeader from "./view/components/navigation/MainHeader";
+import MainHeader from "./view/components/Header/MainHeader";
 import NotFound from "./view/pages/system/NotFound";
 import Favourites from "./view/pages/private/Favourites";
 import Settings from "./view/pages/private/Settings";
@@ -25,6 +25,7 @@ import {profileCasualPosts, profileChallengesPosts} from "./system/fakeData";
 import People from "./view/pages/private/chamber/People";
 import Chamber from "./view/pages/private/Chamber";
 import PostView from "./view/pages/private/PostView";
+import CreatePost from "./view/pages/private/CreatePost";
 
 function App() {
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
@@ -65,6 +66,7 @@ function App() {
                     }/>
                 </Route>
                 <Route path={'/post'} element={<PostView />}/>
+                <Route path={'/post/create'} element={<CreatePost />}/>
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>

@@ -4,8 +4,16 @@ import ButtonPrimary from "../buttons/ButtonPrimary";
 
 import SearchIcon from '../../../static/icons/search.svg'
 import AddContentIcon from '../../../static/icons/addContent.svg'
+import {useNavigate} from "react-router-dom";
 
 const Search = ({addContentButton}) => {
+    const navigate = useNavigate()
+
+    function handleAnnContentButtonClick() {
+        console.log('open create post page')
+        navigate('/post/create')
+    }
+
     return (
         <div className={style.box}>
             <div className={style.search}>
@@ -13,7 +21,7 @@ const Search = ({addContentButton}) => {
                 <img src={SearchIcon} className={style.icon} alt={'search'}/>
             </div>
             {addContentButton &&
-                <ButtonPrimary text={'Добавить работу'} callback={'callback'} isIcon={true} iconLink={AddContentIcon}/>
+                <ButtonPrimary text={'Добавить работу'} callback={handleAnnContentButtonClick} isIcon={true} iconLink={AddContentIcon}/>
             }
         </div>
     );

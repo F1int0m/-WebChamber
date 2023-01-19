@@ -19,17 +19,17 @@ const Content = ({type, data}) => {
                 addContentButton={true}
                 data={data}
             />}
-            {type==='casual-profileReducer' &&
+            {type==='casual-userReducer' &&
             <ContentFeed
                 addContentButton={false}
                 data={data}
             />}
-            {type==='casual-profileReducer-me' &&
+            {type==='casual-userReducer-me' &&
             <ContentFeed
                 addContentButton={true}
                 data={data}
             />}
-            {type==='challenges-profileReducer' &&
+            {type==='challenges-userReducer' &&
             <ContentFeed
                 addContentButton={false}
                 data={data}
