@@ -1,7 +1,7 @@
 import {AUTH_URL} from "../../system/env";
 
 export async function SetOAuthToken() {
-    console.log('Go to authReducer on url=' + AUTH_URL)
+    console.log('Go to auth on url=' + AUTH_URL)
 
     await fetch(AUTH_URL)
         .then(response => {
