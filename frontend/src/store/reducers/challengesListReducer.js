@@ -16,6 +16,7 @@ const defaultState = {
 export default function challengeListReducer(state = defaultState, action) {
     switch (action.type) {
         case GET:
+            console.log('reducer payload: ', action.payload)
             return {
                 ...state,
                 challengesList: action.payload.challengesList
