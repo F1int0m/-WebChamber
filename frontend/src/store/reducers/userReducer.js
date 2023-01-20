@@ -62,5 +62,5 @@ export default function userReducer(state = defaultState, action) {
 export const getUserSelf = (userInfo) => ({type: GET_SELF, payload: userInfo})
 export const getUser = (userInfo) => ({type: GET, payload: userInfo})
 export const setIdForGet = (userInfo) => ({type: SET_ID_FOR_GET, payload: userInfo})
-// export const editUserSelf = (userInfo) => ({type: EDIT, payload: userInfo})
+export const editUserSelf = (userInfo) => ({type: EDIT, payload: userInfo})
 export const searchUser = (userInfo) => ({type: GET, payload: userInfo})
