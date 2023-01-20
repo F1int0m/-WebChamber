@@ -1,7 +1,8 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
+// import {getChallengeList} from "../../store/reducers/challengesListReducer";
 
-async function challenge_filtered_list({dispatch, args}) {
+async function challenge_filtered_list() {
     try {
         const req = request_init({
             method: 'challenge_filtered_list',
@@ -11,7 +12,7 @@ async function challenge_filtered_list({dispatch, args}) {
             .then(res => res.json())
             .then(res => {
                 console.log(res.result)
-                // dispatch(setter(res.result))
+                //dispatch(getChallengeList(res.result))
             })
     } catch (e) {
         console.error(e)
