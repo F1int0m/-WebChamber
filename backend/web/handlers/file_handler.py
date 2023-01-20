@@ -4,7 +4,7 @@ from aiohttp.web import HTTPBadRequest, HTTPOk
 from aiohttp_pydantic import PydanticView
 from aiohttp_pydantic.oas.typing import r200, r403
 from common import context, errors
-from common.db.models import Post, PostAuthors
+from common.db.models import Challenge, Post, PostAuthors
 from common.enums import UserRoleEnum
 
 
@@ -103,5 +103,39 @@ class PostPreviewHandler(PydanticView):
 
         url = await minio_client.upload_file_from_request(request=self.request, s3_filename=s3_filename)
         await post.update_instance(preview_link=url)
+
+        return HTTPOk()
+
+
+class ChallengeDataHandler(PydanticView):
+
+    async def post(self, challenge_id: str, file_name: str, /) -> Union[r200, r403]:
+        """
+        Метод для загрузки обложки на пост
+        В теле нужны байтики обожки, заранее валидной
+
+        Status Codes:
+            200: Успешно загрузилось
+            400: Содержимое уже загружено
+            403: Юзер не залогинен или не имеет доступа к посту
+            404: Челендж не найден
+
+        Tags: file
+        """
+        user = context.user.get()
+        minio_client = context.minio_client.get()
+
+        challenge = await Challenge.get(challenge_id=challenge_id)
+
+        if challenge.background_link:
+            return HTTPBadRequest(text='Already exist')
+
+        if user.role not in UserRoleEnum.admin_roles():
+            raise errors.AccessDenied
+
+        s3_filename = f'challenge/{challenge_id}/background/{file_name}'
+
+        url = await minio_client.upload_file_from_request(request=self.request, s3_filename=s3_filename)
+        await challenge.update_instance(background_link=url)
 
         return HTTPOk()
