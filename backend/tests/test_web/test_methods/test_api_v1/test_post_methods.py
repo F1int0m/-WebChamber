@@ -25,6 +25,7 @@ async def test_post_create__ok(public_api_v1, user: User, user_factory):
         'likes_count': 0,
         'post_id': ANY,
         'preview_link': None,
+        'is_reviewed': False,
         'tags_list': ['test', 'new_tag']
     }
 
@@ -94,6 +95,7 @@ async def test_post_get__ok(public_api_v1, post_factory, user: User):
         'type': 'PLATFORM',
         'likes_count': 0,
         'post_id': post.post_id,
+        'is_reviewed': True,
         'preview_link': 'http://test.com',
         'tags_list': ['tag']
     }
@@ -137,6 +139,7 @@ async def test_post_like__ok(public_api_v1, post_factory, user: User, user_facto
         'type': 'PLATFORM',
         'likes_count': 5,
         'post_id': post.post_id,
+        'is_reviewed': True,
         'preview_link': 'http://test.com',
         'tags_list': ['tag']
     }
@@ -169,6 +172,7 @@ async def test_post_unlike(public_api_v1, post_factory, user: User):
         'type': 'PLATFORM',
         'likes_count': 0,
         'post_id': post.post_id,
+        'is_reviewed': True,
         'preview_link': 'http://test.com',
         'tags_list': ['tag']
     }
@@ -188,6 +192,7 @@ async def test_post_filtered_list__ok_all_existing_post(public_api_v1, post_fact
                 'description': 'description of user',
                 'likes_count': 0,
                 'post_id': ANY,
+                'is_reviewed': True,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag'],
                 'type': 'PLATFORM'},
@@ -213,6 +218,7 @@ async def test_post_filtered_list__ok_filters_by_user(public_api_v1, post_factor
                 'description': 'collab post',
                 'likes_count': 0,
                 'post_id': post_2.post_id,
+                'is_reviewed': True,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag'],
                 'type': 'PLATFORM'
@@ -224,6 +230,7 @@ async def test_post_filtered_list__ok_filters_by_user(public_api_v1, post_factor
                 'description': 'solo post',
                 'likes_count': 0,
                 'post_id': post_1.post_id,
+                'is_reviewed': True,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag'],
                 'type': 'PLATFORM'
@@ -249,6 +256,7 @@ async def test_post_filtered_list__ok_filters_by_tags(public_api_v1, post_factor
                 'description': 'description of user',
                 'likes_count': 0,
                 'post_id': post_2.post_id,
+                'is_reviewed': True,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag1', 'tag2'],
                 'type': 'PLATFORM'
@@ -260,9 +268,57 @@ async def test_post_filtered_list__ok_filters_by_tags(public_api_v1, post_factor
                 'description': 'description of user',
                 'likes_count': 0,
                 'post_id': post_1.post_id,
+                'is_reviewed': True,
                 'preview_link': 'http://test.com',
                 'tags_list': ['tag1'],
                 'type': 'PLATFORM'
-            }
+            },
         ]
     }
+
+
+@mark.parametrize('status', [True, False])
+@mark.parametrize('user_role', enums.UserRoleEnum.admin_roles())
+async def test_post_set_reviewed_status__ok(public_api_v1, post_factory, user: User, status, user_role):
+    post = await post_factory()
+    await user.update_instance(role=user_role)
+
+    response = await public_api_v1(
+        'post_set_reviewed_status',
+        post_id=post.post_id,
+        status=status
+    )
+    assert response['result'] == {
+        'author_ids': [user.user_id],
+        'challenge_id': None,
+        'data_link': 'http://test.com/data',
+        'description': 'description of user',
+        'type': 'PLATFORM',
+        'likes_count': 0,
+        'post_id': post.post_id,
+        'is_reviewed': status,
+        'preview_link': 'http://test.com',
+        'tags_list': ['tag']
+    }
+    assert (await post.refresh()).to_dict() == {
+        'challenge_id': None,
+        'data_link': 'http://test.com/data',
+        'description': 'description of user',
+        'is_reviewed': status,
+        'post_id': post.post_id,
+        'preview_link': 'http://test.com',
+        'tags_list': ['tag'],
+        'type': 'PLATFORM'}
+
+
+@mark.parametrize('user_role', [enums.UserRoleEnum.active, enums.UserRoleEnum.restricted])
+async def test_post_set_reviewed_status__error_wrong_role(public_api_v1, post_factory, user: User, user_role):
+    post = await post_factory()
+    await user.update_instance(role=user_role)
+
+    response = await public_api_v1(
+        'post_set_reviewed_status',
+        post_id=post.post_id,
+        status=True
+    )
+    assert response['error'] == {'code': 4003, 'data': None, 'message': 'Access denied'}
