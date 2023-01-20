@@ -214,3 +214,47 @@ async def test_challenge_filtered_list__ok_filter_end_date(public_api_v1, challe
 
     assert challenge_1_data in response_challenges
     assert challenge_2_data in response_challenges
+
+
+async def test_challenge_edit__ok(public_api_v1, challenge_factory):
+    challenge = await challenge_factory()
+    assert challenge.to_dict() == {
+        'background_link': None,
+        'challenge_id': challenge.challenge_id,
+        'create_datetime': ANY,
+        'description': 'description of challenge',
+        'end_datetime': ANY,
+        'name': 'test_challenge_name',
+        'status': 'WAIT_FOR_REVIEW',
+    }
+
+    response = await public_api_v1(
+        method='challenge_edit',
+        challenge_id=challenge.challenge_id,
+        description='edited description of challenge',
+    )
+    assert response == {
+        'id': 2,
+        'jsonrpc': '2.0',
+        'result': {
+            'background_link': None,
+            'challenge_id': challenge.challenge_id,
+            'create_datetime': ANY,
+            'description': 'edited description of challenge',
+            'end_datetime': ANY,
+            'name': 'test_challenge_name',
+            'status': 'WAIT_FOR_REVIEW',
+            'total_likes': 0
+        }
+    }
+
+    challenge = await challenge.refresh()
+    assert challenge.to_dict() == {
+        'background_link': None,
+        'challenge_id': challenge.challenge_id,
+        'create_datetime': ANY,
+        'description': 'edited description of challenge',
+        'end_datetime': ANY,
+        'name': 'test_challenge_name',
+        'status': 'WAIT_FOR_REVIEW',
+    }

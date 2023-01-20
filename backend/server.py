@@ -44,6 +44,11 @@ def init_app():
     file_app.router.add_route('POST', '/user-avatar/{file_name:.*}', file_handler.AvatarImageHandler)
     file_app.router.add_route('POST', '/post-data/{post_id:.*}/{file_name:.*}', file_handler.PostDataHandler)
     file_app.router.add_route('POST', '/post-preview/{post_id:.*}/{file_name:.*}', file_handler.PostPreviewHandler)
+    file_app.router.add_route(
+        'POST',
+        '/challenge-background/{challenge_id:.*}/{file_name:.*}',
+        file_handler.ChallengeDataHandler
+    )
 
     application.add_subapp('/api', jsonrpc_api_v1)
     application.add_subapp('/auth', oauth_app)

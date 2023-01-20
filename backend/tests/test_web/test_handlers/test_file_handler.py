@@ -23,18 +23,6 @@ async def test_post_data_upload__ok(authorized_api_client, user: User, post_fact
     assert post.data_link == f'http://localhost:9000/webchamberbucket/post/{post.post_id}/data/image.jpg'
 
 
-async def test_post_preview_upload__ok(authorized_api_client, user: User, post_factory):
-    post = await post_factory(fill_links=False)
-    response = await authorized_api_client(
-        url=f'/file/post-preview/{post.post_id}/image.jpg',
-        data=mocks.mock_avatar_file()
-    )
-    assert response.status == 200
-
-    post = await post.refresh()
-    assert post.preview_link == f'http://localhost:9000/webchamberbucket/post/{post.post_id}/preview/image.jpg'
-
-
 async def test_post_data_upload__already_created(authorized_api_client, user: User, post_factory):
     post = await post_factory(fill_links=True)
     response = await authorized_api_client(
@@ -68,3 +56,29 @@ async def test_post_data_upload__ok_admin_can_upload_any(authorized_api_client, 
         data=mocks.mock_avatar_file()
     )
     assert response.status == 200
+
+
+async def test_post_preview_upload__ok(authorized_api_client, user: User, post_factory):
+    post = await post_factory(fill_links=False)
+    response = await authorized_api_client(
+        url=f'/file/post-preview/{post.post_id}/image.jpg',
+        data=mocks.mock_avatar_file()
+    )
+    assert response.status == 200
+
+    post = await post.refresh()
+    assert post.preview_link == f'http://localhost:9000/webchamberbucket/post/{post.post_id}/preview/image.jpg'
+
+
+async def test_challenge_background_upload__ok_admin(authorized_api_client, user: User, challenge_factory):
+    challenge = await challenge_factory()
+
+    response = await authorized_api_client(
+        url=f'/file/challenge-background/{challenge.challenge_id}/image.jpg',
+        data=mocks.mock_avatar_file()
+    )
+    assert response.status == 200
+
+    challenge = await challenge.refresh()
+    assert challenge.background_link == \
+           f'http://localhost:9000/webchamberbucket/challenge/{challenge.challenge_id}/background/image.jpg'

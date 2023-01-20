@@ -85,8 +85,14 @@ async def user_set_role(user_id: str, user_role: enums.UserRoleEnum) -> bool:
 @openrpc.method()
 async def user_edit(nickname: str = None, mood_text: str = None, description: str = None) -> bool:
     user = context.user.get()
+    data = {
+        'nickname': nickname,
+        'mood_text': mood_text,
+        'description': description,
+    }
+    data_to_update = {key: value for key, value in data.items() if value}
 
-    return await user.update_instance(nickname=nickname, mood_text=mood_text, description=description)
+    return await user.update_instance(**data_to_update)
 
 
 @openrpc.method()
@@ -329,3 +335,32 @@ async def challenge_filtered_list(
     return ChallengeListResponse(
         challenges=[challenge.to_dict(extra_attrs=['total_likes']) for challenge in challenges]
     )
+
+
+@openrpc.method()
+async def challenge_edit(
+        challenge_id: str,
+        name: str = None,
+        description: str = None,
+        end_datetime: str = None,
+        status: enums.ChallengeStatusEnum = None,
+) -> ChallengeResponse:
+    user = context.user.get()
+    if user.role not in enums.UserRoleEnum.admin_roles():
+        raise errors.AccessDenied
+
+    challenge = await challenge_service.get_challenge_full(challenge_id=challenge_id)
+
+    if end_datetime:
+        end_datetime = datetime.datetime.strptime(end_datetime, config.DATETIME_FORMAT)
+
+    data = {
+        'name': name,
+        'description': description,
+        'end_datetime': end_datetime,
+        'status': status
+    }
+    data_to_update = {key: value for key, value in data.items() if value}
+    await challenge.update_instance(**data_to_update)
+
+    return ChallengeResponse(**challenge.to_dict(extra_attrs=['total_likes']))
