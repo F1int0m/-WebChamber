@@ -1,0 +1,38 @@
+$accent: #905DCC;
+
+$mockup_border: 1px solid #000000;
+
+.primaryBody {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 30px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  background-color: $accent;
+}
+
+.text {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: white;
+}
+
+.iconBody {
+  height: 32px;
+  width: 32px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}

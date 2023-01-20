@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {SetOAuthToken} from "../../../auth/setOAuthToken";
+import React from 'react';
+//import {useNavigate} from "react-router-dom";
+//import {useDispatch, useSelector} from "react-redux";
+import {SetOAuthToken} from "../../../actions/auth/setOAuthToken";
 
 function Login() {
-    // v 1.5
-    const navigate = useNavigate();
-    const authCheck = useDispatch()
-    const [newToken, setNewToken] = useState()
+    // const navigate = useNavigate();
+    // const authCheck = useDispatch()
+    // const [newToken, setNewToken] = useState()
 
     function HandleClick() {
         // TODO: сделать приватные страницы приватными

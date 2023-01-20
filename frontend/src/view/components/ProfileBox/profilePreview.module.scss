@@ -1,0 +1,94 @@
+$text_primary: #565656;
+$accent: #905DCC;
+
+$profileHeight: 64px;
+
+
+$mockup_border: 1px solid #ff9c9c;
+
+
+.profileBox {
+  display: flex;
+  flex-direction: row;
+  width: 1156px;
+  gap: 16px;
+  padding: 20px 0 20px 0;
+}
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 16px;
+}
+
+.avatarBox {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.avatarImg {
+  width: $profileHeight;
+  height: $profileHeight;
+}
+
+.mainInfoBox{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px 0 20px 20px;
+  gap: 10px;
+  height: 190px;
+
+  align-self: stretch;
+  flex-grow: 1;
+}
+
+.row1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 0;
+  height: $profileHeight;
+}
+
+.infoLine {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.statistics {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  gap: 20px;
+}
+
+.header2 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.nickname {
+  display: flex;
+  justify-self: flex-start;
+  word-break: break-all;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24pt;
+  line-height: 38px;
+  color: $text_primary;
+}
+
+.buttonsArea {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}

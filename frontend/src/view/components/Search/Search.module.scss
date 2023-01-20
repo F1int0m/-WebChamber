@@ -1,0 +1,38 @@
+$back_color: #F0F0F0;
+$accent: #7B4DB1;
+
+.box {
+  display: flex;
+  flex-direction: row;
+  align-self: stretch;
+  justify-content: space-between;
+  width: 1156px;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  height: 44px;
+  background-color: $back_color;
+  padding: 0 20px;
+}
+
+.placeHolder {
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: $accent;
+}
+
+.icon {
+
+}

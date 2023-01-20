@@ -1,37 +1,34 @@
 import React from 'react';
 import styles from './post.module.scss'
 
+import InfoBlockChallenge from "./InfoBlockChallenge";
+import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
+import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
+import preview from '../../../static/images/preview1.jpg'
+
+import {useNavigate} from "react-router-dom";
+
 const Post = ({data}) => {
-    let post;
+    // TODO: вынести выбор инфо-блока в конфиг ContentFeed-а
+    const navigate = useNavigate()
+
+    let infoBlock;
     if (data.type === 'challenge') {
-        post = <div>
-            <p>{data.previewImage}</p>
-            <h3 className={styles.aaa}>{data.title}</h3>
-            <p>{data.likes}</p>
-        </div>
+        infoBlock = <InfoBlockChallenge data={data}/>
     } else if (data.type === 'one-author') {
-        post = <div>
-            <p>{data.previewImage}</p>
-            <p>{data.avatar}</p>
-            <h3>{data.authorNickname}</h3>
-            <p>{data.likes}</p>
-        </div>
+        infoBlock = <InfoBlockOneAuthor data={data}/>
     } else if (data.type === 'multiple-authors') {
-        post = <div>
-            <p>{data.previewImage}</p>
-            <h3>{data.title}</h3>
-            {data.authors.map(author =>
-                <div key={author.authorId}>
-                    <p>{author.avatar}</p>
-                    <p>{author.authorNickname}</p>
-                </div>
-            )}
-            <p>{data.likes}</p>
-        </div>
+        infoBlock = <InfoBlockMultipleAuthors data={data}/>
     }
+
+    function handleClick() {
+        navigate('/post')
+    }
+
     return (
-        <div className={styles.flexContainer}>
-            {post}
+        <div className={styles.postBox}>
+            <img src={preview} alt={preview} className={styles.media} onClick={handleClick}/>
+            {infoBlock}
         </div>
     );
 };

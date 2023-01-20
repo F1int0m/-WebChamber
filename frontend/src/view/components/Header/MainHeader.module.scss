@@ -1,0 +1,56 @@
+$text_primary: #565656;
+
+$mockup_border: 1px solid #ff9c9c;
+
+.text {
+    color: $text_primary;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+  }
+
+.mainNavBox {
+  display: flex;
+  align-self: stretch;
+  flex-grow: 1;
+  order: 0;
+  align-items: center;
+  gap: 20px;
+}
+
+.rightNavBox {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 10px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.leftNavBox {
+}
+
+.header {
+  width: 100%;
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 40px 0 40px;
+
+  background-color: #ffffff;
+}
+

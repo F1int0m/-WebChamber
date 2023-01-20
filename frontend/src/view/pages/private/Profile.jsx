@@ -1,25 +1,41 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import ProfileBox from "../../components/ProfileBox/ProfileBox";
-import {info} from "../../components/ProfileBox/data";
-import {NavLink, Outlet} from "react-router-dom";
-import {
-    ROOT_URL,
-    PROFILE_URL,
-    CHALLENGES_URL,
-    CASUAL_URL
-} from "../../../system/env";
+import {Outlet} from "react-router-dom";
+import style from '../setupPages.module.scss'
+import ContentHeader from "../../components/Content/ContentHeader/ContentHeader";
+import {useDispatch, useSelector} from "react-redux";
+import user_get_self from "../../../actions/user/user_get_self";
+import post_filtered_list from "../../../actions/post/post_filtered_list"
+import user_get from "../../../actions/user/user_get";
+
 
 const Profile = () => {
+    // viewType: Preview / SelfPreview / Full / SelfFull
+
+    const dispatch = useDispatch()
+    const userInfo = useSelector(state => state.profile)
+    const authInfo = useSelector(state => state.auth)
+    const isSelf = authInfo.id === userInfo.user_id
+
+
+    useEffect(() => {
+        isSelf ? user_get_self(dispatch) : user_get(dispatch, userInfo.user_id)
+    }, [])
+
+    useEffect(() => {
+        post_filtered_list(dispatch, {
+            user_id: userInfo.user_id
+        })
+    }, [])
+
+
+    const viewType = authInfo.id === userInfo.user_id ? 'SelfFull' : 'Full';
+
     return (
-        <div>
-            <ProfileBox isFull={true} info={info}/>
-            <header>
-                <h1>
-                    <NavLink to={ROOT_URL + PROFILE_URL + CHALLENGES_URL}>Челленджи</NavLink>
-                    <NavLink to={ROOT_URL + PROFILE_URL + CASUAL_URL}>Все работы</NavLink>
-                </h1>
-            </header>
-            <Outlet />
+        <div className={style.setupProfile}>
+            <ProfileBox viewType={viewType} userInfo={userInfo}/>
+            <ContentHeader page={'profile'}/>
+            <Outlet/>
         </div>
     );
 };

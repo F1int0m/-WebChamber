@@ -1,0 +1,34 @@
+$text_primary: #565656;
+
+.setupProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.setupSettings {
+
+}
+
+.setupFavourites {
+
+}
+
+.setupChamber {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.setupPostView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .recommendationsTitle {
+    width: 1156px;
+    display: flex;
+    align-items: flex-start;
+    color: $text_primary;
+  }
+}

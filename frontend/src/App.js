@@ -1,15 +1,11 @@
-import './style/App.css';
+import './view/style/App.module.css';
 import {Routes, Route} from "react-router-dom";
 
-import MainHeader from "./view/components/navigation/MainHeader";
-import Challenges from "./view/pages/private/chamber/Challenges";
+import MainHeader from "./view/components/Header/MainHeader";
 import NotFound from "./view/pages/system/NotFound";
-import Collaborations from "./view/pages/private/chamber/Collaborations";
-import Tops from "./view/pages/private/chamber/Tops";
 import Favourites from "./view/pages/private/Favourites";
 import Settings from "./view/pages/private/Settings";
 import Profile from "./view/pages/private/Profile";
-import ChamberHeader from "./view/components/navigation/ChamberHeader";
 import Login from "./view/pages/public/Login";
 
 import {
@@ -17,35 +13,59 @@ import {
     CHAMBER_URL,
     FAVOURITES_URL,
     SETTINGS_URL,
-    PROFILE_URL,
+    PROFILE_PAGE,
     CHALLENGES_URL,
     CASUAL_URL,
-    COLLABORATIONS_URL,
-    TOPS_URL,
+    PEOPLE_URL,
     LOGIN_URL,
     NOT_FOUND_URL
 } from './system/env'
-import Content from "./view/components/Content/Content";
-import {profileCasualPosts, profileChallengesPosts} from "./view/components/ProfileBox/data";
+import ContentFeed from "./view/components/Content/ContentFeed/ContentFeed";
+import {profileCasualPosts, profileChallengesPosts} from "./system/fakeData";
+import People from "./view/pages/private/chamber/People";
+import Chamber from "./view/pages/private/Chamber";
+import PostView from "./view/pages/private/PostView";
+import CreatePost from "./view/pages/private/CreatePost";
 
 function App() {
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
     //       const isAuth = useSelector(state => state.is_auth)
+
+    const isMyProfile = true;
+
   return (
     <div className="App">
         <Routes>
-            <Route path={ROOT_URL} element={<MainHeader />}>
+            <Route path={ROOT_URL} element={<MainHeader/>}>
                 <Route path={FAVOURITES_URL} element={<Favourites />}/>
                 <Route path={SETTINGS_URL} element={<Settings />}/>
-                <Route path={PROFILE_URL} element={<Profile />}>
-                    <Route path={CHALLENGES_URL} element={<Content type={'challenges-profile'} data={profileChallengesPosts}/>}/>
-                    <Route path={CASUAL_URL} element={<Content type={'casual-profile-me'} data={profileCasualPosts}/>}/>
+                <Route path={PROFILE_PAGE.URL} element={<Profile />}>
+                    <Route path={PROFILE_PAGE.CHALLENGES.URL} element={
+                        <ContentFeed pageType={PROFILE_PAGE.CHALLENGES.TYPE} data={profileChallengesPosts}/>
+                    }/>
+                    {isMyProfile ?
+                        <Route path={PROFILE_PAGE.CASUAL.URL} element={
+                            <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.ME} data={profileCasualPosts}/>
+                        }/>
+                        :
+                        <Route path={PROFILE_PAGE.CASUAL.URL} element={
+                            <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.NOT_ME} data={profileCasualPosts}/>
+                        }/>
+                    }
                 </Route>
-                <Route path={CHAMBER_URL} element={<ChamberHeader />}>
-                    <Route path={CHALLENGES_URL} element={<Challenges />}/>
-                    <Route path={COLLABORATIONS_URL} element={<Collaborations />}/>
-                    <Route path={TOPS_URL} element={<Tops />}/>
+                <Route path={CHAMBER_URL} element={<Chamber />}>
+                    <Route path={CHALLENGES_URL} element={
+                        <ContentFeed pageType={'challenges-chamber'} data={profileCasualPosts}/>
+                    }/>
+                    <Route path={CASUAL_URL} element={
+                        <ContentFeed pageType={'casual-chamber'} data={profileCasualPosts}/>
+                    }/>
+                    <Route path={PEOPLE_URL} element={
+                        <People />
+                    }/>
                 </Route>
+                <Route path={'/post'} element={<PostView />}/>
+                <Route path={'/post/create'} element={<CreatePost />}/>
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>

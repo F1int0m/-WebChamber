@@ -1,0 +1,16 @@
+{
+  "showButtons": {
+    "addContent": {
+      "Chamber_ChallengesListPage": false,
+      "Chamber_CasualPostsPage": true,
+      "Chamber_PeoplePage": false,
+      "Chamber_ChallengePage": true,
+      "Profile_ChallengesPostsPage": false,
+      "Profile_CasualPostsPage": false,
+      "Profile_me_ChallengesPostsPage": false,
+      "Profile_me_CasualPostsPage": true,
+      "Favourites_ChallengesListPage": false,
+      "Favourites_AllPostsPage": false
+    }
+  }
+}

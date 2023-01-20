@@ -1,0 +1,18 @@
+$accent: #905DCC;
+$text_primary: #565656;
+
+.title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24pt;
+  font-weight: 700;
+  color: $accent;
+  margin-top: 10px;
+}
+
+.description {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16pt;
+  font-weight: 400;
+  color: $text_primary;
+  margin: 10px 0;
+}
