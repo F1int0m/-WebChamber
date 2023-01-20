@@ -1,6 +1,6 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
-import {getChallengeList} from "../../store/reducers/challengesListReducer";
+import {getChallengeList} from "../../store/reducers/challengeListReducer";
 
 async function challenge_filtered_list(dispatch) {
     try {

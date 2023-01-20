@@ -1,7 +1,7 @@
 const GET = 'GET'
 
 const defaultState = {
-    challengesList: [],
+    challengeList: [],
     search_args: {
         create_datetime: 'DD-MM-YYYY HH:MM:SS',
         end_datetime: 'DD-MM-YYYY HH:MM:SS',
