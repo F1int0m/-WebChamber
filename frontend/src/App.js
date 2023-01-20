@@ -52,7 +52,6 @@ function App() {
                             <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.NOT_ME} data={profileCasualPosts}/>
                         }/>
                     }
-
                 </Route>
                 <Route path={CHAMBER_URL} element={<Chamber />}>
                     <Route path={CHALLENGES_URL} element={

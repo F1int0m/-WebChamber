@@ -5,8 +5,7 @@ export async function SetOAuthToken() {
 
     await fetch(AUTH_URL)
         .then(response => {
-                response
-                    .text()
+                response.text()
                     .then((text) => {
                         console.log('Found redirect url=' + text)
                         document.location = text

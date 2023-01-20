@@ -2,9 +2,9 @@ import {SetOAuthToken} from "../../actions/auth/setOAuthToken";
 
 const InitState = () => {
     return {
-        id: '',
+        id: '232868007',
         is_auth: false,
-        token: 'hkZGFq63jQYL7WhRkK2x'
+        token: 'XofLV8BtvRK84oIBqfAr'
     }
 }
 

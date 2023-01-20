@@ -1,6 +1,5 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
-import {setSelfUserInfo} from "../../store/reducers/userReducer";
 import {setPostFilteredList} from "../../store/reducers/postReducer";
 
 async function post_filtered_list(dispatch, args) {

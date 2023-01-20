@@ -1,21 +1,24 @@
 import {JSONRPC_URL} from "../../system/env";
+import request_init from "../../system/json_rpc/request_init"
+import {getUser} from "../../store/reducers/userReducer";
 
-async function user_get({user_id}) {
-    await fetch(JSONRPC_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'webchamber_token': 'jG-ooRJ-yU_sLANU6LUu'
-        },
-        body: {
-            'jsonrpc': '2.0',
-            'method': 'user_get',
-            'params': [{
-                'user_id': user_id
-            }],
-            'id': 0
-        }
-    }).then(response => console.log(response))
+async function user_get(dispatch, {user_id}) {
+    try {
+        const req = request_init({
+            method: 'user_get',
+            params: [{
+                user_id: user_id
+            }]
+        })
+        await fetch(JSONRPC_URL, req)
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                dispatch(getUser(res.result))
+            })
+    } catch (e) {
+        console.error(e)
+    }
 }
 
 export default user_get;

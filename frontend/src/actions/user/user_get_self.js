@@ -1,6 +1,6 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
-import {setSelfUserInfo} from "../../store/reducers/userReducer";
+import {getUserSelf} from "../../store/reducers/userReducer";
 
 async function user_get_self(dispatch) {
     try {
@@ -11,7 +11,8 @@ async function user_get_self(dispatch) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                dispatch(setSelfUserInfo(res.result))
+                console.log(res)
+                dispatch(getUserSelf(res.result))
             })
     } catch (e) {
         console.error(e)

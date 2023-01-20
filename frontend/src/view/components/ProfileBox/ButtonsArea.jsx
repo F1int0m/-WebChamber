@@ -4,12 +4,30 @@ import style from "./profileFull.module.scss"
 import NotificationsIcon from '../../../static/icons/notifications_icon.svg'
 import ButtonPrimary from "../buttons/ButtonPrimary"
 import ButtonIcon from "../buttons/ButtonIcon"
+import {useNavigate} from "react-router-dom";
 
-const ButtonsArea = () => {
+const ButtonsArea = ({viewType}) => {
+    // viewType: Preview / SelfPreview / Full / SelfFull
+
+    const navigate = useNavigate()
+    function handleEditButtonClick() {
+        navigate('/profile/edit')
+    }
+
     return (
         <div className={style.buttonsArea}>
-            <ButtonIcon source={NotificationsIcon} alt={'Notifications'}/>
-            <ButtonPrimary text={'Подписаться'} callback={'callback'}/>
+            {
+                viewType === 'Preview' || viewType === 'Full' ?
+                    <>
+                        <ButtonIcon source={NotificationsIcon} alt={'Notifications'}/>
+                        <ButtonPrimary text={'Подписаться'} callback={'callback'}/>
+                    </>
+                : viewType === 'SelfFull' ?
+                    <>
+                        <ButtonPrimary text={'Редактировать'} callback={handleEditButtonClick}/>
+                    </>
+                : <></>
+            }
         </div>
     );
 };

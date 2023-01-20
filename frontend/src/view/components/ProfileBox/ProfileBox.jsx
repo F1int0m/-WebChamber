@@ -7,8 +7,8 @@ import InfoBox from "./InfoBox";
 import avatar from '../../../static/images/profile.jpg'
 import {useLocation} from "react-router-dom";
 
-function ProfileBox({isFull, userInfo}){
-    // Type: Preview / Full
+function ProfileBox({viewType, userInfo}){
+    // viewType: Preview / SelfPreview / Full / SelfFull
 
     const location = useLocation();
     const style = location.pathname.toString() === '/post' ? previewStyle : fullStyle
@@ -18,7 +18,7 @@ function ProfileBox({isFull, userInfo}){
             <div className={style.avatarBox}>
                 <img src={avatar} alt={'avatar.jpg'} className={style.avatarImg}/>
             </div>
-            <InfoBox isFull={isFull} userInfo={userInfo}/>
+            <InfoBox viewType={viewType} userInfo={userInfo}/>
         </div>
     );
 }
