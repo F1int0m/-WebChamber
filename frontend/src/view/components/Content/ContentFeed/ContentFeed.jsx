@@ -25,7 +25,7 @@ const ContentFeed = ({pageType, data}) => {
             return state.challengeList
     })
 
-    console.log('content: ', content)
+    console.log('(selected) challengeList: ', content)
     const config = setupContentFeed(pageType)
     return (
         <div className={style.container}>

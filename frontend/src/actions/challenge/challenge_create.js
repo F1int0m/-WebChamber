@@ -14,7 +14,7 @@ async function challenge_create(args) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log(res.result)
+                console.log('(Fetched) challenge_create: ', res.result)
             })
     } catch (e) {
         console.error(e)

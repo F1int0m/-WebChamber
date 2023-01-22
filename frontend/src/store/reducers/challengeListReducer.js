@@ -1,7 +1,7 @@
-const GET = 'GET'
+const GET_LIST = 'GET_LIST'
 
 const defaultState = {
-    challengeList: [],
+    challenges: [],
     search_args: {
         create_datetime: 'DD-MM-YYYY HH:MM:SS',
         end_datetime: 'DD-MM-YYYY HH:MM:SS',
@@ -15,15 +15,15 @@ const defaultState = {
 
 export default function challengeListReducer(state = defaultState, action) {
     switch (action.type) {
-        case GET:
-            console.log('reducer payload: ', action.payload)
+        case GET_LIST:
+            console.log('challengeListReducer_GET_LIST_payload: ', action.payload)
             return {
                 ...state,
-                challengesList: action.payload.challengesList
+                challenges: action.payload.challenges
             }
         default:
             return state
     }
 }
 
-export const getChallengeList = (challengeListInfo) => ({type: GET, payload: challengeListInfo})
+export const getChallengeList = (challengeListInfo) => ({type: GET_LIST, payload: challengeListInfo})

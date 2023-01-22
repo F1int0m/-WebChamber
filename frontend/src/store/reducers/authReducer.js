@@ -4,7 +4,7 @@ const InitState = () => {
     return {
         id: '232868007',
         is_auth: false,
-        token: 'XofLV8BtvRK84oIBqfAr'
+        token: '12345'
     }
 }
 

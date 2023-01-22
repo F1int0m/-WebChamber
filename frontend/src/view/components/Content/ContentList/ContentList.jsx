@@ -5,7 +5,7 @@ import ItemChallenge from "../items/itemChallenge/ItemChallenge";
 const ContentList = ({content}) => {
     return (
         <div className={styles.flexContainer}>
-            {content.challengeList.map(itemInfo =>
+            {content.challenges.map(itemInfo =>
                 <ItemChallenge key={itemInfo.challenge_id} itemInfo={itemInfo}/>
             )}
         </div>

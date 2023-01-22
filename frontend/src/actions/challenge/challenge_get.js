@@ -13,7 +13,7 @@ async function challenge_get({dispatch, args}) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log(res.result)
+                console.log('(Fetched) challenge_get: ', res.result)
                 dispatch(getChallenge(res.result))
             })
     } catch (e) {
