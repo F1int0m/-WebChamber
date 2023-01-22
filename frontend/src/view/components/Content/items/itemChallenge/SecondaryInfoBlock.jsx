@@ -4,8 +4,8 @@ import style from './ItemChallenge.module.scss'
 const SecondaryInfoBlock = () => {
     return (
         <div className={style.secondaryInfoBlockGroup}>
-            <span className={style.infoBlock}>Deadline time</span>
-            <span className={style.infoBlock}>Total likes counter</span>
+            <span className={style.infoBlock}>Осталось N дней</span>
+            <span className={style.infoBlock}>Всего N лайков</span>
         </div>
     );
 };
