@@ -90,7 +90,7 @@ class VKCodeResponse(PydanticView):
 
         response.cookies.clear()
         response.set_cookie(
-            domain='127.0.0.1',
+            domain=config.SELF_DOMAIN,
             name=config.AUTH_HEADER_NAME,
             value=str(user.internal_token),
             expires=60 * 60 * 24,
