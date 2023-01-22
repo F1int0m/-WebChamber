@@ -23,7 +23,7 @@ export const CHALLENGES_URL = 'challenges';
 export const COLLABORATIONS_URL = 'collaborations';
 export const PEOPLE_URL = 'people';
 export const LOGIN_URL = 'login';
-export const FINISH_AUTH = 'finish-auth';
+export const FINISH_AUTH = '/finish-auth';
 export const NOT_FOUND_URL = '*';
 
 // api

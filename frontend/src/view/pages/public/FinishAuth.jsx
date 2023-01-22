@@ -1,16 +1,13 @@
-import * as React from "react";
 import {useSearchParams} from "react-router-dom";
 
 function FinishAuth() {
+    let token_name = "webchamber_token"
     const [searchParams, setSearchParams] = useSearchParams();
-    const [items, setItems] = React.useState([]);
 
-    let token = searchParams.get("webchamber_token")
+
+    let token = searchParams.get(token_name)
     console.log(token)
-    React.useEffect(() => {
-        localStorage.setItem('webchamber_token', token);
-    }, [items]);
-    window.location.href = '/'
+    //  todo сохранять токен куда-то
 
 
 }
