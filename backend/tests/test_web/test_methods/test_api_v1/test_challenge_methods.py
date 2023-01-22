@@ -12,7 +12,7 @@ async def test_create_challenge__ok(public_api_v1):
         'challenge_create',
         name='test challenge',
         description='test description fo challenge',
-        end_datetime='27-12-2032 00:43:33'
+        end_datetime='2032-10-02T12:12:00+05:00'
     )
 
     assert response['result'] == {
@@ -20,7 +20,7 @@ async def test_create_challenge__ok(public_api_v1):
         'challenge_id': ANY,
         'create_datetime': '2022-10-12T00:00:00+00:00',
         'description': 'test description fo challenge',
-        'end_datetime': '2032-12-27T00:43:33+00:00',
+        'end_datetime': '2032-10-02T07:12:00+00:00',  # Потому что приложение живет в utc
         'name': 'test challenge',
         'status': 'WAIT_FOR_REVIEW',
         'total_likes': 0
@@ -119,18 +119,18 @@ async def test_challenge_filtered_list__ok_no_filter(public_api_v1, challenge_fa
 @freezegun.freeze_time(datetime.date(2022, 10, 12))
 async def test_challenge_filtered_list__ok_filter_create_date(public_api_v1, challenge_factory):
     await challenge_factory(
-        create_datetime=datetime.date(2022, 10, 1),
-        end_datetime=datetime.date(2022, 10, 11),
+        create_datetime=datetime.datetime(2022, 10, 1),
+        end_datetime=datetime.datetime(2022, 10, 11),
         status=ChallengeStatusEnum.wait_for_review
     )
     challenge_2 = await challenge_factory(
-        create_datetime=datetime.date(2022, 10, 2),
-        end_datetime=datetime.date(2022, 10, 12),
+        create_datetime=datetime.datetime(2022, 10, 2),
+        end_datetime=datetime.datetime(2022, 10, 12),
         status=ChallengeStatusEnum.active,
     )
     challenge_3 = await challenge_factory(
-        create_datetime=datetime.date(2022, 10, 3),
-        end_datetime=datetime.date(2022, 10, 13),
+        create_datetime=datetime.datetime(2022, 10, 3),
+        end_datetime=datetime.datetime(2022, 10, 13),
         status=ChallengeStatusEnum.deleted,
     )
     challenge_2_data = {
@@ -156,7 +156,7 @@ async def test_challenge_filtered_list__ok_filter_create_date(public_api_v1, cha
 
     response = await public_api_v1(
         'challenge_filtered_list',
-        create_datetime='01-10-2022 12:00:00'
+        create_datetime='2022-10-01T12:00:00+00:00'
     )
 
     response_challenges = response['result']['challenges']
@@ -169,18 +169,18 @@ async def test_challenge_filtered_list__ok_filter_create_date(public_api_v1, cha
 @freezegun.freeze_time(datetime.date(2022, 10, 12))
 async def test_challenge_filtered_list__ok_filter_end_date(public_api_v1, challenge_factory):
     challenge_1 = await challenge_factory(
-        create_datetime=datetime.date(2022, 10, 1),
-        end_datetime=datetime.date(2022, 10, 11),
+        create_datetime=datetime.datetime(2022, 10, 1),
+        end_datetime=datetime.datetime(2022, 10, 11),
         status=ChallengeStatusEnum.wait_for_review
     )
     challenge_2 = await challenge_factory(
-        create_datetime=datetime.date(2022, 10, 2),
-        end_datetime=datetime.date(2022, 10, 12),
+        create_datetime=datetime.datetime(2022, 10, 2),
+        end_datetime=datetime.datetime(2022, 10, 12),
         status=ChallengeStatusEnum.active,
     )
     await challenge_factory(
-        create_datetime=datetime.date(2022, 10, 3),
-        end_datetime=datetime.date(2022, 10, 13),
+        create_datetime=datetime.datetime(2022, 10, 3),
+        end_datetime=datetime.datetime(2022, 10, 13),
         status=ChallengeStatusEnum.deleted,
     )
     challenge_1_data = {
@@ -206,7 +206,7 @@ async def test_challenge_filtered_list__ok_filter_end_date(public_api_v1, challe
 
     response = await public_api_v1(
         'challenge_filtered_list',
-        end_datetime='12-10-2022 12:00:00'
+        end_datetime='2022-10-12T12:00:00+00:00'
     )
 
     response_challenges = response['result']['challenges']

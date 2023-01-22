@@ -81,4 +81,4 @@ async def test_challenge_background_upload__ok_admin(authorized_api_client, user
 
     challenge = await challenge.refresh()
     assert challenge.background_link == \
-           f'http://localhost:9000/webchamberbucket/challenge/{challenge.challenge_id}/background/image.jpg'
+        f'http://localhost:9000/webchamberbucket/challenge/{challenge.challenge_id}/background/image.jpg'

@@ -5,7 +5,7 @@ from typing import List
 
 import config
 from aiohttp import web
-from common import context, enums, errors
+from common import context, enums, errors, utils
 from common.db.basic import manager
 from common.db.models import (
     Challenge,
@@ -278,7 +278,7 @@ async def post_set_reviewed_status(post_id: str, status: bool) -> PostResponse:
     return PostResponse(**post.to_dict(extra_attrs=['likes_count', 'author_ids']))
 
 
-@openrpc.method(description='Время в формате:"DD-MM-YYYY HH:MM:SS"')
+@openrpc.method(description='Время в формате ISO-8601')
 async def challenge_create(
         name: str,
         description: str,
@@ -288,7 +288,7 @@ async def challenge_create(
     if user.role not in enums.UserRoleEnum.admin_roles():
         raise errors.AccessDenied
 
-    end_datetime = datetime.datetime.strptime(end_datetime, config.DATETIME_FORMAT)
+    end_datetime = utils.parse_datetime(end_datetime)
 
     challenge = await Challenge.create(
         name=name,
@@ -308,7 +308,7 @@ async def challenge_get(challenge_id: str) -> ChallengeResponse:
 
 
 @openrpc.method(
-    description=('Время в формате:"DD-MM-YYYY HH:MM:SS". '
+    description=('Время в формате ISO-8601. '
                  'При указании create_datetime возвращает все челленджи, созданные после этой даты. '
                  'При указании end_datetime - все челленджи созданные до этой даты')
 )
@@ -320,10 +320,10 @@ async def challenge_filtered_list(
         limit: int = 100
 ) -> ChallengeListResponse:
     if create_datetime:
-        create_datetime = datetime.datetime.strptime(create_datetime, config.DATETIME_FORMAT)
+        create_datetime = utils.parse_datetime(create_datetime)
 
     if end_datetime:
-        end_datetime = datetime.datetime.strptime(end_datetime, config.DATETIME_FORMAT)
+        end_datetime = utils.parse_datetime(end_datetime)
 
     challenges = await challenge_service.get_challenges_filtered_full(
         create_datetime=create_datetime,
