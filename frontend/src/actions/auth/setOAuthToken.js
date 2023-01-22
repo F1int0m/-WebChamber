@@ -8,7 +8,7 @@ export async function SetOAuthToken() {
                 response.text()
                     .then((text) => {
                         console.log('Found redirect url=' + text)
-                        document.location = text
+                        window.location.href = text
                     })
             }
         )
