@@ -91,6 +91,8 @@ class VKCodeResponse(PydanticView):
         response.cookies.clear()
         response.set_cookie(
             domain=config.SELF_DOMAIN,
+            secure=True,
+            samesite='None',
             name=config.AUTH_HEADER_NAME,
             value=str(user.internal_token),
             expires=60 * 60 * 24,
