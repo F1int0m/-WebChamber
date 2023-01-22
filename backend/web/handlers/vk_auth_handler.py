@@ -84,16 +84,8 @@ class VKCodeResponse(PydanticView):
         await manager.delete(csrf_token)
 
         response = web.HTTPFound(
-            location=config.FRONTEND_FINISH_AUTH_URL,
+            location=f'{config.FRONTEND_FINISH_AUTH_URL}?{config.AUTH_HEADER_NAME}={str(user.internal_token)}',
             content_type='application/json',
-        )
-
-        response.cookies.clear()
-        response.set_cookie(
-            domain=config.SELF_DOMAIN,
-            name=config.AUTH_HEADER_NAME,
-            value=str(user.internal_token),
-            expires=60 * 60 * 24,
         )
 
         return response
