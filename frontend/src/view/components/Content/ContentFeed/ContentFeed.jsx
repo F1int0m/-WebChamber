@@ -8,24 +8,27 @@ import {useLocation} from "react-router-dom";
 import challenge_filtered_list from "../../../../actions/challenge/challenge_filtered_list";
 import {useDispatch, useSelector} from "react-redux";
 import ContentList from "../ContentList/ContentList";
+import post_filtered_list from "../../../../actions/post/post_filtered_list";
 
 const ContentFeed = ({pageType, data}) => {
     const location = useLocation()
     const pathname = location.pathname
     const dispatch = useDispatch()
+    const args = data
 
     useEffect(() => {
         pathname === '/chamber/challenges' && challenge_filtered_list(dispatch)
+        pathname === '/challenge' && post_filtered_list(dispatch, args)
     }, [])
 
     const content = useSelector(state => {
         if (pageType === 'challenges-chamber')
             return state.challengeList
-        else
-            return state.challengeList
+        else if (pageType === 'challenge')
+            return state.posts
     })
 
-    console.log('(selected) challengeList: ', content)
+    console.log('(selected): ', data)
     const config = setupContentFeed(pageType)
     return (
         <div className={style.container}>
@@ -33,7 +36,7 @@ const ContentFeed = ({pageType, data}) => {
             {
                 pathname === '/chamber/challenges'
                     ? <ContentList content={content}/>
-                    : <ContentGrid data={data}/>
+                    : <ContentGrid data={content}/>
             }
         </div>
     );

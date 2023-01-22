@@ -26,6 +26,7 @@ import People from "./view/pages/private/chamber/People";
 import Chamber from "./view/pages/private/Chamber";
 import PostView from "./view/pages/private/PostView";
 import CreatePost from "./view/pages/private/CreatePost";
+import ChallengeView from "./view/pages/private/ChallengeView";
 
 function App() {
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
@@ -64,6 +65,7 @@ function App() {
                         <People />
                     }/>
                 </Route>
+                <Route path={'/challenge'} element={<ChallengeView />}/>
                 <Route path={'/post'} element={<PostView />}/>
                 <Route path={'/post/create'} element={<CreatePost />}/>
             </Route>
