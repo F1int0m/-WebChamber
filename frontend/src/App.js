@@ -7,6 +7,7 @@ import Favourites from "./view/pages/private/Favourites";
 import Settings from "./view/pages/private/Settings";
 import Profile from "./view/pages/private/Profile";
 import Login from "./view/pages/public/Login";
+import FinishAuth from "./view/pages/public/FinishAuth";
 
 import {
     ROOT_URL,
@@ -18,6 +19,7 @@ import {
     CASUAL_URL,
     PEOPLE_URL,
     LOGIN_URL,
+    FINISH_AUTH,
     NOT_FOUND_URL
 } from './system/env'
 import ContentFeed from "./view/components/Content/ContentFeed/ContentFeed";
@@ -68,6 +70,7 @@ function App() {
                 <Route path={'/post/create'} element={<CreatePost />}/>
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
+            <Route path={FINISH_AUTH} element={<FinishAuth />}/>
             <Route path={NOT_FOUND_URL} element={<NotFound />}/>
         </Routes>
     </div>
