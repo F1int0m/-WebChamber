@@ -25,10 +25,11 @@ const ContentFeed = ({pageType, data}) => {
         if (pageType === 'challenges-chamber')
             return state.challengeList
         else if (pageType === 'challenge')
-            return state.posts
+            return state.postList.posts
     })
 
-    console.log('(selected): ', data)
+    console.log('(from props): ', data)
+    console.log('(selected): ', content)
     const config = setupContentFeed(pageType)
     return (
         <div className={style.container}>

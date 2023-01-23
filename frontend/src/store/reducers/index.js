@@ -3,13 +3,13 @@ import authReducer from './authReducer'
 import userReducer from "./userReducer";
 import challengeReducer from "./challengeReducer";
 import challengeListReducer from "./challengeListReducer";
-import postReducer from "./postReducer";
+import postListReducer from "./postListReducer";
 
 
 export default combineReducers({
     auth: authReducer,
     profile: userReducer,
-    posts: postReducer,
+    postList: postListReducer,
     challenge: challengeReducer,
     challengeList: challengeListReducer
 })

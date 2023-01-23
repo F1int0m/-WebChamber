@@ -1,6 +1,6 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
-import {setPostFilteredList} from "../../store/reducers/postReducer";
+import {getPostFilteredList} from "../../store/reducers/postListReducer";
 
 async function post_filtered_list(dispatch, args) {
     try {
@@ -15,7 +15,7 @@ async function post_filtered_list(dispatch, args) {
             .then(res => res.json())
             .then(res => {
                 console.log('(fetched) post_filtered_list: ', res.result)
-                dispatch(setPostFilteredList(res.result))
+                dispatch(getPostFilteredList(res.result))
             })
     } catch (e) {
         console.error(e)

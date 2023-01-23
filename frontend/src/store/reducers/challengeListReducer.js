@@ -1,4 +1,4 @@
-const GET_LIST = 'GET_LIST'
+const CHALLENGE_FILTERED_LIST = 'CHALLENGE_FILTERED_LIST'
 
 const defaultState = {
     challenges: [],
@@ -15,8 +15,8 @@ const defaultState = {
 
 export default function challengeListReducer(state = defaultState, action) {
     switch (action.type) {
-        case GET_LIST:
-            console.log('challengeListReducer_GET_LIST_payload: ', action.payload)
+        case CHALLENGE_FILTERED_LIST:
+            console.log('challengeListReducer_CHALLENGE_FILTERED_LIST_payload: ', action.payload)
             return {
                 ...state,
                 challenges: action.payload.challenges
@@ -26,4 +26,4 @@ export default function challengeListReducer(state = defaultState, action) {
     }
 }
 
-export const getChallengeList = (challengeListInfo) => ({type: GET_LIST, payload: challengeListInfo})
+export const getChallengeList = (challengeListInfo) => ({type: CHALLENGE_FILTERED_LIST, payload: challengeListInfo})
