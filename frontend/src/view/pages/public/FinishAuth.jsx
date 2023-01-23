@@ -9,6 +9,8 @@ function FinishAuth() {
     console.log(token)
     //  todo сохранять токен куда-то
 
+    window.location.href = '/'
+
 
 }
 
