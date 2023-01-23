@@ -38,6 +38,7 @@ function App() {
   return (
     <div className="App">
         <Routes>
+            <Route path={NOT_FOUND_URL} element={<NotFound />}/>
             <Route path={ROOT_URL} element={<MainHeader/>}>
                 <Route path={FAVOURITES_URL} element={<Favourites />}/>
                 <Route path={SETTINGS_URL} element={<Settings />}/>
@@ -71,7 +72,6 @@ function App() {
             </Route>
             <Route path={LOGIN_URL} element={<Login />}/>
             <Route path={FINISH_AUTH} element={<FinishAuth />}/>
-            <Route path={NOT_FOUND_URL} element={<NotFound />}/>
         </Routes>
     </div>
   );
