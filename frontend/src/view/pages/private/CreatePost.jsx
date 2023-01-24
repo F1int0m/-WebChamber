@@ -8,13 +8,17 @@ import post_create from "../../../actions/post/post_create";
 
 const CreatePost = () => {
     const [file, setFile] = useState();
+    const [externalLink, setExternalLink] = useState();
+    const [name, setName] = useState('')
+    const [description, setDescription] = useState('')
+
     const postInfo = useSelector(state => state.post)
+
     const challengeInfo = useSelector(state => state.challenge)
     const isChallengeRelated = postInfo.challenge_id
     const challengeName = challengeInfo.name[0] === '#' ? challengeInfo.name : '#' + challengeInfo.name
 
     const dispatch = useDispatch()
-
 
     const handleFileChange = (e) => {
         if (e.target.files) {
@@ -22,24 +26,36 @@ const CreatePost = () => {
         }
     };
 
+    const handleInputTextChange = (e) => {
+        setName(e.target.value)
+    }
+
+    const handleTextareaChange = (e) => {
+        setDescription(e.target.value)
+    }
+
     const handleUploadClick = () => {
-        if (!file) {
+        if (!file && !externalLink) {
             return;
         }
-        const args = {}
-        post_create(dispatch, args).then()
-        fetch('https://httpbin.org/post', {
-            method: 'POST',
-            body: file,
-            headers: {
-                'content-type': file.type,
-                'content-length': `${file.size}`,
+        const args = {
+            tags_list: [
+                name
+            ],
+            description: description,
+            external_data: {
+                externalPostData: {
+                    external_data_link: externalLink ? externalLink : ''
+                }
             },
-        })
-            .then((res) => res.json())
-            .then((data) => console.log('(fetched): ',data))
-            .catch((err) => console.error(err));
-    };
+            file: file ? file : '',
+            challenge_id: challengeInfo.challenge_id,
+            authors: [
+                '85292376'
+            ]
+        }
+        post_create(dispatch, args).then()
+    }
 
     return (
         <div className={style.pageContainer}>
@@ -55,8 +71,8 @@ const CreatePost = () => {
                         isChallengeRelated &&
                         <span className={style.challengeTitle}>{challengeName}</span>
                     }
-                    <input className={style.postTitle} placeholder={'Название'}/>
-                    <textarea className={style.postDescription} placeholder={'Описание'}/>
+                    <input className={style.postTitle} onChange={handleInputTextChange} placeholder={'Название'}/>
+                    <textarea className={style.postDescription} onChange={handleTextareaChange} placeholder={'Описание'}/>
                     <ButtonPrimary text={'Загрузить'} callback={handleUploadClick}/>
                 </form>
             </div>
