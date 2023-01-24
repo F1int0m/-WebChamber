@@ -1,0 +1,117 @@
+$text_primary: #565656;
+$back_color: #F0F0F0;
+$accent: #7B4DB1;
+
+.pageContainer {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainContainer {
+  width: 1156px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.pageText {
+  color: $text_primary;
+  font-family: 'Roboto', sans-serif;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.postTitle {
+  display: flex;
+  width: 1116px;
+  border-radius: 12px;
+  border: 1px solid $back_color;
+  height: 44px;
+  background-color: $back_color;
+  padding: 0 20px;
+  align-items: center;
+
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: $accent;
+}
+
+.challengeTitle {
+  color: $accent;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+
+  overflow-wrap: anywhere;
+  padding: 0;
+  border-radius: 8px;
+}
+
+.postDescription {
+  display: flex;
+  width: 1116px;
+  border-radius: 12px;
+  border: 1px solid $back_color;
+  height: 120px;
+  background-color: $back_color;
+  padding: 10px 20px;
+  resize: none;
+
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: $accent;
+}
+
+.postTitle:focus-visible {
+  outline: none !important;
+  border-color: $accent;
+}
+
+.postDescription:focus-visible {
+  outline: none !important;
+  border-color: $accent;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $accent;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: $accent;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: $accent;
+}

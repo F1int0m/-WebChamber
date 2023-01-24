@@ -7,7 +7,7 @@ const UPDATE = 'UPDATE'
 
 const defaultState = {
     challenge_id: '',
-    name: '',
+    name: 'default',
     description: '',
     create_datetime: 'DD-MM-YYYY HH:MM:SS',
     end_datetime: 'DD-MM-YYYY HH:MM:SS',

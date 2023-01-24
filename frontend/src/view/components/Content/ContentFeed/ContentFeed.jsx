@@ -10,11 +10,11 @@ import {useDispatch, useSelector} from "react-redux";
 import ContentList from "../ContentList/ContentList";
 import post_filtered_list from "../../../../actions/post/post_filtered_list";
 
-const ContentFeed = ({pageType, data}) => {
+const ContentFeed = ({pageType}) => {
     const location = useLocation()
     const pathname = location.pathname
     const dispatch = useDispatch()
-    const args = data
+    const args = useSelector(state => state.challenge.challenge_id)
 
     useEffect(() => {
         pathname === '/chamber/challenges' && challenge_filtered_list(dispatch)
@@ -24,11 +24,10 @@ const ContentFeed = ({pageType, data}) => {
     const content = useSelector(state => {
         if (pageType === 'challenges-chamber')
             return state.challengeList
-        else if (pageType === 'challenge')
+        else
             return state.postList.posts
     })
 
-    console.log('(from props): ', data)
     console.log('(selected): ', content)
     const config = setupContentFeed(pageType)
     return (

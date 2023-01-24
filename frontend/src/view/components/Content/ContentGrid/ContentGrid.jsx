@@ -6,7 +6,7 @@ const ContentGrid = ({data}) => {
     return (
         <div className={styles.flexContainer}>
             {data.map(postInfo =>
-                <Post key={postInfo.id} data={postInfo}/>
+                <Post key={postInfo.post_id} data={postInfo}/>
             )}
         </div>
     );

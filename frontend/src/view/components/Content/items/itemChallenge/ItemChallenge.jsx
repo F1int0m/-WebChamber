@@ -12,6 +12,7 @@ const ItemChallenge = ({itemInfo}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    console.log(itemInfo)
     function handleClick() {
         dispatch(getChallenge(itemInfo))
         navigate('/challenge')
