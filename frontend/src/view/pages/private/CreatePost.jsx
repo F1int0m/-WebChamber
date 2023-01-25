@@ -48,9 +48,6 @@ const CreatePost = () => {
                 description: description,
                 file: file ? file : '',
                 challenge_id: challengeInfo.challenge_id,
-                authors: [
-                    '85292376'
-                ],
                 external_data_link: false
             }
             post_create(dispatch, args).then()

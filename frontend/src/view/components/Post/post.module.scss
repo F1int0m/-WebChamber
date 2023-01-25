@@ -1,4 +1,5 @@
 $text_primary: #565656;
+$media_border: #ececec;
 
 $post_width: 273px;
 
@@ -50,6 +51,7 @@ $mockup_border: 1px solid #ff9c9c;
     width: $preview_width;
     height: $preview_height;
     border-radius: 8px;
+    border: 1px solid $media_border;
 }
 
 .text {

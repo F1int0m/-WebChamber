@@ -1,12 +1,12 @@
 import React from 'react';
+// import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
+import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
 
-const InfoBlockWithAuthors = ({authorsInfo}) => {
-    console.log('InfoBlockWithAuthors - authorsInfo: ', authorsInfo)
+const InfoBlockWithAuthors = ({authorsInfo, postInfo}) => {
+    // console.log('InfoBlockWithAuthors - authorsInfo: ', authorsInfo)
     return (
         <div>
-            {
-                authorsInfo
-            }
+            {/*<InfoBlockOneAuthor authorsInfo={authorsInfo} postInfo={postInfo}/>*/}
         </div>
     );
 };

@@ -28,7 +28,6 @@ async function post_create(dispatch, args) {
             params: {
                 description: args.description,
                 tags_list: args.tags_list,
-                additional_authors_ids: args.authors,
                 challenge_id: args.challenge_id
             }
         })

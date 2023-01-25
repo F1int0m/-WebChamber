@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import style from "./profileFull.module.scss"
 import NotificationsIcon from '../../../static/icons/notifications_icon.svg'
@@ -14,13 +14,17 @@ const ButtonsArea = ({viewType}) => {
         navigate('/profile/edit')
     }
 
+    function handleSubscription() {
+        console.log('subscribe')
+    }
+
     return (
         <div className={style.buttonsArea}>
             {
                 viewType === 'Preview' || viewType === 'Full' ?
                     <>
                         <ButtonIcon source={NotificationsIcon} alt={'Notifications'}/>
-                        <ButtonPrimary text={'Подписаться'} callback={'callback'}/>
+                        <ButtonPrimary text={'Подписаться'} callback={handleSubscription}/>
                     </>
                 : viewType === 'SelfFull' ?
                     <>

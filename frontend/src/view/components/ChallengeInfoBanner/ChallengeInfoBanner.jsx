@@ -9,7 +9,7 @@ const ChallengeInfoBanner = ({itemInfo}) => {
     const normalized_end_datetime = 5
     return (
         <div className={style.container}>
-            <img src={path} alt={''} className={style.backgroundImage}/>
+            <img src={itemInfo.background_link} alt={''} className={style.backgroundImage}/>
             <div className={style.mainGroup}>
                 <span className={style.infoBlockTitle}>{challengeName_normalized}</span>
                 <ButtonIcon source={favourites} alt={'favourites'} size={32}/>

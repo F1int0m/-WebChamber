@@ -4,15 +4,15 @@ const POST_LIKE = 'POST_LIKE'
 const POST_UNLIKE = 'POST_UNLIKE'
 
 const defaultState = {
-    post_id: -1,
+    post_id: '',
     challenge_id: '',
-    author_ids: '',
+    author_ids: [],
     description: '',
     preview_link: '',
     data_link: '',
     type: '',
     tags_list: '',
-    likes_count: ''
+    likes_count: '',
 }
 
 export default function postReducer(state = defaultState, action) {
@@ -20,8 +20,16 @@ export default function postReducer(state = defaultState, action) {
         case POST_GET:
             console.log('postReducer_POST_GET_payload: ', action.payload)
             return {
-                ...state
-                // ...
+                ...state,
+                post_id: action.payload.post_id,
+                challenge_id: action.payload.challenge_id,
+                author_ids: action.payload.author_ids,
+                description: action.payload.description,
+                preview_link: action.payload.preview_link,
+                data_link: action.payload.data_link,
+                type: action.payload.type,
+                tags_list: action.payload.tags_list,
+                likes_count: action.payload.likes_count
             }
         case POST_CREATE:
             console.log('postReducer_POST_CREATE_payload: ', action.payload)

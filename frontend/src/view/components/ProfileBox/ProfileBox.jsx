@@ -16,7 +16,7 @@ function ProfileBox({viewType, userInfo}){
     return (
         <div className={style.profileBox}>
             <div className={style.avatarBox}>
-                <img src={avatar} alt={'avatar.jpg'} className={style.avatarImg}/>
+                <img src={userInfo.avatar_link} alt={'avatar.jpg'} className={style.avatarImg}/>
             </div>
             <InfoBox viewType={viewType} userInfo={userInfo}/>
         </div>

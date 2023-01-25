@@ -12,9 +12,9 @@ const ChallengeView = () => {
     const dispatch = useDispatch()
     const args = {}
 
-    useEffect(() => {
-        post_filtered_list(dispatch, args)
-    }, [])
+    // useEffect(() => {
+    //     post_filtered_list(dispatch, args)
+    // }, [])
 
     return (
         <div className={style.setupChallengeView}>
