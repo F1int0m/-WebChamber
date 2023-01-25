@@ -14,27 +14,31 @@ import {getChallenge} from "../../../store/reducers/challengeReducer";
 
 const Post = ({postInfo, authorsInfo}) => {
     // TODO: вынести выбор инфо-блока в конфиг ContentFeed-а
-    const navigate = useNavigate()
-    const location = useLocation()
-    const pathname = location.pathname
-    const dispatch = useDispatch()
-    const userInfo = useSelector(state => state.profile)
+    // TODO: реализовать показ автора(-ов)
 
-    let infoBlock;
-    if (pathname === '/profile/challenges')
-        infoBlock = <InfoBlockChallenge postInfo={postInfo}/>
-    else infoBlock = <InfoBlockWithAuthors authorsInfo={authorsInfo} postInfo={postInfo}/>
+    const navigate = useNavigate()
+    // const location = useLocation()
+    // const pathname = location.pathname
+    const dispatch = useDispatch()
+    // const userInfo = useSelector(state => state.profile)
+
+    // let infoBlock;
+    // if (pathname === '/profile/challenges')
+    //     infoBlock = <InfoBlockChallenge postInfo={postInfo}/>
+    // else infoBlock = <InfoBlockWithAuthors authorsInfo={authorsInfo} postInfo={postInfo}/>
 
     function handleClick() {
-        dispatch(getUser(authorsInfo))
-        post_filtered_list(dispatch, userInfo).then()
+        // console.log('(10) updating postReducer')
+        dispatch(getPost(postInfo))
         navigate('/post')
+        // dispatch(getUser(authorsInfo))
+        // post_filtered_list(dispatch, userInfo).then()
     }
 
     return (
         <div className={styles.postBox}>
             <img src={postInfo.data_link} alt={preview} className={styles.media} onClick={handleClick}/>
-            {infoBlock}
+            {/*{infoBlock}*/}
         </div>
     );
 };

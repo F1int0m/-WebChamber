@@ -1,11 +1,14 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Post from "../../Post/Post";
 import styles from './grid.module.scss'
-import {useDispatch, useSelector} from "react-redux";
-import user_get from "../../../../actions/user/user_get";
+// import {useSelector} from "react-redux";
 
 const ContentGrid = ({data}) => {
-    const authorInfo = useSelector(state => state.profile)
+    // console.log('(9-17) got store data: ', data)
+
+    const authorInfo = {}
+    // const authorInfo = useSelector(state => state.profile)
+    // ^ Зачем вызывать автора одного поста над массивом всех постов?
     return (
         <div className={styles.flexContainer}>
             {data.map(postInfo =>

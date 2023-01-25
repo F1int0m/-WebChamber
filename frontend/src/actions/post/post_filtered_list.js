@@ -11,7 +11,7 @@ async function post_filtered_list(dispatch, args) {
         _params.challenge_id = args.challenge_id
 
     try {
-        console.log('post_filtered_list args: ', args)
+        // console.log('post_filtered_list args: ', args)
         const req = request_init({
             method: 'post_filtered_list',
             params: _params
@@ -19,7 +19,9 @@ async function post_filtered_list(dispatch, args) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log('(fetched) post_filtered_list: ', res.result)
+                // console.log('(7-16) done')
+                // console.log('(fetched) post_filtered_list: ', res.result)
+                // console.log('(8-11-17) getPostFilteredList -> postListReducer')
                 dispatch(getPostFilteredList(res.result))
             })
     } catch (e) {

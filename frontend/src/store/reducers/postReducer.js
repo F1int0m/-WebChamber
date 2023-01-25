@@ -18,7 +18,8 @@ const defaultState = {
 export default function postReducer(state = defaultState, action) {
     switch (action.type) {
         case POST_GET:
-            console.log('postReducer_POST_GET_payload: ', action.payload)
+            // console.log('(10) done')
+            // console.log('postReducer_POST_GET_payload: ', action.payload)
             return {
                 ...state,
                 post_id: action.payload.post_id,
@@ -32,20 +33,20 @@ export default function postReducer(state = defaultState, action) {
                 likes_count: action.payload.likes_count
             }
         case POST_CREATE:
-            console.log('postReducer_POST_CREATE_payload: ', action.payload)
+            // console.log('postReducer_POST_CREATE_payload: ', action.payload)
             return {
                 ...state,
                 challenge_id: action.payload.challenge_id
             }
         case POST_LIKE:
             // Вызывается из страницы просмотра челенджа, при нажатии кнопки добвления работы
-            console.log('postReducer_POST_LIKE_payload: ', action.payload)
+            // console.log('postReducer_POST_LIKE_payload: ', action.payload)
             return {
                 ...state
                 // ...
             }
         case POST_UNLIKE:
-            console.log('postReducer_POST_UNLIKE_payload: ', action.payload)
+            // console.log('postReducer_POST_UNLIKE_payload: ', action.payload)
             return {
                 ...state
                 // ...

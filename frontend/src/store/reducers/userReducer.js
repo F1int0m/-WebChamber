@@ -8,37 +8,38 @@ const ADMIN_SET_ROLE = 'SET_ROLE'
 
 
 const defaultState = {
-    user_id: '232868007', // менять через SET_ID_FOR_GET, чтобы вызвать GET
+    user_id: '232868007',
     role: 'unknown',
     nickname: 'Unknown user',
     mood_text: 'empty',
     description: 'empty',
-    avatar_link: 'unknown'
+    avatar_link: 'unknown',
+    isSelf: false
 }
 
 export default function userReducer(state = defaultState, action) {
     switch (action.type) {
         case GET_SELF:
-            return {
-                ...state,
-                role: action.payload.role,
-                nickname: action.payload.nickname,
-                description: action.payload.description,
-                avatar_link: action.payload.avatar_link
-            }
-        case SET_ID_FOR_GET:
-            return {
-                ...state,
-                user_id: action.payload.user_id
-            }
-        case GET_USER:
+            // console.log('(13) done')
             return {
                 ...state,
                 user_id: action.payload.user_id,
                 role: action.payload.role,
                 nickname: action.payload.nickname,
                 description: action.payload.description,
-                avatar_link: action.payload.avatar_link
+                avatar_link: action.payload.avatar_link,
+                isSelf: true
+            }
+        case GET_USER:
+            // console.log('(13) done')
+            return {
+                ...state,
+                user_id: action.payload.user_id,
+                role: action.payload.role,
+                nickname: action.payload.nickname,
+                description: action.payload.description,
+                avatar_link: action.payload.avatar_link,
+                isSelf: false
             }
         case EDIT_USER:
             return {

@@ -21,7 +21,6 @@ import {
     NOT_FOUND_URL
 } from './system/env'
 import ContentFeed from "./view/components/Content/ContentFeed/ContentFeed";
-import {profileCasualPosts, profileChallengesPosts} from "./system/fakeData";
 import People from "./view/pages/private/chamber/People";
 import Chamber from "./view/pages/private/Chamber";
 import PostView from "./view/pages/private/PostView";
@@ -56,10 +55,10 @@ function App() {
                 </Route>
                 <Route path={CHAMBER_URL} element={<Chamber />}>
                     <Route path={CHALLENGES_URL} element={
-                        <ContentFeed pageType={'challenges-chamber'} data={profileCasualPosts}/>
+                        <ContentFeed pageType={'challenges-chamber'}/>
                     }/>
                     <Route path={CASUAL_URL} element={
-                        <ContentFeed pageType={'casual-chamber'} data={profileCasualPosts}/>
+                        <ContentFeed pageType={'casual-chamber'}/>
                     }/>
                     <Route path={PEOPLE_URL} element={
                         <People />
