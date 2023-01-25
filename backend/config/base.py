@@ -34,7 +34,7 @@ VK_CLIENT_SECRET = '123'
 VK_REDIRECT_URI = 'http://212.220.113.111/auth/vk/code-response'
 VK_SCOPE = 'email'
 
-FRONTEND_FINISH_AUTH_URL = 'http://212.220.113.111/'
+FRONTEND_FINISH_AUTH_URL = 'http://212.220.113.111/finish-auth'
 AUTH_HEADER_NAME = 'webchamber_token'
 TOKEN_MIN_SIZE = 15
 

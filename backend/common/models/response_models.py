@@ -77,8 +77,8 @@ class ChallengeResponse(BaseModel):
 
     name: str = Field(...)
     description: str = Field(...)
-    create_datetime: datetime.datetime = Field(..., example='')  # todo дописать пример даты
-    end_datetime: datetime.datetime = Field(..., example='')
+    create_datetime: datetime.datetime = Field(..., example='2022-03-15T11:45:00Z')
+    end_datetime: datetime.datetime = Field(..., example='2022-03-15T11:45:00Z')
     status: enums.ChallengeStatusEnum = Field(...)
 
     background_link: Optional[AnyUrl] = Field()

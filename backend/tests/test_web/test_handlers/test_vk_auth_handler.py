@@ -43,8 +43,9 @@ async def test_code_response_handler__ok_good_response(test_app, mock_response, 
     )
     assert response.status == 302
 
-    assert response.cookies == {'webchamber_token': ANY}
-    token = response.cookies.get('webchamber_token').value
+    redirect_url, token = response.headers.get('location').split('=')
+
+    assert redirect_url == 'http://localhost/finish-auth?webchamber_token'
 
     user = await User.get(internal_token=token)
     assert user.to_dict() == {
