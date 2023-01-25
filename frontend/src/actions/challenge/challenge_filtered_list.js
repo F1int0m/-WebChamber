@@ -11,7 +11,7 @@ async function challenge_filtered_list(dispatch) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log('(Fetched) challenge_filtered_list: ', res.result)
+                //console.log('(Fetched) challenge_filtered_list: ', res.result)
                 dispatch(getChallengeList(res.result))
             })
     } catch (e) {

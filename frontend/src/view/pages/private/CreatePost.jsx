@@ -43,11 +43,6 @@ const CreatePost = () => {
                 name
             ],
             description: description,
-            external_data: {
-                externalPostData: {
-                    external_data_link: externalLink ? externalLink : ''
-                }
-            },
             file: file ? file : '',
             challenge_id: challengeInfo.challenge_id,
             authors: [

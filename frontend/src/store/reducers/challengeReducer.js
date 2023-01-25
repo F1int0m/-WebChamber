@@ -19,7 +19,7 @@ const defaultState = {
 export default function challengeReducer(state = defaultState, action) {
     switch (action.type) {
         case GET:
-            console.log('challengeReducer_GET_payload: ', action.payload)
+            //console.log('challengeReducer_GET_payload: ', action.payload)
             return {
                 ...state,
                 challenge_id: action.payload.challenge_id,

@@ -16,7 +16,7 @@ const defaultState = {
 export default function challengeListReducer(state = defaultState, action) {
     switch (action.type) {
         case CHALLENGE_FILTERED_LIST:
-            console.log('challengeListReducer_CHALLENGE_FILTERED_LIST_payload: ', action.payload)
+            //console.log('challengeListReducer_CHALLENGE_FILTERED_LIST_payload: ', action.payload)
             return {
                 ...state,
                 challenges: action.payload.challenges

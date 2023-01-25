@@ -26,19 +26,17 @@ async function post_create(dispatch, args) {
     try {
         const req = request_init({
             method: 'post_create',
-            params: [{
+            params: {
                 description: args.description,
                 tags_list: args.tags_list,
-                external_data: args.external_data,
-                additional_authors_list: args.authors,
+                additional_authors_ids: args.authors,
                 challenge_id: args.challenge_id
-            }]
+            }
         })
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
-            .then(res => {
-                console.log('(fetched) post_create: ', res)
-            })
+            .then((res) => console.log(res))
+            .catch((res) => console.log(res))
             //.then((res) => externalDataCheck(res, args))
     } catch (e) {
         console.error(e)
