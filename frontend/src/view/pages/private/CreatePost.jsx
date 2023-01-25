@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './CreatePost.module.scss'
 import FileUploader from "../../components/FileUploader/FileUploader";
 import LinkUploader from "../../components/LinkUploader/LinkUploader";
@@ -12,6 +12,8 @@ const CreatePost = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
 
+    const [request, setRequest] = useState(false)
+    //let request = false;
     const postInfo = useSelector(state => state.post)
 
     const challengeInfo = useSelector(state => state.challenge)
@@ -34,22 +36,49 @@ const CreatePost = () => {
         setDescription(e.target.value)
     }
 
-    const handleUploadClick = () => {
+
+    useEffect(() => {
+        console.log('request value: ', request)
+        if(request) {
+            console.log('challenge_id: ', challengeInfo.challenge_id)
+            const args = {
+                tags_list: [
+                    name
+                ],
+                description: description,
+                file: file ? file : '',
+                challenge_id: challengeInfo.challenge_id,
+                authors: [
+                    '85292376'
+                ],
+                external_data_link: false
+            }
+            post_create(dispatch, args).then()
+        }
+    }, [request])
+
+
+    const handleUploadClick = (e) => {
+        e.preventDefault()
         if (!file && !externalLink) {
             return;
         }
-        const args = {
-            tags_list: [
-                name
-            ],
-            description: description,
-            file: file ? file : '',
-            challenge_id: challengeInfo.challenge_id,
-            authors: [
-                '85292376'
-            ]
-        }
-        post_create(dispatch, args).then()
+        console.log('!file? request value: ', request)
+        //setRequest(true)
+        //request = true
+        console.log('request value0: ', request)
+        // const args = {
+        //     tags_list: [
+        //         name
+        //     ],
+        //     description: description,
+        //     file: file ? file : '',
+        //     challenge_id: challengeInfo.challenge_id,
+        //     authors: [
+        //         '85292376'
+        //     ]
+        // }
+        // post_create(dispatch, args)
     }
 
     return (
@@ -61,15 +90,13 @@ const CreatePost = () => {
                     <span className={style.pageText}>или</span>
                     <LinkUploader />
                 </div>
-                <form className={style.columnContainer}>
-                    {
-                        isChallengeRelated &&
-                        <span className={style.challengeTitle}>{challengeName}</span>
-                    }
-                    <input className={style.postTitle} onChange={handleInputTextChange} placeholder={'Название'}/>
-                    <textarea className={style.postDescription} onChange={handleTextareaChange} placeholder={'Описание'}/>
-                    <ButtonPrimary text={'Загрузить'} callback={handleUploadClick}/>
-                </form>
+                {
+                    isChallengeRelated &&
+                    <span className={style.challengeTitle}>{challengeName}</span>
+                }
+                <input className={style.postTitle} onChange={handleInputTextChange} placeholder={'Название'}/>
+                <textarea className={style.postDescription} onChange={handleTextareaChange} placeholder={'Описание'}/>
+                <button onClick={() => setRequest(true)}>Загрузить</button>
             </div>
         </div>
     );

@@ -16,7 +16,7 @@ const defaultState = {
 export default function postListReducer(state = defaultState, action) {
     switch (action.type) {
         case POST_FILTERED_LIST:
-            //console.log('postListReducer_POST_FILTERED_LIST_payload: ', action.payload)
+            console.log('postListReducer_POST_FILTERED_LIST_payload: ', action.payload)
             return {
                 ...state,
                 posts: action.payload.posts
