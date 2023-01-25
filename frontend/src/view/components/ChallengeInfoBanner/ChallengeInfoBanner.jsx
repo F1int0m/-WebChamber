@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './ChallengeInfoBanner.module.scss'
-import path from "../../../static/images/challenge-preview.jpg";
+import path from "../../../static/images/challenge-preview0.jpg";
 import ButtonIcon from "../buttons/ButtonIcon";
 import favourites from '../../../static/icons/favourites.svg'
 

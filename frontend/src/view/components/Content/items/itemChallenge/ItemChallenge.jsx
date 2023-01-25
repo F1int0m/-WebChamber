@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './ItemChallenge.module.scss'
 
-import path from '../../../../../static/images/challenge-preview.jpg'
+import path from '../../../../../static/images/challenge-preview0.jpg'
 import PrimaryInfoBlock from "./PrimaryInfoBlock";
 import SecondaryInfoBlock from "./SecondaryInfoBlock";
 import {useNavigate} from "react-router-dom";

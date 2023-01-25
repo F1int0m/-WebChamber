@@ -1,6 +1,9 @@
 import {store} from "../../store/store";
 
 function request_init(args) {
+    // 'Content-Type': 'application/json',
+    // 'Accept': 'application/json',
+
     const state = store.getState()
     const token = state.auth.token
     return {

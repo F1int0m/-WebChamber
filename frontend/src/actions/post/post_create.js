@@ -24,23 +24,22 @@ async function externalDataCheck(res, args) {
 
 async function post_create(dispatch, args) {
     try {
-        const params_to_json = {
-            description: args.description,
-            tags_list: args.tags_list,
-            external_data: args.external_data,
-            additional_authors_ids: args.authors,
-            challenge_id: args.challenge_id
-        }
         const req = request_init({
             method: 'post_create',
-            params: params_to_json.json()
+            params: [{
+                description: args.description,
+                tags_list: args.tags_list,
+                external_data: args.external_data,
+                additional_authors_list: args.authors,
+                challenge_id: args.challenge_id
+            }]
         })
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log('(fetched) post_create: ', res.result)
+                console.log('(fetched) post_create: ', res)
             })
-            .then((res) => externalDataCheck(res, args))
+            //.then((res) => externalDataCheck(res, args))
     } catch (e) {
         console.error(e)
     }
