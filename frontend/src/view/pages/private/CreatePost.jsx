@@ -93,7 +93,7 @@ const CreatePost = () => {
                 }
                 <input className={style.postTitle} onChange={handleInputTextChange} placeholder={'Название'}/>
                 <textarea className={style.postDescription} onChange={handleTextareaChange} placeholder={'Описание'}/>
-                <button onClick={() => setRequest(true)}>Загрузить</button>
+                <ButtonPrimary onClick={() => setRequest(true)}>Загрузить</ButtonPrimary>
             </div>
         </div>
     );

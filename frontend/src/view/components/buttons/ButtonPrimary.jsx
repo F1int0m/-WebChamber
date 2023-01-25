@@ -15,4 +15,15 @@ const ButtonPrimary = ({text, callback, isIcon, iconLink}) => {
     );
 };
 
+const ButtonPrimaryHot = ({text, callback, isIcon, iconLink}) => {
+    return (
+        <button className={style.primaryBody} onClick={callback}>
+            {isIcon &&
+                <img src={iconLink} alt={text}/>
+            }
+            <span className={style.text}>{text}</span>
+        </button>
+    );
+};
+
 export default ButtonPrimary;

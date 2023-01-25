@@ -19,12 +19,12 @@ if ('serviceWorker' in navigator) {
     console.log('Service workers are not supported.');
 }
 
-root.render(
-    <BrowserRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </BrowserRouter>
-);
+// root.render(
+//     <BrowserRouter>
+//         <Provider store={store}>
+//             <App/>
+//         </Provider>
+//     </BrowserRouter>
+// );
 
 reportWebVitals();
