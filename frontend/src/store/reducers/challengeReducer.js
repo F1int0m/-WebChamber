@@ -1,9 +1,9 @@
 import challenge_create from "../../actions/challenge/challenge_create";
 import challenge_update from "../../actions/challenge/challenge_update";
 
-const GET = 'GET'
-const CREATE = 'CREATE'
-const UPDATE = 'UPDATE'
+const GET_CHALLENGE = 'GET_CHALLENGE'
+const CREATE_CHALLENGE = 'CREATE_CHALLENGE'
+const UPDATE_CHALLENGE = 'UPDATE_CHALLENGE'
 
 const defaultState = {
     challenge_id: '',
@@ -18,7 +18,7 @@ const defaultState = {
 
 export default function challengeReducer(state = defaultState, action) {
     switch (action.type) {
-        case GET:
+        case GET_CHALLENGE:
             //console.log('challengeReducer_GET_payload: ', action.payload)
             return {
                 ...state,
@@ -31,7 +31,7 @@ export default function challengeReducer(state = defaultState, action) {
                 background_link: action.payload.background_link,
                 total_likes: action.payload.total_likes
             }
-        case CREATE:
+        case CREATE_CHALLENGE:
             console.log('reducer payload: ', action.payload)
             const newChallenge = {
                 name: action.payload.name,
@@ -41,7 +41,7 @@ export default function challengeReducer(state = defaultState, action) {
             }
             challenge_create(newChallenge).then()
             return state
-        case UPDATE:
+        case UPDATE_CHALLENGE:
             console.log('reducer payload: ', action.payload)
             const updatedChallenge = {
                 name: action.payload.name || state.name,
@@ -64,6 +64,6 @@ export default function challengeReducer(state = defaultState, action) {
     }
 }
 
-export const getChallenge = (challengeInfo) => ({type: GET, payload: challengeInfo})
-export const updateChallenge = (challengeInfo) => ({type: UPDATE, payload: challengeInfo})
-export const createChallenge = (challengeInfo) => ({type: CREATE, payload: challengeInfo})
+export const getChallenge = (challengeInfo) => ({type: GET_CHALLENGE, payload: challengeInfo})
+export const updateChallenge = (challengeInfo) => ({type: UPDATE_CHALLENGE, payload: challengeInfo})
+export const createChallenge = (challengeInfo) => ({type: UPDATE_CHALLENGE, payload: challengeInfo})

@@ -2,7 +2,7 @@ import {SetOAuthToken} from "../../actions/auth/setOAuthToken";
 
 const InitState = () => {
     return {
-        id: '232868007',
+        user_id: '12345',
         is_auth: false,
         token: '12345'
     }

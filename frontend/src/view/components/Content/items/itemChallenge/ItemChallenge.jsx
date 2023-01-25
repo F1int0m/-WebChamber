@@ -24,7 +24,7 @@ const ItemChallenge = ({itemInfo}) => {
                 <PrimaryInfoBlock title={itemInfo.name} description={itemInfo.description}/>
                 <SecondaryInfoBlock end_datetime={itemInfo.end_datetime} total_likes={itemInfo.total_likes}/>
             </div>
-            <img src={path} className={style.backgroundImage} alt={''}/>
+            <img src={itemInfo.background_link} className={style.backgroundImage} alt={''}/>
         </div>
     );
 };

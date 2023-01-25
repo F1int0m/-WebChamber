@@ -7,9 +7,9 @@ async function user_get(dispatch, user_id) {
         console.log('user_id: ', user_id)
         const req = request_init({
             method: 'user_get',
-            params: [{
+            params: {
                 user_id: user_id
-            }]
+            }
         })
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())

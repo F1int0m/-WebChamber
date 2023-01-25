@@ -6,6 +6,7 @@ const GifSource = ({source}) => {
     //let sup1 = new SuperGif({gif: document.getElementById('example1')} );
     //sup1.load();
 
+    console.log('source: ', source)
     return (
         <div>
             <img src={source} alt={'gif-file'}/>

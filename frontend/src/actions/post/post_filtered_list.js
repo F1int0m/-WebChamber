@@ -3,13 +3,18 @@ import request_init from "../../system/json_rpc/request_init"
 import {getPostFilteredList} from "../../store/reducers/postListReducer";
 
 async function post_filtered_list(dispatch, args) {
+
+    const _params = {}
+    if (args.user_id)
+        _params.user_id = args.user_id
+    if (args.challenge_id)
+        _params.challenge_id = args.challenge_id
+
     try {
+        console.log('post_filtered_list args: ', args)
         const req = request_init({
             method: 'post_filtered_list',
-            params: [{
-                user_id: args.user_id,
-                challenge_id: args.challenge_id
-            }]
+            params: _params
         })
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())

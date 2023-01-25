@@ -45,15 +45,15 @@ function App() {
                 <Route path={SETTINGS_URL} element={<Settings />}/>
                 <Route path={PROFILE_PAGE.URL} element={<Profile />}>
                     <Route path={PROFILE_PAGE.CHALLENGES.URL} element={
-                        <ContentFeed pageType={PROFILE_PAGE.CHALLENGES.TYPE} data={profileChallengesPosts}/>
+                        <ContentFeed pageType={PROFILE_PAGE.CHALLENGES.TYPE}/>
                     }/>
                     {isMyProfile ?
                         <Route path={PROFILE_PAGE.CASUAL.URL} element={
-                            <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.ME} data={profileCasualPosts}/>
+                            <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.ME}/>
                         }/>
                         :
                         <Route path={PROFILE_PAGE.CASUAL.URL} element={
-                            <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.NOT_ME} data={profileCasualPosts}/>
+                            <ContentFeed pageType={PROFILE_PAGE.CASUAL.TYPE.NOT_ME}/>
                         }/>
                     }
                 </Route>
