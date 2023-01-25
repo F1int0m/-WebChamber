@@ -25,7 +25,7 @@ const Profile = () => {
     useEffect(() => {
         post_filtered_list(dispatch, {
             user_id: userInfo.user_id
-        })
+        }).then()
     }, [])
 
 

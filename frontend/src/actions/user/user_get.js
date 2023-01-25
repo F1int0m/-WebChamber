@@ -2,8 +2,9 @@ import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
 import {getUser} from "../../store/reducers/userReducer";
 
-async function user_get(dispatch, {user_id}) {
+async function user_get(dispatch, user_id) {
     try {
+        console.log('user_id: ', user_id)
         const req = request_init({
             method: 'user_get',
             params: [{
@@ -13,9 +14,10 @@ async function user_get(dispatch, {user_id}) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                console.log('(fetched) user_get: ', res)
                 dispatch(getUser(res.result))
             })
+            .catch((res) => console.log(res))
     } catch (e) {
         console.error(e)
     }

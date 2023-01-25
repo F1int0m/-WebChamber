@@ -1,25 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './post.module.scss'
 
 import InfoBlockChallenge from "./InfoBlockChallenge";
-import InfoBlockOneAuthor from "./InfoBlockOneAuthor";
-import InfoBlockMultipleAuthors from "./InfoBlockMultipleAuthors";
 import preview from '../../../static/images/preview1.jpg'
 
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import InfoBlockWithAuthors from "./InfoBlockWithAuthors";
 
-const Post = ({data}) => {
+const Post = ({postInfo, authorsInfo}) => {
     // TODO: вынести выбор инфо-блока в конфиг ContentFeed-а
     const navigate = useNavigate()
+    const location = useLocation()
+    const pathname = location.pathname
 
     let infoBlock;
-    if (data.type === 'challenge') {
-        infoBlock = <InfoBlockChallenge data={data}/>
-    } else if (data.type === 'one-author') {
-        infoBlock = <InfoBlockOneAuthor data={data}/>
-    } else if (data.type === 'multiple-authors') {
-        infoBlock = <InfoBlockMultipleAuthors data={data}/>
-    }
+    if (pathname === '/profile/challenges')
+        infoBlock = <InfoBlockWithAuthors authorsInfo={authorsInfo}/>
+    else infoBlock = <InfoBlockChallenge data={postInfo}/>
+
+    useEffect(() => {
+    }, [])
 
     function handleClick() {
         navigate('/post')
@@ -27,7 +27,7 @@ const Post = ({data}) => {
 
     return (
         <div className={styles.postBox}>
-            <img src={preview} alt={preview} className={styles.media} onClick={handleClick}/>
+            <img src={postInfo.data_link} alt={preview} className={styles.media} onClick={handleClick}/>
             {infoBlock}
         </div>
     );

@@ -1,7 +1,7 @@
-const GET = 'GET'
+const CHALLENGE_FILTERED_LIST = 'CHALLENGE_FILTERED_LIST'
 
 const defaultState = {
-    challengesList: [],
+    challenges: [],
     search_args: {
         create_datetime: 'DD-MM-YYYY HH:MM:SS',
         end_datetime: 'DD-MM-YYYY HH:MM:SS',
@@ -15,14 +15,15 @@ const defaultState = {
 
 export default function challengeListReducer(state = defaultState, action) {
     switch (action.type) {
-        case GET:
+        case CHALLENGE_FILTERED_LIST:
+            //console.log('challengeListReducer_CHALLENGE_FILTERED_LIST_payload: ', action.payload)
             return {
                 ...state,
-                challengesList: action.payload.challengesList
+                challenges: action.payload.challenges
             }
         default:
             return state
     }
 }
 
-export const getChallengeList = (challengeListInfo) => ({type: GET, payload: challengeListInfo})
+export const getChallengeList = (challengeListInfo) => ({type: CHALLENGE_FILTERED_LIST, payload: challengeListInfo})

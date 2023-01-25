@@ -1,10 +1,13 @@
+import challenge_create from "../../actions/challenge/challenge_create";
+import challenge_update from "../../actions/challenge/challenge_update";
+
 const GET = 'GET'
 const CREATE = 'CREATE'
 const UPDATE = 'UPDATE'
 
 const defaultState = {
     challenge_id: '',
-    name: '',
+    name: 'default',
     description: '',
     create_datetime: 'DD-MM-YYYY HH:MM:SS',
     end_datetime: 'DD-MM-YYYY HH:MM:SS',
@@ -16,6 +19,7 @@ const defaultState = {
 export default function challengeReducer(state = defaultState, action) {
     switch (action.type) {
         case GET:
+            //console.log('challengeReducer_GET_payload: ', action.payload)
             return {
                 ...state,
                 challenge_id: action.payload.challenge_id,
@@ -28,24 +32,33 @@ export default function challengeReducer(state = defaultState, action) {
                 total_likes: action.payload.total_likes
             }
         case CREATE:
-            /* const newChallenge = {
+            console.log('reducer payload: ', action.payload)
+            const newChallenge = {
                 name: action.payload.name,
                 description: action.payload.description,
                 end_datetime: action.payload.end_datetime,
                 background_link: action.payload.background_link
-            } */
-            // api-запрос
+            }
+            challenge_create(newChallenge).then()
             return state
         case UPDATE:
-            return {
-                ...state,
+            console.log('reducer payload: ', action.payload)
+            const updatedChallenge = {
                 name: action.payload.name || state.name,
                 description: action.payload.description || state.description,
-                end_datetime: action.payload.end_datetime || state.end_datetime,
+                end_datetime: action.payload.end_datetime || state.background_link,
                 status: action.payload.status || state.status,
                 background_link: action.payload.background_link || state.background_link
             }
-            // api-запрос
+            challenge_update(updatedChallenge).then()
+            return {
+                ...state,
+                name: updatedChallenge.name || state.name,
+                description: updatedChallenge.description || state.description,
+                end_datetime: updatedChallenge.end_datetime || state.end_datetime,
+                status: updatedChallenge.status || state.status,
+                background_link: updatedChallenge.background_link || state.background_link
+            }
         default:
             return state
     }

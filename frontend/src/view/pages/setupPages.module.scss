@@ -20,6 +20,12 @@ $text_primary: #565656;
   align-items: center;
 }
 
+.setupChallengeView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .setupPostView {
   display: flex;
   flex-direction: column;

@@ -1,21 +1,22 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
 
-async function challenge_update({dispatch, args}) {
+async function challenge_update(args) {
     try {
         const req = request_init({
             method: 'challenge_update',
-            params: [{
+            params: {
                 name: args.name,
                 description: args.description,
-                end_datetime: args.end_datetime
-            }]
+                end_datetime: args.end_datetime,
+                status: args.status,
+                background_link: args.background_link
+            }
         })
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
                 console.log(res.result)
-                // dispatch(setter(res.result))
             })
     } catch (e) {
         console.error(e)

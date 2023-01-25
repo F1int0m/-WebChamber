@@ -24,7 +24,7 @@ const MainHeader = () => {
     const style = location.pathname.toString() === '/post' ? darkMode : lightMode
 
     return (
-        <div>
+        <>
             <div className={style.box}>
                 <header className={style.header}>
                     <div className={style.leftNavBox}>
@@ -54,7 +54,7 @@ const MainHeader = () => {
             <Outlet/>
             <footer>
             </footer>
-        </div>
+        </>
     );
 };
 

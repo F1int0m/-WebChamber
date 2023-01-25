@@ -1,0 +1,94 @@
+$container_width: 1156px;
+$container_height: 177px;
+
+$margin: 10px;
+
+$ib_background_color: white;
+$ib_text_color: #686868;
+$accent: #905DCC;
+
+$infoBlock_padding: 10px 16px;
+
+.container {
+  position: relative;
+
+  width: $container_width;
+  height: $container_height;
+}
+
+.flexContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.primaryInfoBlockGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: $margin;
+
+  width: 60%;
+  flex-wrap: wrap;
+}
+
+.secondaryInfoBlockGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: $margin;
+}
+
+.infoBlock {
+  background-color: $ib_background_color;
+  color: $ib_text_color;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  display: flex;
+  padding: $infoBlock_padding;
+  border-radius: 8px;
+}
+
+.infoBlockTitle {
+  background-color: $ib_background_color;
+  color: $accent;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+
+  overflow-wrap: anywhere;
+  padding: $infoBlock_padding;
+  border-radius: 8px;
+}
+
+.infoBlockDescription {
+  background-color: $ib_background_color;
+  color: $ib_text_color;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  overflow-wrap: break-word;
+  padding: $infoBlock_padding;
+  border-radius: 8px;
+}
+
+.backgroundImage {
+  width: 100%;
+  border-radius: 12px;
+}
