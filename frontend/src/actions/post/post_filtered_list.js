@@ -14,7 +14,7 @@ async function post_filtered_list(dispatch, args) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                //console.log('(fetched) post_filtered_list: ', res.result)
+                console.log('(fetched) post_filtered_list: ', res.result)
                 dispatch(getPostFilteredList(res.result))
             })
     } catch (e) {
