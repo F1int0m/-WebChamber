@@ -1,10 +1,11 @@
 import config from './config.json'
 import {PROFILE_PAGE} from "../../../system/env";
 
-export default function setupContentFeed (pageType) {
+export default function setupContentFeed (pageType, pathname) {
     try {
         let enableAddContentButton;
         let postType;
+
         // CHALLENGE_BANNER,
         // CHALLENGE
         // CASUAL

@@ -1,19 +1,19 @@
 import React from 'react';
 import style from './ItemChallenge.module.scss'
 
-import path from '../../../../../static/images/challenge-preview0.jpg'
+// import path from '../../../../../static/images/challenge-preview0.jpg'
 import PrimaryInfoBlock from "./PrimaryInfoBlock";
 import SecondaryInfoBlock from "./SecondaryInfoBlock";
 import {useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {getChallenge} from "../../../../../store/reducers/challengeReducer";
 
 const ItemChallenge = ({itemInfo}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    //console.log(itemInfo)
     function handleClick() {
+        console.log('(5) updating challengeReducer')
         dispatch(getChallenge(itemInfo))
         navigate('/challenge')
     }

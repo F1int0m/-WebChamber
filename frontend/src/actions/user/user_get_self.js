@@ -11,7 +11,9 @@ async function user_get_self(dispatch) {
         await fetch(JSONRPC_URL, req)
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+                // console.log('(12) done')
+                // console.log('(fetched) user_get_self: ', res)
+                // console.log('(13) getUserSelf -> userReducer')
                 dispatch(getUserSelf(res.result))
             })
     } catch (e) {

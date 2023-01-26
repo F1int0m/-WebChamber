@@ -12,7 +12,7 @@ const ChallengeInfoBanner = ({itemInfo}) => {
             <img src={itemInfo.background_link} alt={''} className={style.backgroundImage}/>
             <div className={style.mainGroup}>
                 <span className={style.infoBlockTitle}>{challengeName_normalized}</span>
-                <ButtonIcon source={favourites} alt={'favourites'} size={32}/>
+                {/*<ButtonIcon source={favourites} alt={'favourites'} size={32}/>*/}
             </div>
             <span className={style.infoBlockDescription}>{itemInfo.description}</span>
             <div className={style.additionalGroup}>

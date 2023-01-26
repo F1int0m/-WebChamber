@@ -2,6 +2,15 @@ $text_primary: #565656;
 
 $mockup_border: 1px solid #ff9c9c;
 
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+.outlet {
+  margin-top: 100px;
+}
+
 .text {
     color: $text_primary;
     font-family: 'Roboto', sans-serif;
@@ -37,12 +46,13 @@ $mockup_border: 1px solid #ff9c9c;
 }
 
 .header {
-  width: 100%;
+  width: 80%;
   height: 80px;
-
+  position: fixed;
   display: flex;
   align-items: center;
   gap: 40px;
+  background-color: white;
 }
 
 .box {
@@ -52,5 +62,15 @@ $mockup_border: 1px solid #ff9c9c;
   padding: 0 40px 0 40px;
 
   background-color: #ffffff;
+}
+
+.footer {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  opacity: 0.5;
 }
 
