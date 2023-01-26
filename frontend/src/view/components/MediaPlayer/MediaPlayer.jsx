@@ -14,7 +14,7 @@ const MediaPlayer = ({source}) => {
 
     useEffect(() => {
         async function handleLoading() {
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 1000));
             setIsLoading(false)
         }
         handleLoading().then()
