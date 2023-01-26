@@ -31,7 +31,7 @@ const MainHeader = () => {
     }
 
     return (
-        <>
+        <div className={style.container}>
             <div className={style.box}>
                 <header className={style.header}>
                     <div className={style.leftNavBox}>
@@ -57,9 +57,10 @@ const MainHeader = () => {
             </div>
 
             <Outlet/>
-            <footer>
+            <footer className={style.footer}>
+                {/*<span>@WebChamber, 2023</span>*/}
             </footer>
-        </>
+        </div>
     );
 };
 

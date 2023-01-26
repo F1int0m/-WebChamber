@@ -29,7 +29,11 @@ const Post = ({postInfo, authorsInfo}) => {
 
     function handleClick() {
         // console.log('(10) updating postReducer')
+        const user_id = postInfo.author_ids[0]
         dispatch(getPost(postInfo))
+        post_filtered_list(dispatch, {
+            user_id: user_id
+        }).then()
         navigate('/post')
         // dispatch(getUser(authorsInfo))
         // post_filtered_list(dispatch, userInfo).then()

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import MediaPlayer from "../../components/MediaPlayer/MediaPlayer";
 import ProfileBox from "../../components/ProfileBox/ProfileBox";
 import {useDispatch, useSelector} from "react-redux";
@@ -7,14 +7,16 @@ import style from '../setupPages.module.scss'
 // import {profileChallengesPosts} from "../../../system/fakeData";
 import user_get_self from "../../../actions/user/user_get_self";
 import user_get from "../../../actions/user/user_get";
+import ContentGrid from "../../components/Content/ContentGrid/ContentGrid";
 
 const PostView = () => {
     const userSelf = useSelector(state => state.auth)
     const userInfo = useSelector(state => state.profile)
     const postInfo = useSelector(state => state.post)
-    console.log('(14) got store data')
-    console.log('userInfo: ', userSelf)
-    console.log('postInfo: ', postInfo)
+    const content = useSelector(state => state.postList.posts)
+    // console.log('(14) got store data')
+    // console.log('userInfo: ', userSelf)
+    // console.log('postInfo: ', postInfo)
 
     const dispatch = useDispatch()
 
@@ -33,10 +35,10 @@ const PostView = () => {
         <div className={style.setupPostView}>
             <MediaPlayer source={postInfo.data_link}/>
             <ProfileBox viewType={viewType} userInfo={userInfo}/>
-            {/*<div className={style.recommendationsTitle}>*/}
-            {/*    <h2 >Ещё от {userInfo.nickname}</h2>*/}
-            {/*</div>*/}
-            {/*<ContentGrid data={profileChallengesPosts}/>*/}
+            <div className={style.recommendationsTitle}>
+                <h2>Больше работ автора</h2>
+            </div>
+            <ContentGrid data={content}/>
         </div>
     );
 };

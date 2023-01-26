@@ -24,3 +24,10 @@ $background: #464646;
   justify-content: space-between;
   padding: 0 10px;
 }
+
+.iconsGroup {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 4px;
+}

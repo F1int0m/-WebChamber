@@ -7,7 +7,6 @@ import style from './MediaPlayer.module.scss'
 
 const MediaPlayer = ({source}) => {
     const is_external_source = false
-
     const [isLoading, setIsLoading] = useState(true)
 
     const yt_source = 'https://www.youtube.com/embed/wN63nyZy0Nk' // remove later
