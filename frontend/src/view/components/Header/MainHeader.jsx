@@ -51,12 +51,13 @@ const MainHeader = () => {
                         <NavLink to={ROOT_URL + PROFILE_PAGE.URL + PROFILE_PAGE.CHALLENGES.URL} onClick={handleProfileSelfClick} className={style.navLink}>
                             <img src={ProfileIcon} alt={'Profile'}/>
                         </NavLink>
-                        <NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>
+                        {/*<NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>*/}
                     </div>
                 </header>
             </div>
-
-            <Outlet/>
+            <div className={style.outlet}>
+                <Outlet/>
+            </div>
             <footer className={style.footer}>
                 {/*<span>@WebChamber, 2023</span>*/}
             </footer>

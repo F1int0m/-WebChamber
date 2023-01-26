@@ -7,6 +7,10 @@ $mockup_border: 1px solid #ff9c9c;
   height: 100%;
 }
 
+.outlet {
+  margin-top: 100px;
+}
+
 .text {
     color: $text_primary;
     font-family: 'Roboto', sans-serif;
@@ -42,12 +46,13 @@ $mockup_border: 1px solid #ff9c9c;
 }
 
 .header {
-  width: 100%;
+  width: 80%;
   height: 80px;
-
+  position: fixed;
   display: flex;
   align-items: center;
   gap: 40px;
+  background-color: white;
 }
 
 .box {

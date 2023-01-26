@@ -13,7 +13,7 @@ $accent: #7B4DB1;
 }
 
 .mainContainer {
-  width: 1156px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-self: center;
@@ -25,12 +25,13 @@ $accent: #7B4DB1;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 400px;
 }
 
 .rowContainer {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 1156px;
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
