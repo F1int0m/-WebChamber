@@ -1,10 +1,11 @@
 import React from 'react';
 
-import style from './buttons.module.scss'
+import isNotClickedStyle from './buttons.module.scss'
+import isClickedStyle from './buttons.module.scss'
 
+const ButtonPrimary = ({text, callback, isIcon, iconLink, isClicked}) => {
 
-
-const ButtonPrimary = ({text, callback, isIcon, iconLink}) => {
+    let style = isClicked ? isClickedStyle : isNotClickedStyle
     return (
         <button className={style.primaryBody} onClick={callback}>
             {isIcon &&

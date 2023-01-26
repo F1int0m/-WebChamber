@@ -1,21 +1,29 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import style from "./profileFull.module.scss"
 import NotificationsIcon from '../../../static/icons/notifications_icon.svg'
 import ButtonPrimary from "../buttons/ButtonPrimary"
 import ButtonIcon from "../buttons/ButtonIcon"
 import {useNavigate} from "react-router-dom";
+import user_subscribe from "../../../actions/user/user_subscribe";
+import {useDispatch, useSelector} from "react-redux";
 
 const ButtonsArea = ({viewType}) => {
     // viewType: Preview / SelfPreview / Full / SelfFull
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const user_id = useSelector(state => state.profile.user_id)
+    const [isClicked, setIsClicked] = useState(false)
+
     function handleEditButtonClick() {
         navigate('/profile/edit')
     }
 
     function handleSubscription() {
+        // user_subscribe(dispatch, user_id).then()
         console.log('subscribe')
+        setIsClicked(true)
     }
 
     return (
@@ -24,7 +32,7 @@ const ButtonsArea = ({viewType}) => {
                 viewType === 'Preview' || viewType === 'Full' ?
                     <>
                         <ButtonIcon source={NotificationsIcon} alt={'Notifications'}/>
-                        <ButtonPrimary text={'Подписаться'} callback={handleSubscription}/>
+                        <ButtonPrimary text={'Подписаться'} isClicked={isClicked}/>
                     </>
                 : viewType === 'SelfFull' ?
                     <>

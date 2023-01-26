@@ -41,7 +41,9 @@ const Post = ({postInfo, authorsInfo}) => {
 
     return (
         <div className={styles.postBox}>
-            <img src={postInfo.data_link} alt={preview} className={styles.media} onClick={handleClick}/>
+            {
+                <img src={postInfo.data_link} alt={preview} className={styles.media} onClick={handleClick}/>
+            }
             {/*{infoBlock}*/}
         </div>
     );

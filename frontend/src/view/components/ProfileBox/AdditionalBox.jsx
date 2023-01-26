@@ -5,16 +5,16 @@ import FavouritesIcon from '../../../static/icons/favourites.svg'
 import LikesIcon from '../../../static/icons/likes.svg'
 
 const AdditionalBox = ({info}) => {
-    const subs = '12 000'
-    const likes = '103 455'
-    const saves = '20 140'
+    const subs = '2'
+    const likes = '4'
+    const saves = '2'
     const description = info.description || 'Много о себе не говорит.'
     return (
         <div>
             <div className={styles.row2}>
                 <div className={styles.stats_box_subs}>
                     <span className={styles.stats_text}>{subs}</span>
-                    <span>Подписчиков</span>
+                    <span>Подписчика(-ов)</span>
                 </div>
                 <div className={styles.stats_box}>
                     <span className={styles.stats_text}>{likes}</span>
