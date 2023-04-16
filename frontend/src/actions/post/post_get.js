@@ -2,6 +2,8 @@ import request_init from "../../system/json_rpc/request_init";
 import {JSONRPC_URL} from "../../system/env";
 import {getPost} from "../../store/reducers/postReducer";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function post_get(dispatch, args) {
     try {
         const req = request_init({

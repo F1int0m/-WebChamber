@@ -1,5 +1,7 @@
 import {JSONRPC_URL} from "../../system/env";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function ping() {
     await fetch(JSONRPC_URL, {
         method: 'POST',

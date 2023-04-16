@@ -5,6 +5,9 @@ import style from '../setupPages.module.scss'
 import ContentHeader from "../../components/Content/ContentHeader/ContentHeader";
 import {useDispatch, useSelector} from "react-redux";
 import post_filtered_list from "../../../actions/post/post_filtered_list"
+import Button from "../../../components/core/Button/Button";
+import likeIcon from "../../../static/icons/likes.svg";
+import Icon from "../../../components/core/Icon/Icon";
 
 
 const Profile = () => {
@@ -27,6 +30,11 @@ const Profile = () => {
         <div className={style.setupProfile}>
             <ProfileBox viewType={viewType} userInfo={userInfo}/>
             <ContentHeader page={'profile'}/>
+            <Button
+                icon={<Icon/>}
+            >
+                Лайк
+            </Button>
             <Outlet/>
         </div>
     );

@@ -18,6 +18,8 @@ const CreatePost = () => {
     const [request, setRequest] = useState(false)
     const postInfo = useSelector(state => state.post)
     const challengeInfo = useSelector(state => state.challenge)
+    // Надо вызывать список челленджей через редакс и смотреть в него
+
     const isChallengeRelated = postInfo.challenge_id
     const challengeName = challengeInfo.name[0] === '#' ? challengeInfo.name : '#' + challengeInfo.name
 

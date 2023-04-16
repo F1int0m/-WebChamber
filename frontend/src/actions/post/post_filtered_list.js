@@ -2,6 +2,8 @@ import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
 import {getPostFilteredList} from "../../store/reducers/postListReducer";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function post_filtered_list(dispatch, args) {
 
     const _params = {}

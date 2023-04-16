@@ -1,6 +1,8 @@
 import request_init from "../../system/json_rpc/request_init";
 import {JSONRPC_URL, SERVER_HOST} from "../../system/env";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function externalDataCheck(res, args) {
     if (!args.external_data_link) {
         console.log('got into !external_data_link case with value: ', res)

@@ -2,6 +2,8 @@ import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init";
 import {getUser} from "../../store/reducers/userReducer";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function user_subscribe(dispatch, user_id) {
     try {
         const req = request_init({

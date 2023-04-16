@@ -51,8 +51,10 @@ const MainHeader = () => {
                         <NavLink to={ROOT_URL + PROFILE_PAGE.URL + PROFILE_PAGE.CHALLENGES.URL} onClick={handleProfileSelfClick} className={style.navLink}>
                             <img src={ProfileIcon} alt={'Profile'}/>
                         </NavLink>
-                        {/*<NavLink to={ROOT_URL + LOGIN_URL}>Logout</NavLink>*/}
                     </div>
+                    <NavLink to={ROOT_URL + LOGIN_URL}>
+                        Logout
+                    </NavLink>
                 </header>
             </div>
             <div className={style.outlet}>

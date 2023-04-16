@@ -28,6 +28,11 @@ import CreatePost from "./view/pages/private/CreatePost";
 import ChallengeView from "./view/pages/private/ChallengeView";
 
 function App() {
+    // TODO: Рефакторинг имортов - страницы в одном месте файла, компоненты в другом, константы в третьем - не смешивай
+    // TODO: Рефакторинг урлов - упростить доступ ко всем урлам до одного уровня в глубину, глубину роутов оставить
+    // TODO: Рефакторинг роутов - вынести роуты в отдельный файл
+    // TODO: Поменять файловую структуру по статье https://blog.webdevsimplified.com/2022-07/react-folder-structure/
+
     // TODO: поставить приватность через isAuth, вытащить навигацию в отдельный файл
     //       const isAuth = useSelector(state => state.is_auth)
 

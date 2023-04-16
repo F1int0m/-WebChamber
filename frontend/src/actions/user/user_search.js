@@ -1,5 +1,7 @@
 import {JSONRPC_URL} from "../../system/env";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function user_search({nickname_substring}) {
     const url = JSONRPC_URL + 'user_search'
     await fetch(url, {

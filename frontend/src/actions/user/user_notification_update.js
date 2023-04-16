@@ -1,5 +1,7 @@
 import {JSONRPC_URL} from "../../system/env";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function user_notification_update({types_to_update}) {
     const url = JSONRPC_URL + 'user_notification_update'
     await fetch(url, {

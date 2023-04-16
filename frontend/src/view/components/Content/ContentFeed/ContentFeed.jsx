@@ -10,6 +10,8 @@ import {useDispatch, useSelector} from "react-redux";
 import ContentList from "../ContentList/ContentList";
 import post_filtered_list from "../../../../actions/post/post_filtered_list";
 
+// TODO: вынести ContentFeed в отдельную фичу
+
 const ContentFeed = ({pageType}) => {
     const location = useLocation()
     const pathname = location.pathname

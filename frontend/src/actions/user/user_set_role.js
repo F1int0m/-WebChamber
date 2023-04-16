@@ -1,5 +1,7 @@
 import {JSONRPC_URL} from "../../system/env";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function user_set_role({user_id, user_role}) {
     const url = JSONRPC_URL + 'user_set_role'
     await fetch(url, {

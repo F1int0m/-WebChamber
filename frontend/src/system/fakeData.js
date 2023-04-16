@@ -1,3 +1,5 @@
+// TODO: удалить...
+
 export const info = {
     avatar: 'avatar-image',
     nickname: 'Антон Гусев',

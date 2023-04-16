@@ -1,6 +1,8 @@
 import {JSONRPC_URL} from "../../system/env";
 import request_init from "../../system/json_rpc/request_init"
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function challenge_update(args) {
     try {
         const req = request_init({

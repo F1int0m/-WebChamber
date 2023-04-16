@@ -1,5 +1,7 @@
 import {JSONRPC_URL} from "../../system/env";
 
+// TODO: убрать дебаг-код (консоль-логи)
+
 async function user_unsubscribe({user_id}) {
     const url = JSONRPC_URL + 'user_unsubscribe'
     await fetch(url, {
