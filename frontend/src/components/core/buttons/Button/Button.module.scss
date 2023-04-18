@@ -1,11 +1,11 @@
-button {
+.button {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10px 18px 10px 18px;
+  padding: 10px 24px 10px 24px;
   border-radius: 8px;
-  gap: 5px;
+  gap: 6px;
 
   color: white;
   background-color: #464646;
