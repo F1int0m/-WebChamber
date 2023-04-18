@@ -1,13 +1,13 @@
+@import "src/styles/mixins.module";
+@import "src/styles/variables.module";
+
 .button {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  @include flex-row-full-center();
+  @include roboto-14-regular();
+
   padding: 10px 24px 10px 24px;
   border-radius: 8px;
-  gap: 6px;
-
   color: white;
-  background-color: #464646;
-  border: 1px solid #464646;
+  background-color: $base-accent;
+  border: 1px solid $base-accent;
 }
