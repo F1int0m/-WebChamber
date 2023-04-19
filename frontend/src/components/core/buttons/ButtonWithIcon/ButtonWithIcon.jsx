@@ -1,4 +1,4 @@
-import React from 'react';
+    import React from 'react';
 import style from './ButtonWithIcon.module.scss'
 
 const ButtonWithIcon = ({content, icon}) => {

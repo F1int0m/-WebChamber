@@ -8,7 +8,9 @@ import post_filtered_list from "../../../actions/post/post_filtered_list"
 import Button from "../../../components/core/buttons/Button/Button";
 import Icon from "../../../components/core/Icon/Icon";
 import ButtonWithIcon from "../../../components/core/buttons/ButtonWithIcon/ButtonWithIcon";
-import {like_icon_path} from "../../../components/core/Icon/Icons";
+import likes from "../../../static/icons/likes.svg";
+import ButtonPrimary from "../../../components/shared/buttons/ButtonPrimary/ButtonPrimary";
+import ButtonOutline from "../../../components/shared/buttons/ButtonOutline";
 
 
 const Profile = () => {
@@ -24,22 +26,15 @@ const Profile = () => {
 
     const viewType = userInfo.isSelf ? 'SelfFull' : 'Full';
 
-    const like_icon = <Icon
-        path_d={like_icon_path}
-        strokeWidth={"1.61905"}
-        width={24}
-        height={24}
-        viewBox={'-3 -4 24 24'}
-        fill_color={'None'}
-        stroke_color={'#FFFFFF'}
-    />
+
 
     return (
         <div className={style.setupProfile}>
             <ProfileBox viewType={viewType} userInfo={userInfo}/>
             <ContentHeader page={'profile'}/>
-            <ButtonWithIcon content={'Лайк'} icon={like_icon} />
             <Button content={'Подписаться'}/>
+            <ButtonPrimary content={'Like'}/>
+            <ButtonOutline content={'Outline like'}/>
             <Outlet/>
         </div>
     );

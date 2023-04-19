@@ -1,24 +1,15 @@
 import React from 'react';
+import style from './Icon.module.scss'
 
-const Icon = ({path_d, strokeWidth, width, height, viewBox, fill_color, stroke_color}) => {
-
-    const path = <path
-        d={path_d}
-        stroke={stroke_color}
-        strokeWidth={strokeWidth}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-    />
+const Icon = ({
+                  source,
+                  fill_color,
+                  stroke_color
+}) => {
 
     return (
         <div>
-            <svg
-                width={width}
-                height={height}
-                viewBox={viewBox}
-                fill={fill_color}
-                xmlns="http://www.w3.org/2000/svg"
-            >{path}</svg>
+            <img src={source} alt={'icon'} className={style.icon}/>
         </div>
     );
 };

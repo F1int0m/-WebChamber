@@ -1,3 +1,5 @@
+@import "src/styles/variables.module";
+
 @mixin roboto-14-regular {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -27,4 +29,16 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+
+@mixin button-primary {
+  color: white;
+  background-color: $base-accent;
+  border: 1px solid $base-accent;
+}
+
+@mixin button-outline {
+  color: $gray-darker;
+  background-color: transparent;
+  border: 1px solid $gray-dark;
 }

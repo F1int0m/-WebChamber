@@ -1,13 +1,23 @@
 @import "src/styles/mixins.module";
 @import "src/styles/variables.module";
 
-.button {
+button {
   @include flex-row-full-center();
   @include roboto-14-regular();
 
-  padding: 10px 24px 10px 24px;
   border-radius: 8px;
-  color: white;
-  background-color: $base-accent;
-  border: 1px solid $base-accent;
 }
+
+.with_icon {
+  gap: 6px;
+  padding: 6px 12px 6px 18px;
+}
+
+.no_icon {
+  padding: 10px 24px 10px 24px;
+}
+
+.primary { @include button-primary(); }
+
+.outline { @include button-outline(); }
+
