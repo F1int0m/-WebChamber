@@ -1,0 +1,9 @@
+@import '../../core/styles/mixins';
+
+.primary {
+  @include button-primary();
+  margin: 200px;
+}
+.primary:hover { @include button-primary-hover(); }
+
+.outline { @include button-outline(); }

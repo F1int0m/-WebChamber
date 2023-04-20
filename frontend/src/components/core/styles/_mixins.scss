@@ -1,4 +1,4 @@
-@import "src/styles/variables.module";
+@import "../../core/styles/_variables";
 
 @mixin roboto-14-regular {
   font-family: 'Roboto', sans-serif;
@@ -37,8 +37,15 @@
   border: 1px solid $base-accent;
 }
 
+@mixin button-primary-hover {
+  background-color: $base-light;
+  border: 1px solid $base-light;
+  cursor: pointer;
+}
+
 @mixin button-outline {
-  color: $gray-darker;
+  color: $base-dark;
   background-color: transparent;
-  border: 1px solid $gray-dark;
+  border: 1px solid $base-accent;
+  cursor: pointer;
 }

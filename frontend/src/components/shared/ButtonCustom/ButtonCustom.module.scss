@@ -1,5 +1,5 @@
-@import "src/styles/mixins.module";
-@import "src/styles/variables.module";
+@import "../../core/styles/_mixins";
+@import "../../core/styles/_variables";
 
 button {
   @include flex-row-full-center();
@@ -17,7 +17,10 @@ button {
   padding: 10px 24px 10px 24px;
 }
 
-.primary { @include button-primary(); }
+.primary {
+  @include button-primary();
+}
+.primary:hover { @include button-primary-hover(); }
 
 .outline { @include button-outline(); }
 
