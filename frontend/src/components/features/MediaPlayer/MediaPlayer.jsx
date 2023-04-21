@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import YtSource from "./sources/YT_source";
 import GifSource from "./sources/GIF_source";
-import Loader from "../Loader/Loader";
+import Loader from "../../../view/components/Loader/Loader";
 
 import style from './MediaPlayer.module.scss'
 
@@ -13,7 +13,7 @@ const MediaPlayer = ({source}) => {
 
     useEffect(() => {
         async function handleLoading() {
-            await new Promise(r => setTimeout(r, 1000));
+            await new Promise(r => setTimeout(r, 1500));
             setIsLoading(false)
         }
         handleLoading().then()

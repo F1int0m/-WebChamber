@@ -1,3 +1,5 @@
+@import "src/components/core/styles/variables";
+
 $text_primary: #565656;
 
 .setupProfile {
@@ -30,11 +32,6 @@ $text_primary: #565656;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .recommendationsTitle {
-    width: 1156px;
-    display: flex;
-    align-items: flex-start;
-    color: $text_primary;
-  }
+  justify-self: stretch;
+  //background-color: $gray-darker;
 }

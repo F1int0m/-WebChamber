@@ -1,0 +1,47 @@
+@import "../../../core/styles/variables";
+
+.controlPanel {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1px;
+  gap: 4px;
+  background-color: $gray-darker;
+}
+
+.mainContainer {
+  display: flex;
+  width: 100%;
+  gap: 0;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: 1136px;
+  height: 684px;
+}
+
+.playerContainer {
+  padding: 0 20px 54px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.timeline {
+  height: 8px;
+  background-color: $gray-light;
+}
+
+.iconsGroup {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 4px;
+}
+
+.meta {
+  color: white;
+  text-align: left;
+}

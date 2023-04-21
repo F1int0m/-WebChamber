@@ -1,0 +1,9 @@
+//@import "../../core/styles/_mixins";
+@import "../../core/styles/_variables";
+
+.title {
+  width: 1156px;
+  display: flex;
+  align-items: flex-start;
+  color: $gray-dark;
+}
