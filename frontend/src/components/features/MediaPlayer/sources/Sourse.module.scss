@@ -15,13 +15,15 @@
 .gifBox {
   display: flex;
   justify-content: center;
+  height: fit-content;
+  width: auto;
 }
 
 .container {
   margin: 0;
   padding: 0;
-  width: 1156px;
-  height: auto;
+  width: fit-content;
+  height: 68vh;
 }
 
 .playerContainer {

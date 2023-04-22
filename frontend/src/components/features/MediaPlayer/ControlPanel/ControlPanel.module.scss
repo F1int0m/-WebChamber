@@ -22,10 +22,16 @@
 }
 
 .playerContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.innerBox {
   padding: 0 20px 54px 20px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  width: 60vw;
 }
 
 .timeline {
@@ -43,5 +49,5 @@
 
 .meta {
   color: white;
-  text-align: left;
+  text-align: right;
 }

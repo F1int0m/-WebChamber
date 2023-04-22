@@ -27,28 +27,30 @@ const ControlPanel = () => {
         <div className={style.controlPanel}>
             <div className={style.timeline}/>
             <div className={style.playerContainer}>
-                <div className={style.meta}>
-                    <div>
-                        <span>08/48</span>
+                <div className={style.innerBox}>
+                    <div className={style.iconsGroup}>
+                        {
+                            isLiked
+                                ? <img src={isLikedIcon} alt={''} onClick={setIsLiked}/>
+                                : <img src={isNotLikedIcon} alt={''} onClick={setIsLiked}/>
+                        }
+                        <img src={speed} alt={''}/>
                     </div>
-                    <div>
-                        <span>0:00:33 - 0:02:00</span>
+                    <div className={style.iconsGroup}>
+                        <span>-1f</span>
+                        <img src={frameBack} alt={''}/>
+                        <img src={pause} alt={''}/>
+                        <img src={frameForward} alt={''}/>
+                        <span>+1f</span>
                     </div>
-                </div>
-                <div className={style.iconsGroup}>
-                    <span>-1f</span>
-                    <img src={frameBack} alt={''}/>
-                    <img src={pause} alt={''}/>
-                    <img src={frameForward} alt={''}/>
-                    <span>+1f</span>
-                </div>
-                <div className={style.iconsGroup}>
-                    {
-                        isLiked
-                            ? <img src={isLikedIcon} alt={''} onClick={setIsLiked}/>
-                            : <img src={isNotLikedIcon} alt={''} onClick={setIsLiked}/>
-                    }
-                    <img src={speed} alt={''}/>
+                    <div className={style.meta}>
+                        <div>
+                            <span>08/48</span>
+                        </div>
+                        <div>
+                            <span>0:00:33 - 0:02:00</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
