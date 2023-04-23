@@ -4,6 +4,12 @@ import style from './Sourse.module.scss'
 import ControlPanel from "../ControlPanel/ControlPanel";
 import Loader from "../../../../view/components/Loader/Loader";
 
+
+
+// TODO: update webpack from 5 to 5.75+
+// Cross-realm object access in Webpack 5 - https://github.com/advisories/GHSA-hc6q-2mpp-qw7j
+// - appears after installing libgif
+
 const GifSource = ({source}) => {
     const [isLoading, setIsLoading] = useState(true)
 

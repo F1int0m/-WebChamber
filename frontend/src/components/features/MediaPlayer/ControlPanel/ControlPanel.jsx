@@ -45,10 +45,10 @@ const ControlPanel = () => {
                     </div>
                     <div className={style.meta}>
                         <div>
-                            <span>08/48</span>
+                            <span>0:00:33 - 0:02:00</span>
                         </div>
                         <div>
-                            <span>0:00:33 - 0:02:00</span>
+                            <span>08/48</span>
                         </div>
                     </div>
                 </div>
