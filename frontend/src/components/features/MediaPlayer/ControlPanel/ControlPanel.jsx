@@ -7,7 +7,13 @@ import isLikedIcon from "../../../../static/icons/isLiked.svg";
 import isNotLikedIcon from "../../../../static/icons/isNotLiked.svg";
 import speed from "../../../../static/icons/gif-player/speed.svg";
 
-const ControlPanel = () => {
+const ControlPanel = (
+    {
+        onPlayCallback,
+        onMoveBackCallback,
+        onMoveForwardCallback
+    }
+) => {
 
     // Пример взаимодействия с либой
     {/*
@@ -28,6 +34,21 @@ const ControlPanel = () => {
             <div className={style.timeline}/>
             <div className={style.playerContainer}>
                 <div className={style.innerBox}>
+                    <div className={style.meta}>
+                        <div>
+                            <span>0:00:33 - 0:02:00</span>
+                        </div>
+                        <div>
+                            <span>08 / 48f</span>
+                        </div>
+                    </div>
+                    <div className={style.centralIconsGroup}>
+                        <span>-1f</span>
+                        <img src={frameBack} alt={''} onClick={onMoveBackCallback}/>
+                        <img src={pause} alt={''} onClick={onPlayCallback}/>
+                        <img src={frameForward} alt={''} onClick={onMoveForwardCallback}/>
+                        <span>+1f</span>
+                    </div>
                     <div className={style.iconsGroup}>
                         {
                             isLiked
@@ -35,21 +56,6 @@ const ControlPanel = () => {
                                 : <img src={isNotLikedIcon} alt={''} onClick={setIsLiked}/>
                         }
                         <img src={speed} alt={''}/>
-                    </div>
-                    <div className={style.iconsGroup}>
-                        <span>-1f</span>
-                        <img src={frameBack} alt={''}/>
-                        <img src={pause} alt={''}/>
-                        <img src={frameForward} alt={''}/>
-                        <span>+1f</span>
-                    </div>
-                    <div className={style.meta}>
-                        <div>
-                            <span>0:00:33 - 0:02:00</span>
-                        </div>
-                        <div>
-                            <span>08/48</span>
-                        </div>
                     </div>
                 </div>
             </div>

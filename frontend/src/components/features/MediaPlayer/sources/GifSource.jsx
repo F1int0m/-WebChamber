@@ -27,34 +27,57 @@ const GifSource = (source0) => {
 
 
     const img_tag = document.getElementById('img-source')
+    let super_gif = new SuperGif({
+        gif: img_tag,
+        auto_play: 0,
+        max_width: 1120,
+        progressbar_height: 8,
+        progressbar_background_color: '#4E4C54',
+        progressbar_foreground_color: '#905DCC'
+    });
+    super_gif.load_url(source); // always first after creating
+    // super_gif.pause();
 
-    if (img_tag) {
-        console.log('found img:', img_tag)
-        console.log('type of:', typeof  img_tag)
-
-        let super_gif = new SuperGif({gif: img_tag});
-        super_gif.load_url(source); // always first after creating
-        // super_gif.pause();
-
+    function gifPlay() {
+        if(super_gif.get_playing()) {
+            super_gif.pause()
+        }
+        else {
+            super_gif.play()
+        }
     }
-    else {
-        console.log('err:', img_tag)
 
-        console.log('img:', img_tag)
-        console.log('type of:', typeof  img_tag)
+    function gifMoveForward() {
+        const cur_frame = super_gif.get_current_frame()
+        const limit = super_gif.get_length()
+        if (cur_frame < limit) {
+            super_gif.move_to(cur_frame+1)
+        }
+    }
+
+    function gifMoveBack() {
+        const cur_frame = super_gif.get_current_frame()
+        if (cur_frame > 0) {
+            super_gif.move_to(cur_frame-1)
+        }
     }
 
     return (
         <div className={style.mainContainer}>
             <div className={style.gifBox}>
-                <img  alt={'gif-file'} className={style.container} id={'img-source'}/>
+                <img alt={'gif-file'} className={style.container} id={'img-source'}/>
                 {/*{isLoading ?*/}
                 {/*    <Loader/>*/}
                 {/*    :*/}
                 {/*    <img src={source} alt={'gif-file'} className={style.container} id={'img-source'}/>*/}
                 {/*}*/}
             </div>
-            <ControlPanel/>
+            <ControlPanel
+                onPlayCallback={gifPlay}
+                onMoveForwardCallback={gifMoveForward}
+                onMoveBackCallback={gifMoveBack}
+            />
+
         </div>
     );
 };
