@@ -6,7 +6,8 @@ const ButtonCustom = ({styleType, content, icon, callback}) => {
 
     const getClassBy = {
         'primary': style.primary,
-        'outline': style.outline
+        'outline': style.outline,
+        'player': style.player
     }
     const styleClasses = getClassBy[styleType] + ' ' + (icon ? style.with_icon : style.no_icon);
     return (

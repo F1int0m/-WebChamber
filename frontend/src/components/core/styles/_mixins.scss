@@ -49,3 +49,15 @@
   border: 1px solid $base-accent;
   cursor: pointer;
 }
+
+@mixin button-player {
+  width: 60px;
+  height: 40px;
+  background-color: $gray-basic;
+  border-radius: 8px;
+  border: none;
+}
+
+@mixin button-player-active {
+  background-color: $gray-dark;
+}

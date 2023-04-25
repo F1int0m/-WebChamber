@@ -6,6 +6,8 @@ import frameForward from "../../../../static/icons/gif-player/frameForward.svg";
 import isLikedIcon from "../../../../static/icons/isLiked.svg";
 import isNotLikedIcon from "../../../../static/icons/isNotLiked.svg";
 import speed from "../../../../static/icons/gif-player/speed.svg";
+import Meta from "./components/Meta/Meta";
+import MoveBackButton from "./components/Controls/buttons/MoveBackButton";
 
 const ControlPanel = (
     {
@@ -14,37 +16,20 @@ const ControlPanel = (
         onMoveForwardCallback
     }
 ) => {
-
-    // Пример взаимодействия с либой
-    {/*
-            <img id="example1" src={path}
-                 WCGIFAutoPlay={"0"} width="467" height="375" alt={'gif-file'}/>
-            <br/>
-            <a href="javascript:" onMouseDown="sup1.pause(); return false;">Pause </a>
-            <a href="javascript:" onMouseDown="sup1.play(); return false;">Play </a>
-            <a href="javascript:" onMouseDown="sup1.move_to(0); return false;">Restart </a>
-            <a href="javascript:" onMouseDown="sup1.move_relative(1); return false;">forward </a>
-            <a href="javascript:" onMouseDown="sup1.move_relative(-1); return false;">back</a>
-            */}
-    //
-
     const [isLiked, setIsLiked] = useState(false)
     return (
         <div className={style.controlPanel}>
             <div className={style.timeline}/>
             <div className={style.playerContainer}>
                 <div className={style.innerBox}>
-                    <div className={style.meta}>
-                        <div>
-                            <span>0:00:33 - 0:02:00</span>
-                        </div>
-                        <div>
-                            <span>08 / 48f</span>
-                        </div>
-                    </div>
+                    <Meta
+                        curTime={'0:00:33'}
+                        limitTime={'0:02:00'}
+                        curFrame={'08'}
+                        limitFrame={'48'}
+                    />
                     <div className={style.centralIconsGroup}>
-                        <span>-1f</span>
-                        <img src={frameBack} alt={''} onClick={onMoveBackCallback}/>
+                        <MoveBackButton callback={onMoveBackCallback}/>
                         <img src={pause} alt={''} onClick={onPlayCallback}/>
                         <img src={frameForward} alt={''} onClick={onMoveForwardCallback}/>
                         <span>+1f</span>

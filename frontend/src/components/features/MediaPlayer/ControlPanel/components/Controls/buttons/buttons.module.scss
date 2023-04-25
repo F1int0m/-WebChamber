@@ -1,0 +1,15 @@
+@import "src/components/core/styles/variables";
+
+.box {
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  color: $gray-basic;
+}
+
+.box:hover {
+  color: $gray-light;
+}

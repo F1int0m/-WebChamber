@@ -25,3 +25,5 @@ button {
 
 .outline { @include button-outline(); }
 
+.player { @include button-player(); }
+.player:active { @include button-player-active(); }
