@@ -1,19 +1,19 @@
 import React from 'react';
 import ButtonCustom from "../../../../../../shared/ButtonCustom/ButtonCustom";
-import {rectLeftIconLight} from "../../../../../../shared/Icons";
+import {rectRightIconLight} from "../../../../../../shared/Icons";
 
-import style from './buttons.module.scss'
+import style from "./buttons.module.scss";
 
-const MoveBackButton = ({callback}) => {
+const MoveForwardButton = ({callback}) => {
     return (
         <div className={style.box}>
-            <span>-1f</span>
             <ButtonCustom
-                icon={rectLeftIconLight}
+                icon={rectRightIconLight}
                 styleType={'player'}
                 callback={callback}/>
+            <span>+1f</span>
         </div>
     );
 };
 
-export default MoveBackButton;
+export default MoveForwardButton;

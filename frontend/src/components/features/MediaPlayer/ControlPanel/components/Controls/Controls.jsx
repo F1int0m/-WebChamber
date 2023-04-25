@@ -1,10 +1,23 @@
 import React from 'react';
 import MoveBackButton from "./buttons/MoveBackButton";
+import MoveForwardButton from "./buttons/MoveForwardButton";
+import PlayPauseButton from "./buttons/PlayPauseButton";
 
-const Controls = ({onMoveBack}) => {
+import style from './Controls.module.scss'
+
+const Controls = (
+    {
+        onMoveBack,
+        onPlayPause,
+        isPlaying,
+        onMoveForward
+    }) => {
     return (
-        <div>
+        <div className={style.box}>
             <MoveBackButton callback={onMoveBack}/>
+            <PlayPauseButton callback={onPlayPause}
+                             isPlaying={isPlaying}/>
+            <MoveForwardButton callback={onMoveForward}/>
         </div>
     );
 };

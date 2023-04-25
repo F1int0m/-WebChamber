@@ -26,24 +26,29 @@ const GifSource = (source0) => {
 
 
 
-    const img_tag = document.getElementById('img-source')
+    const img_tag = document.getElementById('img_source')
     let super_gif = new SuperGif({
         gif: img_tag,
         auto_play: 0,
         max_width: 1120,
-        progressbar_height: 8,
-        progressbar_background_color: '#4E4C54',
-        progressbar_foreground_color: '#905DCC'
+        draw_while_loading: true,
+        show_progress_bar: false,
+        // progressbar_height: 8,
+        // progressbar_background_color: '#4E4C54',
+        // progressbar_foreground_color: '#905DCC'
     });
     super_gif.load_url(source); // always first after creating
-    // super_gif.pause();
+
+    const [isPlaying, setIsPlaying] = useState(false)
 
     function gifPlay() {
         if(super_gif.get_playing()) {
             super_gif.pause()
+            setIsPlaying(false)
         }
         else {
             super_gif.play()
+            setIsPlaying(true)
         }
     }
 
@@ -65,7 +70,7 @@ const GifSource = (source0) => {
     return (
         <div className={style.mainContainer}>
             <div className={style.gifBox}>
-                <img alt={'gif-file'} className={style.container} id={'img-source'}/>
+                <img alt={'gif-file'} className={style.container} id={'img_source'} src={source}/>
                 {/*{isLoading ?*/}
                 {/*    <Loader/>*/}
                 {/*    :*/}
@@ -74,6 +79,7 @@ const GifSource = (source0) => {
             </div>
             <ControlPanel
                 onPlayCallback={gifPlay}
+                isPlaying={isPlaying}
                 onMoveForwardCallback={gifMoveForward}
                 onMoveBackCallback={gifMoveBack}
             />

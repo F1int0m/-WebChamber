@@ -8,10 +8,13 @@ import isNotLikedIcon from "../../../../static/icons/isNotLiked.svg";
 import speed from "../../../../static/icons/gif-player/speed.svg";
 import Meta from "./components/Meta/Meta";
 import MoveBackButton from "./components/Controls/buttons/MoveBackButton";
+import MoveForwardButton from "./components/Controls/buttons/MoveForwardButton";
+import Controls from "./components/Controls/Controls";
 
 const ControlPanel = (
     {
         onPlayCallback,
+        isPlaying,
         onMoveBackCallback,
         onMoveForwardCallback
     }
@@ -28,12 +31,12 @@ const ControlPanel = (
                         curFrame={'08'}
                         limitFrame={'48'}
                     />
-                    <div className={style.centralIconsGroup}>
-                        <MoveBackButton callback={onMoveBackCallback}/>
-                        <img src={pause} alt={''} onClick={onPlayCallback}/>
-                        <img src={frameForward} alt={''} onClick={onMoveForwardCallback}/>
-                        <span>+1f</span>
-                    </div>
+                    <Controls
+                        onMoveBack={onMoveBackCallback}
+                        onPlayPause={onPlayCallback}
+                        isPlaying={isPlaying}
+                        onMoveForward={onMoveForwardCallback}
+                    />
                     <div className={style.iconsGroup}>
                         {
                             isLiked
