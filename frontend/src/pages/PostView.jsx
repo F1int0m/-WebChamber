@@ -21,13 +21,13 @@ const PostView = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        const postAuthorId = postInfo.author_ids[0]
-        if (postAuthorId === userSelf.user_id)
-            user_get_self(dispatch).then()
-        else
-            user_get(dispatch, postAuthorId).then()
-    }, [])
+    // useEffect(() => {
+    //     const postAuthorId = postInfo.author_ids[0]
+    //     if (postAuthorId === userSelf.user_id)
+    //         user_get_self(dispatch).then()
+    //     else
+    //         user_get(dispatch, postAuthorId).then()
+    // }, [])
 
     const viewType = userInfo.isSelf ? 'PreviewSelf' : 'Preview'
     return (

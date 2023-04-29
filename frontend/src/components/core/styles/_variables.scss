@@ -1,3 +1,70 @@
+// Primary Key Color
+$P-00: black;
+$P-10: #181022;
+$P-20: #35244A;
+$P-30: #533678;
+$P-40: #684297;
+$P-50: #7D51B4;
+$P-60: #8E5CCC;
+$P-70: #A674E5;
+$P-80: #BD8CFB;
+$P-90: #CDA5FF;
+$P-95: #DEC5FF;
+$P-99: #F5EDFF;
+$P-100: white;
+
+// Neutral Key Color
+$N-00: black;
+$N-06: #0E0E0E;
+$N-10: #151515;
+$N-20: #262626;
+$N-25: #2F2F2F;
+$N-30: #343434;
+$N-40: #464646;
+$N-50: #5A5A5A;
+$N-60: #7C7C7C;
+$N-70: #A5A5A5;
+$N-80: #C2C2C2;
+$N-90: #D6D6D6;
+$N-92: #DADADA;
+$N-94: #E0E0E0;
+$N-95: #E6E6E6;
+$N-96: #ECECEC;
+$N-99: #F8F8F8;
+$N-100: white;
+
+// Surface
+$surface-dark: $N-20;
+$surface: $N-99;
+$surface-bright: $N-99;
+
+// Surface Container Bright
+$surf-container-bright-lowest: $N-100;
+$surf-container-bright-low: $N-96;
+$surf-container-bright: $N-94;
+$surf-container-bright-high: $N-92;
+$surf-container-bright-highest: $N-90;
+
+// Surface Container Dark
+$surf-container-dark-lowest: $N-06;
+$surf-container-dark-low: $N-10;
+$surf-container-dark: $N-25;
+$surf-container-dark-high: $N-30;
+$surf-container-dark-highest: $N-40;
+
+// On Surface Bright
+$on-surf-bright: $N-90;
+$on-surf-bright-var: $N-70;
+$outline-bright: $N-50;
+$outline-bright-var: $N-80;
+
+// On Surface Dark
+$on-surf-dark: $N-10;
+$on-surf-dark-var: $N-30;
+$outline-dark: $N-40;
+$outline-dark-var: $N-30;
+
+
 $base-lighter: #D1B7F2;
 $base-light: #AE84E0;
 $base-accent: #905DCC;

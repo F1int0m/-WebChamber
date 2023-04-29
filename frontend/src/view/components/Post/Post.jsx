@@ -4,13 +4,13 @@ import styles from './post.module.scss'
 import InfoBlockChallenge from "./InfoBlockChallenge";
 import preview from '../../../static/images/preview1.jpg'
 
-import {useLocation, useNavigate} from "react-router-dom";
-import InfoBlockWithAuthors from "./InfoBlockWithAuthors";
+import {useNavigate} from "react-router-dom";
+// import InfoBlockWithAuthors from "./InfoBlockWithAuthors";
 import {useDispatch, useSelector} from "react-redux";
 import {getPost} from "../../../store/reducers/postReducer";
 import post_filtered_list from "../../../actions/post/post_filtered_list";
-import {getUser} from "../../../store/reducers/userReducer";
-import {getChallenge} from "../../../store/reducers/challengeReducer";
+// import {getUser} from "../../../store/reducers/userReducer";
+// import {getChallenge} from "../../../store/reducers/challengeReducer";
 
 const Post = ({postInfo, authorsInfo}) => {
     // TODO: вынести выбор инфо-блока в конфиг ContentFeed-а

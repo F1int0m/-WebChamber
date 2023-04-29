@@ -51,13 +51,18 @@
 }
 
 @mixin button-player {
-  width: 60px;
+  width: 64px;
   height: 40px;
-  background-color: $gray-basic;
   border-radius: 8px;
-  border: none;
+  padding: 0;
+  background-color: $surf-container-dark-high;
+  border: 1px solid $outline-dark-var;
+}
+
+@mixin button-player-hover {
+  border: 1px solid $outline-dark;
 }
 
 @mixin button-player-active {
-  background-color: $gray-dark;
+  background-color: $surf-container-dark-highest;
 }

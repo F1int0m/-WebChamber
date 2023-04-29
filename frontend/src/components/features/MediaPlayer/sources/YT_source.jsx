@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from './Sourse.module.scss'
+import style from './Source.module.scss'
 
 const YtSource = ({source}) => {
     // Source example:

@@ -1,9 +1,14 @@
+@import 'src/components/core/styles/variables';
+
 .box {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  border: 1px solid white;
-
-  width: 30vw;
+  height: 70px;
+  width: 342px;
+  //padding: 10px 36px 10px 36px;
+  background-color: $surf-container-dark-lowest;
+  border: 1px solid $outline-dark-var;
+  gap: 10px;
+  border-radius: 100px;
 }

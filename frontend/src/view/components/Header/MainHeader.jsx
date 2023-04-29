@@ -34,9 +34,9 @@ const MainHeader = () => {
         <div className={style.container}>
             <div className={style.box}>
                 <header className={style.header}>
-                    <div className={style.leftNavBox}>
-                        <img src={logo} alt={'logo'} width={80} height={80}/>
-                    </div>
+                    {/*<div className={style.leftNavBox}>*/}
+                    {/*    <img src={logo} alt={'logo'} width={80} height={80}/>*/}
+                    {/*</div>*/}
                     <div className={style.mainNavBox}>
                         <NavLink to={ROOT_URL + CHAMBER_URL + CHALLENGES_URL} className={style.text}>Chamber</NavLink>
                         <NavLink to={ROOT_URL + FAVOURITES_URL} className={style.text}>Избранное</NavLink>
@@ -52,9 +52,9 @@ const MainHeader = () => {
                             <img src={ProfileIcon} alt={'Profile'}/>
                         </NavLink>
                     </div>
-                    <NavLink to={ROOT_URL + LOGIN_URL}>
-                        Logout
-                    </NavLink>
+                    {/*<NavLink to={ROOT_URL + LOGIN_URL}>*/}
+                    {/*    Logout*/}
+                    {/*</NavLink>*/}
                 </header>
             </div>
             <div className={style.outlet}>

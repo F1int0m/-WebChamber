@@ -4,10 +4,7 @@
 
 .container {
   display: flex;
-  width: 100%;
-  height: auto;
-  align-items: center;
-  justify-content: center;
-
-  background-color: $gray-dark;
+  width: 100vw;
+  height: 100vh;
+  align-items: flex-start;
 }
