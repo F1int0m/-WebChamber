@@ -1,0 +1,19 @@
+@import "src/components/core/styles/variables";
+
+.box {
+  width: 54px;
+  height: 54px;
+}
+
+.boxIcon {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleBody {
+  fill: $surf-container-dark-lowest;
+}

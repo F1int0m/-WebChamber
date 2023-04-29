@@ -1,4 +1,7 @@
+@import "src/components/core/styles/variables";
+
 .meta {
-  color: white;
   text-align: left;
+  color: $on-surf-bright;
+  width: 15vw;
 }

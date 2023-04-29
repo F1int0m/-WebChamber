@@ -51,19 +51,17 @@ const ControlPanel = (
         <div className={style.controlPanel}>
             <div className={style.timeline}/>
             <div className={style.playerContainer}>
-                <div className={style.innerBox}>
-                    <Meta curTime={'0:00:33'}
-                          limitTime={'0:02:00'}
-                          curFrame={'08'}
-                          limitFrame={'48'}
-                    />
-                    <Controls onMoveBack={onMoveBackCallback}
-                              onPlayPause={onPlayCallback}
-                              isPlaying={isPlaying}
-                              onMoveForward={onMoveForwardCallback}
-                    />
-                    <OpinionActions />
-                </div>
+                <Meta curTime={'0:00:33'}
+                      limitTime={'0:02:00'}
+                      curFrame={'08'}
+                      limitFrame={'48'}
+                />
+                <Controls onMoveBack={onMoveBackCallback}
+                          onPlayPause={onPlayCallback}
+                          isPlaying={isPlaying}
+                          onMoveForward={onMoveForwardCallback}
+                />
+                <OpinionActions />
             </div>
         </div>
     );
