@@ -37,25 +37,34 @@ const GifSource = (source0) => {
 
         const img_tag = document.getElementById('img_source')
         const super_gif = new SuperGif({
-                gif: img_tag,
-                auto_play: false
-            });
+            gif: img_tag,
+            auto_play: false,
+            max_width: 1200,
+            // vp_l: 0,
+            // vp_t: 0,
+            // vp_w: 1120,
+            // vp_h: 615,
+            // c_w: 1120,
+            // c_h: 615
+        });
         super_gif.load(() => {
             super_gif.pause()
+            // super_gif.c_w = 1120
+            // super_gif.c_h = 615
             setIsLoaded(true)
             setSuperGif(super_gif)
+            setDur(super_gif.get_duration())
+            setDurFrs(super_gif.get_length())
         })
-        setDur(super_gif.get_duration())
-        setDurFrs(super_gif.get_length())
     }, [])
 
-    useEffect(() => {
-        if (isLoaded) {
-            setTimeout(() => {
-                setCurFrame(superGif.get_current_frame())
-            }, 42)
-        }
-    })
+    // useEffect(() => {
+    //     if (isLoaded) {
+    //         setTimeout(() => {
+    //             setCurFrame(superGif.get_current_frame())
+    //         }, 42)
+    //     }
+    // })
 
     function gifPlay() {
         if(isLoaded && superGif.get_playing()) {
