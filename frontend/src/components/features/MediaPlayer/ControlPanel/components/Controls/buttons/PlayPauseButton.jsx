@@ -3,7 +3,6 @@ import {rectRightIconLight, stopIconLight} from "../../../../../../shared/Icons"
 import ButtonCustom from "../../../../../../shared/ButtonCustom/ButtonCustom";
 
 const PlayPauseButton = ({callback, isPlaying}) => {
-    console.log(isPlaying)
     const cur_icon = isPlaying ? stopIconLight : rectRightIconLight;
     return (
         <div>

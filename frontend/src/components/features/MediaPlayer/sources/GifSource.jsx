@@ -22,49 +22,70 @@ const GifSource = (source0) => {
     //     handleLoading().then()
     // }, [])
 
-    // const img_tag = <img src={source} alt={'gif-file'} className={style.container} id={'img_source'}/>
-    // // img_tag.setAttribute('rel:animated_src', '/static/media/legs.be3851088ad83fb20c85.gif')
-    // let super_gif = new SuperGif({
-    //     gif: img_tag,
-    //     auto_play: 0
-    // });
+    // const img_tag0 = <img src={source} alt={'gif-file'} className={style.container} id={'img_source'}/>
 
-    // super_gif.load_url(source, () => {
-    //     console.log('gif source loaded')
-    // }); // always first after creating
-    //
-    // const [isPlaying, setIsPlaying] = useState(false)
-    //
-    // function gifPlay() {
-    //     if(super_gif.get_playing()) {
-    //         super_gif.pause()
-    //         setIsPlaying(false)
-    //     }
-    //     else {
-    //         super_gif.play()
-    //         setIsPlaying(true)
-    //     }
-    // }
-    //
-    // function gifMoveForward() {
-    //     const cur_frame = super_gif.get_current_frame()
-    //     const limit = super_gif.get_length()
-    //     if (cur_frame < limit) {
-    //         super_gif.move_to(cur_frame+1)
-    //     }
-    // }
-    //
-    // function gifMoveBack() {
-    //     const cur_frame = super_gif.get_current_frame()
-    //     if (cur_frame > 0) {
-    //         super_gif.move_to(cur_frame-1)
-    //     }
-    // }
+    const [superGif, setSuperGif] = useState()
+    const [isLoaded, setIsLoaded] = useState(false)
+    const [isPlaying, setIsPlaying] = useState(false)
+
+    const [dur, setDur] = useState(0)
+    const [durFrs, setDurFrs] = useState(0)
+    const [curFrame, setCurFrame] = useState(0)
+
+    useEffect(() => {
+        // Загружаем super_gif ПОСЛЕ рендера тегов
+
+        const img_tag = document.getElementById('img_source')
+        const super_gif = new SuperGif({
+                gif: img_tag,
+                auto_play: false
+            });
+        super_gif.load(() => {
+            super_gif.pause()
+            setIsLoaded(true)
+            setSuperGif(super_gif)
+        })
+        setDur(super_gif.get_duration())
+        setDurFrs(super_gif.get_length())
+    }, [])
+
+    useEffect(() => {
+        if (isLoaded) {
+            setTimeout(() => {
+                setCurFrame(superGif.get_current_frame())
+            }, 42)
+        }
+    })
+
+    function gifPlay() {
+        if(isLoaded && superGif.get_playing()) {
+            superGif.pause()
+            setIsPlaying(false)
+        }
+        else {
+            superGif.play()
+            setIsPlaying(true)
+        }
+    }
+
+    function gifMoveForward() {
+        const cur_frame = superGif.get_current_frame()
+        const limit = superGif.get_length()
+        if (cur_frame < limit) {
+            superGif.move_to(cur_frame+1)
+        }
+    }
+
+    function gifMoveBack() {
+        const cur_frame = superGif.get_current_frame()
+        if (cur_frame > 0) {
+            superGif.move_to(cur_frame-1)
+        }
+    }
     return (
         <div className={style.mainContainer}>
             <div className={style.gifBox}>
                 <img id={'img_source'} src={source} alt={'gif-file'} className={style.container}/>
-
                 {/*{isLoading ?*/}
                 {/*    <Loader/>*/}
                 {/*    :*/}
@@ -72,14 +93,16 @@ const GifSource = (source0) => {
                 {/*}*/}
             </div>
             <ControlPanel
-                // onPlayCallback={gifPlay}
-                // isPlaying={isPlaying}
-                // onMoveForwardCallback={gifMoveForward}
-                // onMoveBackCallback={gifMoveBack}
-                // img_tag={img_tag}
-                // super_gif={super_gif}
+                isLoaded={isLoaded}
+                onPlayCallback={gifPlay}
+                isPlaying={isPlaying}
+                onMoveForwardCallback={gifMoveForward}
+                onMoveBackCallback={gifMoveBack}
+                dur={dur}
+                durFrs={durFrs}
+                curFr={curFrame}
+                metaSuperGif={superGif}
             />
-
         </div>
     );
 };
