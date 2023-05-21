@@ -3,9 +3,12 @@ import inspect
 import logging
 from time import sleep
 
-import config
+from backend import config
 import psycopg2
-from common.db import basic, models
+
+# from common.db import basic, models
+from . import basic
+from . import models
 
 log = logging.getLogger('db.init')
 

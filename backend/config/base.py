@@ -8,7 +8,7 @@ SELF_DOMAIN = 'https://212.220.113.111'
 
 DB_NAME = 'webchamber'
 DB_USER = 'webchamber'
-DB_PASS = 'change'
+DB_PASS = '123'
 DB_HOST = 'localhost'
 DB_PORT = 5432
 DB_CONNECTION_TIMEOUT = 10
